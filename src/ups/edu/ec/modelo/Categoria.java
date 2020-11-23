@@ -10,6 +10,7 @@ public class Categoria implements Serializable {
 	public void Categoria(int id ,String nombre) {
 		this.id=id;
 		this.nombre=nombre;
+		
 	}
 
 	public int getId() {
