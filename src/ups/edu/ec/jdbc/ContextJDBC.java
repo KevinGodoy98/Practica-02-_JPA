@@ -1,4 +1,4 @@
-package ec.edu.ups.mysql.jdbc;
+package ups.edu.ec.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,12 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
+/**
+ * Class ContextJDBC.
+ * 
+ * Clase que permite obtener una conexión a la base de datos y asegura que si ya
+ * existe una conexión no la vuelva a crear utilizando el patrón de diseño
+ * Singleton. Además, implementa los métodos para poder enviar sentencias SQL como
+ * INSERT, DELETE, UPDATE y SELECT.
+ * 
+ * @author Kevin Adrián Godoy Mendia
+ * 
+ * @see https://www.arquitecturajava.com/ejemplo-de-java-singleton-patrones-classloaders/
+ * @version 1.0
+ *
+ */
 public class ContextJDBC {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3307/db_test?serverTimezone=UTC";
+	private static final String URL = "jdbc:mysql://localhost:8889/practica01";
 	private static final String USER = "root";
-	private static final String PASS = "Patito.123";
+	private static final String PASS = "root";
 	private static ContextJDBC jdbc1 = null;
 	private static ContextJDBC jdbc2 = null;
 	private Statement statement = null;
@@ -99,6 +112,6 @@ public class ContextJDBC {
 		}
 		return jdbc2;
 
-	}	
+	}
 
 }
