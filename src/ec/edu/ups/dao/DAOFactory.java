@@ -1,6 +1,5 @@
 package ec.edu.ups.dao;
 
-import ec.edu.ups.mysql.jdbc.JDBCCategoryDAO;
 
 /**
  * Clase DAOFactory.
@@ -11,7 +10,7 @@ import ec.edu.ups.mysql.jdbc.JDBCCategoryDAO;
  * que serán implementados en la clase que podra gestionar el acceso y creación
  * de todos los DAOs específicos.
  * 
- * @author Gabriel A. León Paredes. 
+ * 
  * Doctor en Tecnologías de Información.
  * https://www.linkedin.com/in/gabrielleonp
  * 
@@ -28,14 +27,14 @@ public abstract class DAOFactory {
 
 	public abstract void createTables();
 
-	public abstract CategoryDAO getCategoryDAO();
+	public abstract CategoriaDAO getCategoriaDAO();
 
-	public abstract UserDAO getUserDAO();
+	public abstract RequerimientosCompraDAO getRequerimientosCompraDAO();
 
-	public abstract UserDetailDAO getUserDetailDAO();
+	public abstract UsuarioDAO getUsuarioDAO();
 
-	public abstract ProductDAO getProductDAO();
+	public abstract ProductoDAO getProductoDAO();
 
-	public abstract ShoppingBasketDAO getShoppingBasketDAO();
+	public abstract EmpresaDAO getEmpresaDAO();
 
 }
