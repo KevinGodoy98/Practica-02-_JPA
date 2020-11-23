@@ -26,4 +26,5 @@ import ups.edu.ec.modelo.Categoria;
  */
 public interface CategoriaDAO extends GenericDAO<Categoria, Integer> {
 
+	
 }
