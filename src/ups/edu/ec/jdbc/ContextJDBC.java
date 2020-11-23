@@ -14,9 +14,7 @@ import java.sql.Statement;
  * Singleton. Además, implementa los métodos para poder enviar sentencias SQL como
  * INSERT, DELETE, UPDATE y SELECT.
  * 
- * @author Gabriel A. León Paredes 
- * Doctor en Tecnologías de Información
- * https://www.linkedin.com/in/gabrielleonp
+ * @author Kevin Adrián Godoy Mendia
  * 
  * @see https://www.arquitecturajava.com/ejemplo-de-java-singleton-patrones-classloaders/
  * @version 1.0
