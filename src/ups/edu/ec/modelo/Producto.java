@@ -4,23 +4,23 @@ import java.io.Serializable;
 
 public class Producto implements Serializable {
 
-	private String id;
+	private int id;
 	private String nombre;
 	private String precio;
 	private String descripcion;
 	
-	public void Producto(String id , String nombre, String precio, String descripcion) {
+	public void Producto(int id , String nombre, String precio, String descripcion) {
 		this.id=id;
 		this.nombre=nombre;
 		this.precio=precio;
 		this.descripcion=descripcion;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

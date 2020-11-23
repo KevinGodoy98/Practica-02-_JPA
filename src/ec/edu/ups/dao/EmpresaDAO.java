@@ -1,6 +1,6 @@
 package ec.edu.ups.dao;
 
-import ec.edu.ups.modelo.ShoppingBasket;
+import ups.edu.ec.modelo.Empresa;
 
 /**
  * Interface ShoppingBasketDAO.
@@ -25,6 +25,6 @@ import ec.edu.ups.modelo.ShoppingBasket;
  * @version 1.0
  *
  */
-public interface ShoppingBasketDAO extends GenericDAO<ShoppingBasket, Integer> {
+public interface EmpresaDAO extends GenericDAO<Empresa, Integer> {
 
 }

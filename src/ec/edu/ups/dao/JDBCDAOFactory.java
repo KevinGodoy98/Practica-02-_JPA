@@ -1,10 +1,5 @@
 package ec.edu.ups.dao;
 
-import ec.edu.ups.mysql.jdbc.JDBCCategoryDAO;
-import ec.edu.ups.mysql.jdbc.JDBCProductDAO;
-import ec.edu.ups.mysql.jdbc.JDBCShoppingBasketDAO;
-import ec.edu.ups.mysql.jdbc.JDBCUserDAO;
-import ec.edu.ups.mysql.jdbc.JDBCUserDetailDAO;
 
 /**
  * Clase JDBCGenericDAO.
@@ -26,37 +21,38 @@ public class JDBCDAOFactory extends DAOFactory {
 
 	@Override
 	public void createTables() {
-		this.getCategoryDAO().createTable();
-		this.getUserDAO().createTable();
-		this.getUserDetailDAO().createTable();
-		this.getShoppingBasketDAO().createTable();
-		this.getProductDAO().createTable();
+		this.getCategoriaDAO().createTable();
+		this.getUsuarioDAO().createTable();
+		this.getRequerimientosCompraDAO().createTable();
+		this.getEmpresaDAO().createTable();
+		this.getProductoDAO().createTable();
 
 	}
 
 	@Override
-	public CategoryDAO getCategoryDAO() {
-		return new JDBCCategoryDAO();
+	public CategoriaDAO getCategoriaDAO() {
+		return new JDBCCategoriaDAO();
 	}
 
 	@Override
-	public UserDAO getUserDAO() {
-		return new JDBCUserDAO();
+	public UsuarioDAO getUsuarioDAO() {
+		return new JDBCUsuarioDAO();
 	}
 
 	@Override
-	public UserDetailDAO getUserDetailDAO() {
-		return new JDBCUserDetailDAO();
+	public EmpresaDAO getEmpresaDAO() {
+		return new JDBCEmpresaDAO();
 	}
 
 	@Override
-	public ProductDAO getProductDAO() {
-		return new JDBCProductDAO();
+	public ProductoDAO getProductoDAO() {
+		return new JDBCProductoDAO();
 	}
 
 	@Override
-	public ShoppingBasketDAO getShoppingBasketDAO() {
-		return new JDBCShoppingBasketDAO();
+	public RequerimientosCompraDAO getRequerimientosCompraDAO() {
+		return new JDBCRequerimientosCompraDAO();
 	}
+
 
 }

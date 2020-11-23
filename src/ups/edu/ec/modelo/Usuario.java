@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable{
 	
+	private int id;
 	private String cedula;
 	private String nombre;
 	private String apellido;
@@ -11,8 +12,9 @@ public class Usuario implements Serializable{
 	private String contrasena;
 	
 
-	public void Usuario(String cedula,String nombre , String apellido ,String correo,String contrasena) {
-	    this.cedula=cedula;
+	public void Usuario(int id,String cedula,String nombre , String apellido ,String correo,String contrasena) {
+	    this.id=id;
+		this.cedula=cedula;
 		this.nombre=nombre;
 		this.apellido = apellido;
 		this.correo = correo;
@@ -70,11 +72,24 @@ public class Usuario implements Serializable{
 	}
 
 
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo
-				+ ", contrasena=" + contrasena + "]";
+		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", correo=" + correo + ", contrasena=" + contrasena + "]";
 	}
+
+
+	
 	
 	
 	

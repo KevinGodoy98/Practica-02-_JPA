@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 public class Categoria implements Serializable {
 
-	private String id;
+	private int id;
 	private String nombre;
 	
-	public void Categoria() {
+	public void Categoria(int id ,String nombre) {
 		this.id=id;
 		this.nombre=nombre;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

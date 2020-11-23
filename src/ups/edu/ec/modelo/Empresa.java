@@ -4,22 +4,22 @@ import java.io.Serializable;
 
 public class Empresa implements Serializable{
 
-	private String id;
+	private int id;
 	private String nombre;
 	private String ruc;
 	
-	public void String(String id , String nombre, String ruc) {
+	public void String(int id , String nombre, String ruc) {
         this.id= id;
         this.nombre=nombre;
         this.ruc=ruc;
         
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
