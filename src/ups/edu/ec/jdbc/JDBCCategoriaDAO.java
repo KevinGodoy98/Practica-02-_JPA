@@ -75,10 +75,10 @@ public class JDBCCategoriaDAO extends JDBCGenericDAO<Categoria, Integer> impleme
 	@Override
 	public List<Categoria> find() {
 		List<Categoria> list = new ArrayList<Categoria>();
-		ResultSet rs = conexionUno.query("SELECT * FROM Category");
+		ResultSet rs = conexionUno.query("SELECT * FROM Categoria");
 		try {
 			while (rs.next()) {
-				list.add(new Categoria(rs.getInt("id"), rs.getString("nombre"));
+				list.add(new Categoria(rs.getInt("id"), rs.getString("nombre")));
 			}
 
 		} catch (SQLException e) {
