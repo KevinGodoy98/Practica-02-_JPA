@@ -1,12 +1,13 @@
 package ups.edu.ec.jdbc;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.edu.ups.dao.CategoryDAO;
-import ec.edu.ups.modelo.Category;
+import ec.edu.ups.dao.CategoriaDAO;
+import ups.edu.ec.modelo.Categoria;
 
 /**
  * Clase JDBCCategoryDAO.
@@ -28,56 +29,56 @@ import ec.edu.ups.modelo.Category;
  * 
  * @version 1.0
  */
-public class JDBCCategoriaDAO extends JDBCGenericDAO<Category, Integer> implements CategoryDAO {
+public class JDBCCategoriaDAO extends JDBCGenericDAO<Categoria, Integer> implements CategoriaDAO {
 
 	@Override
 	public void createTable() {
-		conexionUno.update("DROP TABLE IF EXISTS Category");
-		conexionUno.update("CREATE TABLE Category (" + "ID INT NOT NULL, " + "DESCRIPTION VARCHAR(255), "
-				+ "NAME VARCHAR(255), " + "PRIMARY KEY (ID))");
+		conexionUno.update("DROP TABLE IF EXISTS Categoria");
+		conexionUno.update("CREATE TABLE Category (" + "ID INT NOT NULL, " + "NOMBRE VARCHAR(60), "
+				 + "PRIMARY KEY (ID))");
 	}
 
 	@Override
-	public void create(Category category) {
-		conexionUno.update("INSERT Category VALUES (" + category.getId() + ", '" + category.getName() + "', '"
-				+ category.getDescription() + "')");
+	public void create(Categoria categoria) {
+		conexionUno.update("INSERT Category VALUES (" + categoria.getId() + ", " + categoria.getNombre());
+		
 	}
 
 	@Override
-	public Category read(Integer id) {
-		Category category = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM Category WHERE id=" + id);
+	public Categoria read(Integer id) {
+		Categoria categoria = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM Categoria WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
-				category = new Category(rs.getInt("id"), rs.getString("name"), rs.getString("description"));
+				categoria = new Categoria(rs.getInt("id"), rs.getString("nombre"));
 			}
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCCategoryDAO:read): " + e.getMessage());
 		}
 
-		return category;
+		return categoria;
 	}
 
 	@Override
-	public void update(Category category) {
-		conexionUno.update("UPDATE Category SET name = '" + category.getName() + "', description = '"
-				+ category.getDescription() + "' WHERE id = " + category.getId());
-
-	}
-
-	@Override
-	public void delete(Category category) {
-		conexionUno.update("DELETE FROM Category WHERE id = " + category.getId());
+	public void update(Categoria categoria) {
+		conexionUno.update("UPDATE Category SET name = '" + categoria.getNombre() 
+				+  "' WHERE id = " + categoria.getId());
 
 	}
 
 	@Override
-	public List<Category> find() {
-		List<Category> list = new ArrayList<Category>();
+	public void delete(Categoria categoria) {
+		conexionUno.update("DELETE FROM Categoria WHERE id = " + categoria.getId());
+
+	}
+
+	@Override
+	public List<Categoria> find() {
+		List<Categoria> list = new ArrayList<Categoria>();
 		ResultSet rs = conexionUno.query("SELECT * FROM Category");
 		try {
 			while (rs.next()) {
-				list.add(new Category(rs.getInt("id"), rs.getString("name"), rs.getString("description")));
+				list.add(new Categoria(rs.getInt("id"), rs.getString("nombre"));
 			}
 
 		} catch (SQLException e) {
@@ -85,5 +86,6 @@ public class JDBCCategoriaDAO extends JDBCGenericDAO<Category, Integer> implemen
 		}
 		return list;
 	}
+
 
 }

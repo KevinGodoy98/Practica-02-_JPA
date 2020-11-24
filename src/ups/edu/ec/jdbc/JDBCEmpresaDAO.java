@@ -42,8 +42,7 @@ public class JDBCEmpresaDAO extends JDBCGenericDAO<UserDetail, Integer> implemen
 	@Override
 	public void create(UserDetail userDetail) {
 
-		conexionDos.update("INSERT User_Detail VALUES (" + userDetail.getId() + ", '" + userDetail.getDetail() + "', "
-				+ userDetail.getUser().getId() + ")");
+		conexionDos.update("INSERT User_Detail VALUES (" + userDetail.getId() + ", '" + userDetail.getDetail() + "', "+ userDetail.getUser().getId() + ")");
 	}
 
 	@Override
