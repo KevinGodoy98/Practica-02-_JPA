@@ -15,7 +15,7 @@ package ec.edu.ups.dao;
  * https://www.linkedin.com/in/gabrielleonp
  * 
  * @see https://www.arquitecturajava.com/usando-el-patron-factory/
- * @see JDBCCategoryDAO
+ * @see JDBCCategoriaDAO
  * @version 1.0
  */
 public abstract class DAOFactory {
