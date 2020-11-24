@@ -8,15 +8,18 @@ public class Usuario implements Serializable{
 	private String cedula;
 	private String nombre;
 	private String apellido;
+	private String rol;
 	private String correo;
 	private String contrasena;
 	
+	
 
-	public void Usuario(int id,String cedula,String nombre , String apellido ,String correo,String contrasena) {
+	public void Usuario(int id,String cedula,String nombre , String apellido ,String rol,String correo,String contrasena) {
 	    this.id=id;
 		this.cedula=cedula;
 		this.nombre=nombre;
 		this.apellido = apellido;
+		this.rol=rol;
 		this.correo = correo;
 		this.contrasena = contrasena;
 	}
@@ -82,11 +85,24 @@ public class Usuario implements Serializable{
 	}
 
 
+	public String getRol() {
+		return rol;
+	}
+
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", correo=" + correo + ", contrasena=" + contrasena + "]";
+		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", rol="
+				+ rol + ", correo=" + correo + ", contrasena=" + contrasena + "]";
 	}
+
+
+	
 
 
 	
