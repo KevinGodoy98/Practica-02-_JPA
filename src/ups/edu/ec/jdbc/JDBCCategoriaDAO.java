@@ -1,0 +1,91 @@
+package ups.edu.ec.jdbc;
+
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import ec.edu.ups.dao.CategoriaDAO;
+import ups.edu.ec.modelo.Categoria;
+
+/**
+ * Clase JDBCCategoryDAO.
+ * 
+ * La clase JDBCCategoryDAO hereda los métodos y atributos de la clase abstracta
+ * padre JDBCGenericDAO, así como también, implementa los métodos de la
+ * interface CategoryDAO.
+ * 
+ * Teniendo de esta manera una clase específica que gestionara la persistencia a
+ * la base de datos del modelo Category
+ * 
+ * @author Gabriel A. León Paredes 
+ * Doctor en Tecnologías de Información
+ * https://www.linkedin.com/in/gabrielleonp
+ *
+ * @see JDBCGenericDAO
+ * @see CategoryDAO
+ * @see Category
+ * 
+ * @version 1.0
+ */
+public class JDBCCategoriaDAO extends JDBCGenericDAO<Categoria, Integer> implements CategoriaDAO {
+
+	@Override
+	public void createTable() {
+		conexionUno.update("DROP TABLE IF EXISTS Categoria");
+		conexionUno.update("CREATE TABLE Category (" + "ID INT NOT NULL, " + "NOMBRE VARCHAR(60), "
+				 + "PRIMARY KEY (ID))");
+	}
+
+	@Override
+	public void create(Categoria categoria) {
+		conexionUno.update("INSERT Category VALUES (" + categoria.getId() + ", " + categoria.getNombre());
+		
+	}
+
+	@Override
+	public Categoria read(Integer id) {
+		Categoria categoria = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM Categoria WHERE id=" + id);
+		try {
+			if (rs != null && rs.next()) {
+				categoria = new Categoria(rs.getInt("id"), rs.getString("nombre"));
+			}
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCCategoryDAO:read): " + e.getMessage());
+		}
+
+		return categoria;
+	}
+
+	@Override
+	public void update(Categoria categoria) {
+		conexionUno.update("UPDATE Category SET name = '" + categoria.getNombre() 
+				+  "' WHERE id = " + categoria.getId());
+
+	}
+
+	@Override
+	public void delete(Categoria categoria) {
+		conexionUno.update("DELETE FROM Categoria WHERE id = " + categoria.getId());
+
+	}
+
+	@Override
+	public List<Categoria> find() {
+		List<Categoria> list = new ArrayList<Categoria>();
+		ResultSet rs = conexionUno.query("SELECT * FROM Category");
+		try {
+			while (rs.next()) {
+				list.add(new Categoria(rs.getInt("id"), rs.getString("nombre"));
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCCategoryDAO:find): " + e.getMessage());
+		}
+		return list;
+	}
+
+
+}
