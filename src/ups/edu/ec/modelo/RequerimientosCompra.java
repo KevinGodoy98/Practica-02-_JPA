@@ -7,7 +7,10 @@ public class RequerimientosCompra implements Serializable {
 	private int id;
 	private String descripcion;
 	
-	public void Requerimientoscompra (int id ,String descripcion) {
+	public RequerimientosCompra (int id ,String descripcion) {
+	}
+
+	public void RequerimientosCompra (int id ,String descripcion) {
 		this.id=id;
 		this.descripcion=descripcion;
 	}

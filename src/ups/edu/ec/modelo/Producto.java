@@ -9,6 +9,10 @@ public class Producto implements Serializable {
 	private String precio;
 	private String descripcion;
 	
+	public Producto(int id , String nombre, String precio, String descripcion ) {
+		
+	}
+	
 	public void Producto(int id , String nombre, String precio, String descripcion) {
 		this.id=id;
 		this.nombre=nombre;
