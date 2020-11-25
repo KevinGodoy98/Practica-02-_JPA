@@ -5,22 +5,41 @@ import java.io.Serializable;
 public class Usuario implements Serializable{
 	
 	private int id;
+	private int empresa_id;
 	private String cedula;
 	private String nombre;
 	private String apellido;
 	private String correo;
 	private String contrasena;
+	private String rol;
 	
 
-	public void Usuario(int id,String cedula,String nombre , String apellido ,String correo,String contrasena) {
+	public Usuario(int id, int empresa_id, String cedula,String nombre , String apellido ,String correo,String contrasena, String rol) {
 	    this.id=id;
+	    this.empresa_id = empresa_id;
 		this.cedula=cedula;
 		this.nombre=nombre;
 		this.apellido = apellido;
 		this.correo = correo;
 		this.contrasena = contrasena;
 	}
+	
+	public int getEmpresa_id() {
+		return empresa_id;
+	}
 
+	public void setEmpresa_id(int empresa_id) {
+		this.empresa_id = empresa_id;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 
 	public String getCedula() {
 		return cedula;
