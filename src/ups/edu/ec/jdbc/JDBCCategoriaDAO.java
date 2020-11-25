@@ -19,9 +19,6 @@ import ups.edu.ec.modelo.Categoria;
  * Teniendo de esta manera una clase específica que gestionara la persistencia a
  * la base de datos del modelo Category
  * 
- * @author Gabriel A. León Paredes 
- * Doctor en Tecnologías de Información
- * https://www.linkedin.com/in/gabrielleonp
  *
  * @see JDBCGenericDAO
  * @see CategoryDAO
@@ -33,14 +30,12 @@ public class JDBCCategoriaDAO extends JDBCGenericDAO<Categoria, Integer> impleme
 
 	@Override
 	public void createTable() {
-		conexionUno.update("DROP TABLE IF EXISTS Categoria");
-		conexionUno.update("CREATE TABLE Category (" + "ID INT NOT NULL, " + "NOMBRE VARCHAR(60), "
-				 + "PRIMARY KEY (ID))");
+		
 	}
 
 	@Override
 	public void create(Categoria categoria) {
-		conexionUno.update("INSERT Category VALUES (" + categoria.getId() + ", " + categoria.getNombre());
+		conexionUno.update("INSERT Categoria VALUES (" + categoria.getId() + ", " + categoria.getNombre());
 		
 	}
 
