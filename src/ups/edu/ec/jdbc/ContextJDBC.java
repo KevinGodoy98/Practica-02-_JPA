@@ -22,9 +22,13 @@ import java.sql.Statement;
  */
 public class ContextJDBC {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+<<<<<<< Updated upstream
 	private static final String URL = "jdbc:mysql://localhost:8889/practica01";
+=======
+	private static final String URL = "jdbc:mysql://localhost:3307/mydb";
+>>>>>>> Stashed changes
 	private static final String USER = "root";
-	private static final String PASS = "root";
+	private static final String PASS = "Patito.123";
 	private static ContextJDBC jdbc1 = null;
 	private static ContextJDBC jdbc2 = null;
 	private Statement statement = null;
