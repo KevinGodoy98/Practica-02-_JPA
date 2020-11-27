@@ -48,7 +48,7 @@ public class JDBCCategoriaDAO extends JDBCGenericDAO<Categoria, Integer> impleme
 				categoria = new Categoria(rs.getInt("id"), rs.getString("nombre"));
 			}
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCCategoraDAO:read): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCCategoryDAO:read): " + e.getMessage());
 		}
 
 		return categoria;

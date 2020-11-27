@@ -5,16 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import ec.edu.ups.dao.ProductoDAO;
-import ups.edu.ec.modelo.Producto;
-
+import ec.edu.ups.dao.ProductDAO;
+import ec.edu.ups.modelo.Product;
+import ec.edu.ups.modelo.ShoppingBasket;
 
 /**
- * Clase JDBCProductoDAO.
+ * Clase JDBCProductDAO.
  * 
- * La clase JDBCProductoDAO hereda los métodos y atributos de la clase abstracta
+ * La clase JDBCProductDAO hereda los métodos y atributos de la clase abstracta
  * padre JDBCGenericDAO, así como también, implementa los métodos de la
  * interface ProductDAO.
  * 
@@ -31,72 +33,34 @@ import ups.edu.ec.modelo.Producto;
  * 
  * @version 1.0
  */
-public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implements ProductoDAO {
+public class JDBCProductoDAO extends JDBCGenericDAO<Product, Integer> implements ProductDAO {
 
 	@Override
 	public void createTable() {
 
+		conexionDos.update("DROP TABLE IF EXISTS Product");
+		conexionDos.update("CREATE TABLE Product ( ID INT NOT NULL, AMOUNT INT, "
+				+ "DESCRIPTION VARCHAR(255), SHOPPING_BASKET_ID INT, PRIMARY KEY (ID), "
+				+ "FOREIGN KEY(SHOPPING_BASKET_ID) REFERENCES Shopping_Basket(ID))");
 	}
 
 	@Override
-	public void create(Producto producto) {
+	public void create(Product product) {
 
-		conexionUno.update("INSERT Product VALUES (" + producto.getId() + ", " + producto.getNombre() + ", '"
-				+ producto.getPrecio() + "', " + producto.getDescripcion() + ")");
+		conexionDos.update("INSERT Product VALUES (" + product.getId() + ", " + product.getAmount() + ", '"
+				+ product.getDescription() + "', " + product.getShoppingBasket().getId() + ")");
 
 	}
 
 	@Override
-	public Producto read(Integer id) {
+	public Product read(Integer id) {
 
-		Producto producto = null;
-		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto WHERE id=" + id);
+		Product product = null;
+		ResultSet rsProduct = conexionUno.query("SELECT * FROM Product WHERE id=" + id);
 		try {
 			if (rsProduct != null && rsProduct.next()) {
-				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"));
-				/*ResultSet rsShoppingBasket = conexionDos
-						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
-
-				if (rsShoppingBasket != null && rsShoppingBasket.next()) {
-					Calendar calendar = new GregorianCalendar();
-					calendar.setTime(rsShoppingBasket.getDate("date"));
-					ShoppingBasket shoppingBasket = new ShoppingBasket(rsShoppingBasket.getInt("id"), calendar);
-					producto.setShoppingBasket(shoppingBasket);
-				}*/
-
-			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductoDAO:read): " + e.getMessage());
-		}
-		/*if (producto == null) {
-			return null;
-		}*/
-		return producto;
-	}
-
-	@Override
-	public void update(Producto producto) {
-
-		conexionUno.update("UPDATE Producto SET nombre = " + producto.getNombre() + "nombre = '" + producto.getPrecio() + " description = "
-				+ producto.getDescripcion() + "' WHERE id = " + producto.getId());
-
-	}
-
-	@Override
-	public void delete(Producto producto) {
-
-		conexionUno.update("DELETE FROM Product WHERE id = " + producto.getId());
-
-	}
-
-	@Override
-	public List<Producto> find() {
-		List<Producto> list = new ArrayList<Producto>();
-		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto");
-		try {
-			while (rsProduct.next()) {
-				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion")));
-				/*Producto product = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion")));
+				product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
+						rsProduct.getString("description"));
 				ResultSet rsShoppingBasket = conexionDos
 						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
 
@@ -105,28 +69,73 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 					calendar.setTime(rsShoppingBasket.getDate("date"));
 					ShoppingBasket shoppingBasket = new ShoppingBasket(rsShoppingBasket.getInt("id"), calendar);
 					product.setShoppingBasket(shoppingBasket);
-			
-				list.add(product);*/
+				}
+
+			}
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCProductDAO:read): " + e.getMessage());
+		}
+		if (product == null) {
+			return null;
+		}
+		return product;
+	}
+
+	@Override
+	public void update(Product product) {
+
+		conexionUno.update("UPDATE Product SET amount = " + product.getAmount() + ", description = '"
+				+ product.getDescription() + "' WHERE id = " + product.getId());
+
+	}
+
+	@Override
+	public void delete(Product product) {
+
+		conexionUno.update("DELETE FROM Product WHERE id = " + product.getId());
+
+	}
+
+	@Override
+	public List<Product> find() {
+		List<Product> list = new ArrayList<Product>();
+		ResultSet rsProduct = conexionUno.query("SELECT * FROM Product");
+		try {
+			while (rsProduct.next()) {
+				Product product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
+						rsProduct.getString("description"));
+				ResultSet rsShoppingBasket = conexionDos
+						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
+
+				if (rsShoppingBasket != null && rsShoppingBasket.next()) {
+					Calendar calendar = new GregorianCalendar();
+					calendar.setTime(rsShoppingBasket.getDate("date"));
+					ShoppingBasket shoppingBasket = new ShoppingBasket(rsShoppingBasket.getInt("id"), calendar);
+					product.setShoppingBasket(shoppingBasket);
+				}
+				list.add(product);
 			}
 
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCProductDAO:find): " + e.getMessage());
 		}
 
 		return list;
 	}
 
 	@Override
-	public List<Producto> find() {
+	public Set<Product> findByShoppingBasketId(int shoppingBasketId) {
 
-		List<Producto> list = new ArrayList<Producto>();
-		ResultSet rsProduct = conexionDos.query("SELECT * FROM Producto WHERE Producto");
+		Set<Product> list = new HashSet<Product>();
+		ResultSet rsProduct = conexionDos.query("SELECT * FROM Product WHERE shopping_basket_id=" + shoppingBasketId);
 		try {
 			while (rsProduct.next()) {
-				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion")));
+				Product product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
+						rsProduct.getString("description"));
+				list.add(product);
 			}
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCProductDAO:findByShoppingBasketId): " + e.getMessage());
 		}
 
 		return list;

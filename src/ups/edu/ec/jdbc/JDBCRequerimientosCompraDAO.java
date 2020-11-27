@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Set;
 
 import ec.edu.ups.dao.DAOFactory;
-import ups.edu.ec.modelo.Producto;
-import ups.edu.ec.modelo.RequerimientosCompra;
+import ec.edu.ups.dao.ProductDAO;
+import ec.edu.ups.dao.ShoppingBasketDAO;
+import ec.edu.ups.modelo.Product;
+import ec.edu.ups.modelo.ShoppingBasket;
 
 /**
  * Clase JDBCShoppingBasketDAO.
@@ -34,30 +36,30 @@ import ups.edu.ec.modelo.RequerimientosCompra;
  * 
  * @version 1.0
  */
-public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCompra, Integer> implements RequerimientosCompraDAO {
+public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<ShoppingBasket, Integer> implements ShoppingBasketDAO {
 
 	@Override
 	public void createTable() {
 
-		/*conexionUno.update("DROP TABLE IF EXISTS Product");
+		conexionUno.update("DROP TABLE IF EXISTS Product");
 		conexionUno.update("DROP TABLE IF EXISTS Shopping_Basket");
 		conexionUno.update("CREATE TABLE Shopping_Basket ( ID INT NOT NULL, DATE DATE, PRIMARY KEY (ID))");
-		DAOFactory.getFactory().getProductDAO().createTable();*/
+		DAOFactory.getFactory().getProductDAO().createTable();
 
 	}
 
 	@Override
-	public void create(RequerimientosCompra requerimientosCompra) {
+	public void create(ShoppingBasket shoppingBasket) {
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println("INSERT Shopping_Basket VALUES (" + shoppingBasket.getId() + ", '"
 				+ formato.format(shoppingBasket.getDate().getTime()) + "')");
 
 		conexionUno.update("INSERT Shopping_Basket VALUES (" + shoppingBasket.getId() + ", '"
 				+ formato.format(shoppingBasket.getDate().getTime()) + "')");
-		Set<Producto> products = shoppingBasket.getProducts();
+		Set<Product> products = shoppingBasket.getProducts();
 		if (products != null) {
-			for (Producto product : products) {
-				DAOFactory.getFactory().getProductoDAO().create(product);
+			for (Product product : products) {
+				DAOFactory.getFactory().getProductDAO().create(product);
 			}
 		}
 
@@ -79,10 +81,10 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 		if (shoppingBasket == null) {
 			return null;
 		}
-		Set<Producto> products = DAOFactory.getFactory().getProductoDAO().findByShoppingBasketId(shoppingBasket.getId());
+		Set<Product> products = DAOFactory.getFactory().getProductDAO().findByShoppingBasketId(shoppingBasket.getId());
 		if (products != null) {
-			Set<Producto> productsFinal = new HashSet<Producto>();
-			for (Producto product : products) {
+			Set<Product> productsFinal = new HashSet<Product>();
+			for (Product product : products) {
 				product.setShoppingBasket(shoppingBasket);
 				productsFinal.add(product);
 			}
@@ -95,22 +97,22 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 	@Override
 	public void update(ShoppingBasket shoppingBasket) {
 
-		ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
-		Set<Producto> products = productoDAO.findByShoppingBasketId(shoppingBasket.getId());
+		ProductDAO productDAO = DAOFactory.getFactory().getProductDAO();
+		Set<Product> products = productDAO.findByShoppingBasketId(shoppingBasket.getId());
 		conexionUno.update("UPDATE User Shopping_Basket date = '" + shoppingBasket.getDate() + " WHERE id = "
 				+ shoppingBasket.getId());
 
 		if (shoppingBasket.getProducts() == null && products != null) {
-			for (Producto product : products) {
-				productoDAO.delete(product);
+			for (Product product : products) {
+				productDAO.delete(product);
 			}
 		} else if (shoppingBasket.getProducts() != null && products == null) {
-			for (Producto product : shoppingBasket.getProducts()) {
-				productoDAO.create(product);
+			for (Product product : shoppingBasket.getProducts()) {
+				productDAO.create(product);
 			}
 		} else if (shoppingBasket.getProducts() != null && products != null) {
-			for (Producto product : shoppingBasket.getProducts()) {
-				productoDAO.update(product);
+			for (Product product : shoppingBasket.getProducts()) {
+				productDAO.update(product);
 			}
 		}
 
@@ -119,8 +121,8 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 	@Override
 	public void delete(ShoppingBasket shoppingBasket) {
 		if (shoppingBasket.getProducts() != null) {
-			for (Producto products : shoppingBasket.getProducts()) {
-				DAOFactory.getFactory().getProductoDAO().delete(products);
+			for (Product products : shoppingBasket.getProducts()) {
+				DAOFactory.getFactory().getProductDAO().delete(products);
 			}
 		}
 		conexionUno.update("DELETE FROM Shopping_Basket WHERE id = " + shoppingBasket.getId());
@@ -136,13 +138,13 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 				Calendar calendar = new GregorianCalendar();
 				calendar.setTime(rs.getDate("date"));
 				ShoppingBasket shoppingBasket = new ShoppingBasket(rs.getInt("id"), calendar);
-				Set<Producto> products = DAOFactory.getFactory().getProductoDAO()
+				Set<Product> products = DAOFactory.getFactory().getProductDAO()
 						.findByShoppingBasketId(shoppingBasket.getId());				
 
 				if (products != null) {
 
-					Set<Producto> productsFinal = new HashSet<Producto>();
-					for (Producto product : products) {
+					Set<Product> productsFinal = new HashSet<Product>();
+					for (Product product : products) {
 						product.setShoppingBasket(shoppingBasket);
 						productsFinal.add(product);
 					}
