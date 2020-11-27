@@ -80,29 +80,4 @@ public class JDBCEmpresaDAO extends JDBCGenericDAO<Empresa, Integer> implements 
 		return list;
 	}
 
-	/*@Override
-	public Empresa find(Integer userId) {
-		UserDetail detail = null;
-		ResultSet rsDetail = conexionUno.query("SELECT * FROM User_Detail WHERE user_id=" + userId);
-		try {
-			if (rsDetail != null && rsDetail.next()) {
-				detail = new UserDetail(rsDetail.getInt("id"), rsDetail.getString("detail"));
-
-				ResultSet rsUser = conexionDos.query("SELECT * FROM User WHERE id=" + rsDetail.getInt("user_id"));
-				if (rsUser != null && rsUser.next()) {
-					User user = new User(rsUser.getInt("id"), rsUser.getInt("level"), rsUser.getString("name"),
-							rsUser.getString("password"));
-					detail.setUser(user);
-				}
-
-			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCUserDetailDAO:findByUserId): " + e.getMessage());
-		}
-		if (detail == null) {
-			return null;
-		}
-		return detail;
-	}*/
-
 }
