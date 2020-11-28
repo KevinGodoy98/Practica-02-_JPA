@@ -48,31 +48,38 @@ public class ListarProductoControlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	       ListarProducto();
-		
+	     
+		this.request = request;
+		this.response = response;
+		ListarProducto();
 	}
 	
 	private void ListarProducto() {
-		Object[] objs = new Object[2];
-		objs[0] = false;
-		ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
-		List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
-		objs[1] = lstProductos;
-		try {
-			if(lstProductos.size() == 0) {
-				request.setAttribute("error", new ups.edu.ec.modelo.Error("Error al obtener la lista de Productos."));
-				despacharPeticiones();
-			}else {
-				request.setAttribute("error", null);
-				request.setAttribute("lstProductos", objs);
-				despacharPeticiones();
+		
+		 System.out.println("llamado");
+	     
+	      Object[] objs = new Object[2];
+		  objs[0] = false;
+			ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
+			List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
+			System.out.println("TESTING -->"+lstProductos);
+			objs[1] = lstProductos;
+			try {
+				if(lstProductos.size()==0) {
+					//System.out.println("llega");
+					request.setAttribute("error", new ups.edu.ec.modelo.Error("Error al obtener la lista de Productos."));
+					despacharPeticiones();
+				}else {
+				    request.setAttribute("error", null);
+					request.setAttribute("lstProductos", lstProductos);//Dame 1 min le reviso xq se manda un string o
+				
+					despacharPeticiones();
+				}
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
 			}
-		} catch (ServletException | IOException e) {
-			e.printStackTrace();
-		}
-		;
+			;
 	}
-	
 	private void despacharPeticiones() throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/JSPs/ListarProducto.jsp").forward(request, response);
 	}
