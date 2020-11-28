@@ -11,23 +11,24 @@ import java.util.List;
 import java.util.Set;
 
 import ec.edu.ups.dao.DAOFactory;
-import ec.edu.ups.dao.ProductDAO;
-import ec.edu.ups.dao.ShoppingBasketDAO;
-import ec.edu.ups.modelo.Product;
-import ec.edu.ups.modelo.ShoppingBasket;
+import ec.edu.ups.dao.ProductoDAO;
+import ec.edu.ups.dao.RequerimientosCompraDAO;
+import ups.edu.ec.modelo.Producto;
+import ups.edu.ec.modelo.RequerimientosCompra;
+
 
 /**
  * Clase JDBCShoppingBasketDAO.
  * 
- * La clase JDBCShoppingBasketDAO hereda los métodos y atributos de la clase abstracta
- * padre JDBCGenericDAO, así como también, implementa los métodos de la
+ * La clase JDBCShoppingBasketDAO hereda los mÃ©️todos y atributos de la clase abstracta
+ * padre JDBCGenericDAO, asÃ­ como tambiÃ©️n, implementa los mÃ©️todos de la
  * interface ShoppingBasketDAO.
  * 
- * Teniendo de esta manera una clase específica que gestionara la persistencia a
+ * Teniendo de esta manera una clase especÃ­fica que gestionara la persistencia a
  * la base de datos del modelo ShoppingBasket
  * 
- * @author Gabriel A. León Paredes 
- * Doctor en Tecnologías de Información
+ * @author Gabriel A. LeÃ³n Paredes 
+ * Doctor en TecnologÃ­as de InformaciÃ³n
  * https://www.linkedin.com/in/gabrielleonp
  *
  * @see JDBCRequerimientosCompraDAO
@@ -36,128 +37,57 @@ import ec.edu.ups.modelo.ShoppingBasket;
  * 
  * @version 1.0
  */
-public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<ShoppingBasket, Integer> implements ShoppingBasketDAO {
+public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCompra, Integer> implements RequerimientosCompraDAO {
 
 	@Override
 	public void createTable() {
 
-		conexionUno.update("DROP TABLE IF EXISTS Product");
-		conexionUno.update("DROP TABLE IF EXISTS Shopping_Basket");
-		conexionUno.update("CREATE TABLE Shopping_Basket ( ID INT NOT NULL, DATE DATE, PRIMARY KEY (ID))");
-		DAOFactory.getFactory().getProductDAO().createTable();
 
 	}
 
 	@Override
-	public void create(ShoppingBasket shoppingBasket) {
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("INSERT Shopping_Basket VALUES (" + shoppingBasket.getId() + ", '"
-				+ formato.format(shoppingBasket.getDate().getTime()) + "')");
-
-		conexionUno.update("INSERT Shopping_Basket VALUES (" + shoppingBasket.getId() + ", '"
-				+ formato.format(shoppingBasket.getDate().getTime()) + "')");
-		Set<Product> products = shoppingBasket.getProducts();
-		if (products != null) {
-			for (Product product : products) {
-				DAOFactory.getFactory().getProductDAO().create(product);
-			}
-		}
-
+	public void create(RequerimientosCompra requerimientosCompra) {
+		conexionDos.update("Insert RequerimientosCompra VALUES ("
+		+ requerimientosCompra.getId() + ", '" + requerimientosCompra.getUsuario_id() + ", " + requerimientosCompra.getEmpresa_id() + ", "
+		+ requerimientosCompra.getEstado() + ", " + requerimientosCompra.getProducto_id() + "', " + requerimientosCompra.getCantidad() +")");
 	}
 
 	@Override
-	public ShoppingBasket read(Integer id) {
-		ShoppingBasket shoppingBasket = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM Shopping_Basket WHERE id=" + id);
+	public RequerimientosCompra read(Integer id) {
+		RequerimientosCompra requerimientosCompra  = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM RequerimientosCompra WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
-				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(rs.getDate("date"));
-				shoppingBasket = new ShoppingBasket(rs.getInt("id"), calendar);
+				requerimientosCompra = new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"),
+						rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad"));
 			}
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCShoppingBasketDAO:read): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCRequerimientosCompraDAO:read): " + e.getMessage());
 		}
-		if (shoppingBasket == null) {
+		if (requerimientosCompra == null) {
 			return null;
 		}
-		Set<Product> products = DAOFactory.getFactory().getProductDAO().findByShoppingBasketId(shoppingBasket.getId());
-		if (products != null) {
-			Set<Product> productsFinal = new HashSet<Product>();
-			for (Product product : products) {
-				product.setShoppingBasket(shoppingBasket);
-				productsFinal.add(product);
-			}
-			shoppingBasket.setProducts(productsFinal);
-		}
 
-		return shoppingBasket;
+		return requerimientosCompra;
 	}
 
 	@Override
-	public void update(ShoppingBasket shoppingBasket) {
-
-		ProductDAO productDAO = DAOFactory.getFactory().getProductDAO();
-		Set<Product> products = productDAO.findByShoppingBasketId(shoppingBasket.getId());
-		conexionUno.update("UPDATE User Shopping_Basket date = '" + shoppingBasket.getDate() + " WHERE id = "
-				+ shoppingBasket.getId());
-
-		if (shoppingBasket.getProducts() == null && products != null) {
-			for (Product product : products) {
-				productDAO.delete(product);
-			}
-		} else if (shoppingBasket.getProducts() != null && products == null) {
-			for (Product product : shoppingBasket.getProducts()) {
-				productDAO.create(product);
-			}
-		} else if (shoppingBasket.getProducts() != null && products != null) {
-			for (Product product : shoppingBasket.getProducts()) {
-				productDAO.update(product);
-			}
-		}
+	public void update(RequerimientosCompra requerimientosCompra) {
+		conexionDos.update(
+				"UPDATE empresa SET estado = '" + requerimientosCompra.getEstado());
 
 	}
 
 	@Override
-	public void delete(ShoppingBasket shoppingBasket) {
-		if (shoppingBasket.getProducts() != null) {
-			for (Product products : shoppingBasket.getProducts()) {
-				DAOFactory.getFactory().getProductDAO().delete(products);
-			}
-		}
-		conexionUno.update("DELETE FROM Shopping_Basket WHERE id = " + shoppingBasket.getId());
+	public void delete(RequerimientosCompra requerimientosCompra) {
+		
 
 	}
 
 	@Override
-	public List<ShoppingBasket> find() {
-		List<ShoppingBasket> list = new ArrayList<ShoppingBasket>();
-		ResultSet rs = conexionUno.query("SELECT * FROM Shopping_Basket");
-		try {
-			while (rs.next()) {
-				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(rs.getDate("date"));
-				ShoppingBasket shoppingBasket = new ShoppingBasket(rs.getInt("id"), calendar);
-				Set<Product> products = DAOFactory.getFactory().getProductDAO()
-						.findByShoppingBasketId(shoppingBasket.getId());				
-
-				if (products != null) {
-
-					Set<Product> productsFinal = new HashSet<Product>();
-					for (Product product : products) {
-						product.setShoppingBasket(shoppingBasket);
-						productsFinal.add(product);
-					}
-					shoppingBasket.setProducts(productsFinal);
-
-				}
-
-				list.add(shoppingBasket);
-			}
-
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCShoppingBasketDAO:find): " + e.getMessage());
-		}
+	public List<RequerimientosCompra> find() {
+		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
+		
 		return list;
 	}
 
