@@ -3,6 +3,10 @@ package ec.edu.ups.dao;
 import ups.edu.ec.jdbc.JDBCCategoriaDAO;
 import ups.edu.ec.jdbc.JDBCEmpresaDAO;
 import ups.edu.ec.jdbc.JDBCProductoDAO;
+<<<<<<< HEAD
+=======
+import ups.edu.ec.jdbc.JDBCRequerimientosCompraDAO;
+>>>>>>> main
 import ups.edu.ec.jdbc.JDBCUsuarioDAO;
 
 /**

@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.ups.dao.DAOFactory;
+<<<<<<< HEAD
 import ec.edu.ups.dao.UsuarioDAO;
+=======
+
+import ec.edu.ups.dao.UsuarioDAO;
+
+>>>>>>> main
 import ups.edu.ec.modelo.Usuario;
 
 /**
