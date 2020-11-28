@@ -4,11 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-<<<<<<< HEAD
-=======
 import ec.edu.ups.dao.EmpresaDAO;
->>>>>>> main
 import ups.edu.ec.modelo.Empresa;
 import ec.edu.ups.dao.EmpresaDAO;
 

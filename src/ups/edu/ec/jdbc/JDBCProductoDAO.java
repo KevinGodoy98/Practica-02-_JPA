@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import ec.edu.ups.dao.ProductoDAO;
 import ups.edu.ec.modelo.Producto;
@@ -101,6 +102,12 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		}
 
 		return list;
+	}
+
+	@Override
+	public Set<Producto> listarProducto(int id_producto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

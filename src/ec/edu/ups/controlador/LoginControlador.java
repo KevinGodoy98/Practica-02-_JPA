@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.UsuarioDAO;
 import ups.edu.ec.modelo.Usuario;
 
@@ -22,7 +23,8 @@ public class LoginControlador extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public LoginControlador() {
-        super();
+    	usuarioDAO = DAOFactory.getFactory().getUsuarioDAO();
+    	usuario = "";
         // TODO Auto-generated constructor stub
     }
 
@@ -39,25 +41,32 @@ public class LoginControlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = null;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		try {
-			String mail = request.getParameter("id");
+			String mail = request.getParameter("mail");
 			String pass = request.getParameter("pass");
-			usuario = usuarioDAO.login(mail, pass);
 			
+			usuario = usuarioDAO.login(mail, pass);
+			System.out.println(usuario);
 			if (usuario.equals("U")) {
 				//request.setAttribute("usuario", usuario);
-				url = "/startbootstrap-sb-admin-gh-pages/dist/index1.html";
+				System.out.println(usuario);
+				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/index1.html";
 			} else if (usuario.equals("A")){
 				//request.setAttribute("usuario", usuario);
-				url = "/startbootstrap-sb-admin-gh-pages/dist/index.html";
+				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/index.html";
 			} else {
-				url = "/startbootstrap-sb-admin-gh-pages/dist/login.html";
+				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/login.html";
 			}
 			
 		} catch (Exception e) {
+			url = "/startbootstrap-sb-admin-gh-pages/dist/login.html";
 			System.out.println("INTERNAL ERROR");
+			System.out.println(e.getMessage());
 		}
-		getServletContext().getRequestDispatcher(url).forward(request, response);
+		httpResponse.sendRedirect(url);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//getServletContext().getRequestDispatcher("Served at: ").forward(request, response);
 	}
 
 }

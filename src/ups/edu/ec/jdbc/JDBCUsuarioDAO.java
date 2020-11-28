@@ -6,13 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.ups.dao.DAOFactory;
-<<<<<<< HEAD
-import ec.edu.ups.dao.UsuarioDAO;
-=======
-
 import ec.edu.ups.dao.UsuarioDAO;
 
->>>>>>> main
+import ec.edu.ups.dao.UsuarioDAO;
 import ups.edu.ec.modelo.Usuario;
 
 /**
@@ -58,7 +54,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	public Usuario read(Integer id) {
 
 		Usuario user = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM User WHERE id=" + id);
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
 				user = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), rs.getString("contrasena"), rs.getString("rol"));
@@ -88,7 +84,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	public String login(String mail, String pass) {
 		
 		Usuario us = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM User WHERE correo="+ mail+" AND contrasena="+pass);
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE correo='"+ mail+"' AND contrasena='"+pass+"'");
 		try {
 			if (rs != null && rs.next()) {
 				return rs.getString("rol");
