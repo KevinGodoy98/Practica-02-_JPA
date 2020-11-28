@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.ProductoDAO;
 
-import ec.edu.ups.dao.UsuarioDAO;
+
 
 import ups.edu.ec.modelo.Producto;
 
@@ -48,15 +48,15 @@ public class ListarProductoControlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
+	       ListarProducto();
 		
 	}
 	
-	private void ListarProducto(int id_producto) {
+	private void ListarProducto() {
 		Object[] objs = new Object[2];
 		objs[0] = false;
 		ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
-		List<Producto> lstProductos = new ArrayList<>(ProductoDAO.listarProducto(id_producto));
+		List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
 		objs[1] = lstProductos;
 		try {
 			if(lstProductos.size() == 0) {
