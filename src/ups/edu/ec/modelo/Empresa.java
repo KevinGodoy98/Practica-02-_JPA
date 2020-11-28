@@ -8,7 +8,7 @@ public class Empresa implements Serializable{
 	private String nombre;
 	private String ruc;
 	
-	public void String(int id , String nombre, String ruc) {
+	public Empresa(int id , String nombre, String ruc) {
         this.id= id;
         this.nombre=nombre;
         this.ruc=ruc;

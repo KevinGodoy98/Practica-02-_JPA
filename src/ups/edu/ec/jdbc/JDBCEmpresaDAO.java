@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ec.edu.ups.dao.EmpresaDAO;
 import ec.edu.ups.dao.UserDetailDAO;
 import ec.edu.ups.modelo.User;
 import ec.edu.ups.modelo.UserDetail;
+import ups.edu.ec.modelo.Empresa;
 
 /**
  * Clase JDBCUserDetailDAO.
@@ -29,111 +31,56 @@ import ec.edu.ups.modelo.UserDetail;
  * 
  * @version 1.0
  */
-public class JDBCEmpresaDAO extends JDBCGenericDAO<UserDetail, Integer> implements UserDetailDAO {
+public class JDBCEmpresaDAO extends JDBCGenericDAO<Empresa, Integer> implements EmpresaDAO {
 
 	@Override
 	public void createTable() {
-
-		conexionDos.update("DROP TABLE IF EXISTS User_Detail");
-		conexionDos.update("CREATE TABLE User_Detail (" + "ID INT NOT NULL, DETAIL VARCHAR(255), "
-				+ "USER_ID INT, PRIMARY KEY (ID), FOREIGN KEY(USER_ID) REFERENCES User(ID))");
+		
 	}
 
 	@Override
-	public void create(UserDetail userDetail) {
+	public void create(Empresa empresa) {
 
-		conexionDos.update("INSERT User_Detail VALUES (" + userDetail.getId() + ", '" + userDetail.getDetail() + "', "+ userDetail.getUser().getId() + ")");
+		conexionDos.update("INSERT empresa VALUES (" 
+		+ empresa.getId() + ", '" + empresa.getNombre() + "', "+ empresa.getRuc() + ")");
 	}
 
 	@Override
-	public UserDetail read(Integer id) {
+	public Empresa read(Integer id) {
 
-		UserDetail detail = null;
-		ResultSet rsDetail = conexionUno.query("SELECT * FROM User_Detail WHERE id=" + id);
+		Empresa empresa = null;
+		
+		ResultSet rs = conexionUno.query("SELECT * FROM empresa WHERE id=" + id);
 		try {
-			if (rsDetail != null && rsDetail.next()) {
-				detail = new UserDetail(rsDetail.getInt("id"), rsDetail.getString("detail"));
-
-				ResultSet rsUser = conexionDos.query("SELECT * FROM User WHERE id=" + rsDetail.getInt("user_id"));
-				if (rsUser != null && rsUser.next()) {
-					User user = new User(rsUser.getInt("id"), rsUser.getInt("level"), rsUser.getString("name"),
-							rsUser.getString("password"));
-					detail.setUser(user);
-				}
-
+			if (rs != null && rs.next()) {
+				empresa = new Empresa(rs.getInt("id"), rs.getString("nombre"), rs.getString("ruc"));
 			}
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCUserDetailDAO:read): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCCategoryDAO:read): " + e.getMessage());
 		}
-		if (detail == null) {
-			return null;
-		}
-		return detail;
+		
+		return empresa;
 
 	}
 
 	@Override
-	public void update(UserDetail userDetail) {
+	public void update(Empresa empresa) {
 
 		conexionDos.update(
-				"UPDATE User_Detail SET detail = '" + userDetail.getDetail() + "' WHERE id = " + userDetail.getId());
+				"UPDATE empresa SET name = '" + empresa.getNombre() + ", ruc = '"+empresa.getRuc()+"' WHERE id = " + empresa.getId());
 	}
 
 	@Override
-	public void delete(UserDetail userDetail) {
-
-		conexionDos.update("DELETE FROM User_Detail WHERE id = " + userDetail.getId());
+	public void delete(Empresa empresa) {
 
 	}
 
 	@Override
-	public List<UserDetail> find() {
-		List<UserDetail> list = new ArrayList<UserDetail>();
-		ResultSet rsDetail = conexionUno.query("SELECT * FROM User_Detail");
-		try {
-			while (rsDetail.next()) {
-				UserDetail detail = new UserDetail(rsDetail.getInt("id"), rsDetail.getString("detail"));
-
-				int userId = rsDetail.getInt("user_id");
-				ResultSet rsUser = conexionDos.query("SELECT * FROM User WHERE id=" + userId);
-				if (rsUser != null && rsUser.next()) {
-					User user = new User(rsUser.getInt("id"), rsUser.getInt("level"), rsUser.getString("name"),
-							rsUser.getString("password"));
-					detail.setUser(user);
-				}
-				list.add(detail);
-			}
-
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCUserDetailDAO:find): " + e.getMessage());
-		}
+	public List<Empresa> find() {
+		List<Empresa> list = new ArrayList<Empresa>();
+		
 
 		return list;
-	}
-
-	@Override
-	public UserDetail findByUserId(Integer userId) {
-		UserDetail detail = null;
-		ResultSet rsDetail = conexionUno.query("SELECT * FROM User_Detail WHERE user_id=" + userId);
-		try {
-			if (rsDetail != null && rsDetail.next()) {
-				detail = new UserDetail(rsDetail.getInt("id"), rsDetail.getString("detail"));
-
-				ResultSet rsUser = conexionDos.query("SELECT * FROM User WHERE id=" + rsDetail.getInt("user_id"));
-				if (rsUser != null && rsUser.next()) {
-					User user = new User(rsUser.getInt("id"), rsUser.getInt("level"), rsUser.getString("name"),
-							rsUser.getString("password"));
-					detail.setUser(user);
-				}
-
-			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCUserDetailDAO:findByUserId): " + e.getMessage());
-		}
-		if (detail == null) {
-			return null;
-		}
-		return detail;
 	}
 
 }

@@ -7,11 +7,9 @@ public class Categoria implements Serializable {
 	private int id;
 	private String nombre;
 	
-	public Categoria(int id, String nombre) {
-		// TODO Auto-generated constructor stub
-	}
+	
 
-	public void Categoria(int id ,String nombre) {
+	public Categoria(int id ,String nombre) {
 		this.id=id;
 		this.nombre=nombre;
 		
