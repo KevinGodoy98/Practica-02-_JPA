@@ -9,10 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ec.edu.ups.dao.ProductDAO;
 import ec.edu.ups.dao.ProductoDAO;
-import ec.edu.ups.modelo.Product;
-import ec.edu.ups.modelo.ShoppingBasket;
 import ups.edu.ec.modelo.Producto;
 
 /**

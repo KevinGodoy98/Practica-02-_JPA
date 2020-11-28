@@ -6,31 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.ups.dao.EmpresaDAO;
-import ec.edu.ups.dao.UserDetailDAO;
-import ec.edu.ups.modelo.User;
-import ec.edu.ups.modelo.UserDetail;
 import ups.edu.ec.modelo.Empresa;
 
-/**
- * Clase JDBCUserDetailDAO.
- * 
- * La clase JDBCUserDetailDAO hereda los métodos y atributos de la clase abstracta
- * padre JDBCGenericDAO, así como también, implementa los métodos de la
- * interface UserDetailDAO.
- * 
- * Teniendo de esta manera una clase específica que gestionara la persistencia a
- * la base de datos del modelo UserDetail
- * 
- * @author Gabriel A. León Paredes 
- * Doctor en Tecnologías de Información
- * https://www.linkedin.com/in/gabrielleonp
- *
- * @see JDBCEmpresaDAO
- * @see UserDetailDAO
- * @see UserDetail
- * 
- * @version 1.0
- */
+
 public class JDBCEmpresaDAO extends JDBCGenericDAO<Empresa, Integer> implements EmpresaDAO {
 
 	@Override

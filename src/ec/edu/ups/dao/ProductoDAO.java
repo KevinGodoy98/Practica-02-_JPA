@@ -1,5 +1,7 @@
 package ec.edu.ups.dao;
 
+import java.util.Set;
+
 import ups.edu.ec.modelo.Producto;
 
 /**
@@ -26,6 +28,6 @@ import ups.edu.ec.modelo.Producto;
  */
 public interface ProductoDAO extends GenericDAO<Producto, Integer> {
 
-	
+	public abstract Set<Producto>listarProducto(int id_producto);
 
 }
