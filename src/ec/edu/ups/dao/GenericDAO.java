@@ -36,6 +36,4 @@ public interface GenericDAO<T, ID> {
 
 	public List<T> find();
 
-	boolean login(String mail, String pass);
-
 }

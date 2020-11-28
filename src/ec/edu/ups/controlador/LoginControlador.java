@@ -17,7 +17,7 @@ import ups.edu.ec.modelo.Usuario;
 public class LoginControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static UsuarioDAO usuarioDAO;   
-    private boolean usuario;
+    private String usuario;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -44,9 +44,12 @@ public class LoginControlador extends HttpServlet {
 			String pass = request.getParameter("pass");
 			usuario = usuarioDAO.login(mail, pass);
 			
-			if (usuario==true) {
+			if (usuario.equals("U")) {
 				//request.setAttribute("usuario", usuario);
 				url = "/startbootstrap-sb-admin-gh-pages/dist/index1.html";
+			} else if (usuario.equals("A")){
+				//request.setAttribute("usuario", usuario);
+				url = "/startbootstrap-sb-admin-gh-pages/dist/index.html";
 			} else {
 				url = "/startbootstrap-sb-admin-gh-pages/dist/login.html";
 			}

@@ -79,19 +79,19 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	}
 	
 	@Override
-	public boolean login(String mail, String pass) {
+	public String login(String mail, String pass) {
 		
 		Usuario us = null;
 		ResultSet rs = conexionUno.query("SELECT * FROM User WHERE correo="+ mail+" AND contrasena="+pass);
 		try {
 			if (rs != null && rs.next()) {
-				return true;
+				return rs.getString("rol");
 			} 
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
 		}
 		
-		return false;
+		return "N";
 	}
 
 	@Override
