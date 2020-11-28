@@ -1,5 +1,10 @@
 package ec.edu.ups.dao;
 
+import ups.edu.ec.jdbc.JDBCCategoriaDAO;
+import ups.edu.ec.jdbc.JDBCEmpresaDAO;
+import ups.edu.ec.jdbc.JDBCProductoDAO;
+import ups.edu.ec.jdbc.JDBCRequerimientosCompraDAO;
+import ups.edu.ec.jdbc.JDBCUsuarioDAO;
 
 /**
  * Clase JDBCGenericDAO.
