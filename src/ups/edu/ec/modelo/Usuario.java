@@ -5,41 +5,27 @@ import java.io.Serializable;
 public class Usuario implements Serializable{
 	
 	private int id;
-	private int empresa_id;
 	private String cedula;
 	private String nombre;
 	private String apellido;
+	private String rol;
 	private String correo;
 	private String contrasena;
-	private String rol;
+	private int empresa_id;
 	
 
-	public Usuario(int id, int empresa_id, String cedula,String nombre , String apellido ,String correo,String contrasena, String rol) {
+
+	public Usuario(int id,int empresa_id,String cedula,String nombre , String apellido ,String rol,String correo,String contrasena) {
 	    this.id=id;
-	    this.empresa_id = empresa_id;
+	    this.empresa_id=empresa_id;
 		this.cedula=cedula;
 		this.nombre=nombre;
 		this.apellido = apellido;
+		this.rol=rol;
 		this.correo = correo;
 		this.contrasena = contrasena;
 	}
-	
-	public int getEmpresa_id() {
-		return empresa_id;
-	}
 
-	public void setEmpresa_id(int empresa_id) {
-		this.empresa_id = empresa_id;
-	}
-
-	public String getRol() {
-		return rol;
-	}
-
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
 
 	public String getCedula() {
 		return cedula;
@@ -101,11 +87,36 @@ public class Usuario implements Serializable{
 	}
 
 
+	public String getRol() {
+		return rol;
+	}
+
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+
+	public int getEmpresa_id() {
+		return empresa_id;
+	}
+
+
+	public void setEmpresa_id(int empresa_id) {
+		this.empresa_id = empresa_id;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", correo=" + correo + ", contrasena=" + contrasena + "]";
+		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", rol="
+				+ rol + ", correo=" + correo + ", contrasena=" + contrasena + ", empresa_id=" + empresa_id + "]";
 	}
+
+
+
+
+	
 
 
 	

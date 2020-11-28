@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Set;
 
 import ec.edu.ups.dao.ProductDAO;
+import ec.edu.ups.dao.ProductoDAO;
 import ec.edu.ups.modelo.Product;
 import ec.edu.ups.modelo.ShoppingBasket;
+import ups.edu.ec.modelo.Producto;
 
 /**
  * Clase JDBCProductDAO.
@@ -33,112 +35,81 @@ import ec.edu.ups.modelo.ShoppingBasket;
  * 
  * @version 1.0
  */
-public class JDBCProductoDAO extends JDBCGenericDAO<Product, Integer> implements ProductDAO {
+public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implements ProductoDAO {
 
 	@Override
 	public void createTable() {
 
-		conexionDos.update("DROP TABLE IF EXISTS Product");
-		conexionDos.update("CREATE TABLE Product ( ID INT NOT NULL, AMOUNT INT, "
-				+ "DESCRIPTION VARCHAR(255), SHOPPING_BASKET_ID INT, PRIMARY KEY (ID), "
-				+ "FOREIGN KEY(SHOPPING_BASKET_ID) REFERENCES Shopping_Basket(ID))");
 	}
 
 	@Override
-	public void create(Product product) {
+	public void create(Producto producto) {
 
-		conexionDos.update("INSERT Product VALUES (" + product.getId() + ", " + product.getAmount() + ", '"
-				+ product.getDescription() + "', " + product.getShoppingBasket().getId() + ")");
+		conexionUno.update("INSERT Product VALUES (" + producto.getId() + ", " + producto.getNombre() + ", '"
+				+ producto.getPrecio() + "', " + producto.getDescripcion() +     "', " + producto.getCategoria_id() +         " )");
 
 	}
 
 	@Override
-	public Product read(Integer id) {
+	public Producto read(Integer id) {
 
-		Product product = null;
-		ResultSet rsProduct = conexionUno.query("SELECT * FROM Product WHERE id=" + id);
+		Producto producto = null;
+		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto WHERE id=" + id);
 		try {
 			if (rsProduct != null && rsProduct.next()) {
-				product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
-						rsProduct.getString("description"));
-				ResultSet rsShoppingBasket = conexionDos
+				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"));
+				/*ResultSet rsShoppingBasket = conexionDos
 						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
 
 				if (rsShoppingBasket != null && rsShoppingBasket.next()) {
 					Calendar calendar = new GregorianCalendar();
 					calendar.setTime(rsShoppingBasket.getDate("date"));
 					ShoppingBasket shoppingBasket = new ShoppingBasket(rsShoppingBasket.getInt("id"), calendar);
-					product.setShoppingBasket(shoppingBasket);
-				}
+					producto.setShoppingBasket(shoppingBasket);
+				}*/
 
 			}
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductDAO:read): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCProductoDAO:read): " + e.getMessage());
 		}
-		if (product == null) {
+		/*if (producto == null) {
 			return null;
-		}
-		return product;
+		}*/
+		return producto;
 	}
 
 	@Override
-	public void update(Product product) {
+	public void update(Producto producto) {
 
-		conexionUno.update("UPDATE Product SET amount = " + product.getAmount() + ", description = '"
-				+ product.getDescription() + "' WHERE id = " + product.getId());
-
-	}
-
-	@Override
-	public void delete(Product product) {
-
-		conexionUno.update("DELETE FROM Product WHERE id = " + product.getId());
+		conexionUno.update("UPDATE Producto SET nombre = " + producto.getNombre() + "nombre = '" + producto.getPrecio() + " description = "
+				+ producto.getDescripcion()  + "categoria_id = '"+ producto.getCategoria_id()+"' WHERE id = " + producto.getId());
 
 	}
 
 	@Override
-	public List<Product> find() {
-		List<Product> list = new ArrayList<Product>();
-		ResultSet rsProduct = conexionUno.query("SELECT * FROM Product");
+	public void delete(Producto producto) {
+
+		conexionUno.update("DELETE FROM Product WHERE id = " + producto.getId());
+
+	}
+
+	@Override
+	public List<Producto> find() {
+		List<Producto> list = new ArrayList<Producto>();
+		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto");
 		try {
 			while (rsProduct.next()) {
-				Product product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
-						rsProduct.getString("description"));
-				ResultSet rsShoppingBasket = conexionDos
-						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
-
-				if (rsShoppingBasket != null && rsShoppingBasket.next()) {
-					Calendar calendar = new GregorianCalendar();
-					calendar.setTime(rsShoppingBasket.getDate("date"));
-					ShoppingBasket shoppingBasket = new ShoppingBasket(rsShoppingBasket.getInt("id"), calendar);
-					product.setShoppingBasket(shoppingBasket);
-				}
-				list.add(product);
+				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id")));
+				
 			}
 
 		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductDAO:find): " + e.getMessage());
+			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
 		}
 
 		return list;
 	}
 
-	@Override
-	public Set<Product> findByShoppingBasketId(int shoppingBasketId) {
-
-		Set<Product> list = new HashSet<Product>();
-		ResultSet rsProduct = conexionDos.query("SELECT * FROM Product WHERE shopping_basket_id=" + shoppingBasketId);
-		try {
-			while (rsProduct.next()) {
-				Product product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
-						rsProduct.getString("description"));
-				list.add(product);
-			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductDAO:findByShoppingBasketId): " + e.getMessage());
-		}
-
-		return list;
-	}
+	
 
 }
