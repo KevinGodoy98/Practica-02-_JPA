@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.ups.dao.DAOFactory;
-import ec.edu.ups.dao.UserDAO;
-import ec.edu.ups.dao.UserDetailDAO;
+
 import ec.edu.ups.dao.UsuarioDAO;
-import ec.edu.ups.modelo.User;
-import ec.edu.ups.modelo.UserDetail;
+
 import ups.edu.ec.modelo.Usuario;
 
 /**
