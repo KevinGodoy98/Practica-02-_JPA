@@ -8,16 +8,14 @@ public class Producto implements Serializable {
 	private String nombre;
 	private String precio;
 	private String descripcion;
+	private int categoria_id;
 	
-	public Producto(int id , String nombre, String precio, String descripcion ) {
-		
-	}
-	
-	public void Producto(int id , String nombre, String precio, String descripcion) {
+	public Producto(int id , String nombre, String precio, String descripcion,int categoria_id) {
 		this.id=id;
 		this.nombre=nombre;
 		this.precio=precio;
 		this.descripcion=descripcion;
+		this.categoria_id=categoria_id;
 	}
 
 	public int getId() {
@@ -52,10 +50,20 @@ public class Producto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
+	public int getCategoria_id() {
+		return categoria_id;
+	}
+
+	public void setCategoria_id(int categoria_id) {
+		this.categoria_id = categoria_id;
+	}
+
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", descripcion=" + descripcion
-				+ "]";
+				+ ", categoria_id=" + categoria_id + "]";
 	}
+
+	
 	
 }

@@ -11,11 +11,13 @@ public class Usuario implements Serializable{
 	private String rol;
 	private String correo;
 	private String contrasena;
-	
+	private int empresa_id;
 	
 
-	public void Usuario(int id,String cedula,String nombre , String apellido ,String rol,String correo,String contrasena) {
+
+	public Usuario(int id,int empresa_id,String cedula,String nombre , String apellido ,String rol,String correo,String contrasena) {
 	    this.id=id;
+	    this.empresa_id=empresa_id;
 		this.cedula=cedula;
 		this.nombre=nombre;
 		this.apellido = apellido;
@@ -95,11 +97,23 @@ public class Usuario implements Serializable{
 	}
 
 
+	public int getEmpresa_id() {
+		return empresa_id;
+	}
+
+
+	public void setEmpresa_id(int empresa_id) {
+		this.empresa_id = empresa_id;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", rol="
-				+ rol + ", correo=" + correo + ", contrasena=" + contrasena + "]";
+				+ rol + ", correo=" + correo + ", contrasena=" + contrasena + ", empresa_id=" + empresa_id + "]";
 	}
+
+
 
 
 	
