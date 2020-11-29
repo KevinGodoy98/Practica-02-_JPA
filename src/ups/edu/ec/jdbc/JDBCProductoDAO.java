@@ -39,8 +39,8 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void create(Producto producto) {
 
-		conexionUno.update("INSERT Product VALUES (" + producto.getId() + ", " + producto.getNombre() + ", '"
-				+ producto.getPrecio() + "', " + producto.getDescripcion() +     "', " + producto.getCategoria_id() +         " )");
+		conexionUno.update("INSERT Product VALUES (" + producto.getId() + ", '" + producto.getNombre() + "', '"
+				+ producto.getPrecio() + "', '" + producto.getDescripcion() +     "', " + producto.getCategoria_id() +   ", "+   + producto.getEmpresa_id()   +" )");
 
 	}
 
@@ -51,7 +51,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto WHERE id=" + id);
 		try {
 			if (rsProduct != null && rsProduct.next()) {
-				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"));
+				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"));
 				/*ResultSet rsShoppingBasket = conexionDos
 						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
 
@@ -93,7 +93,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto");
 		try {
 			while (rsProduct.next()) {
-				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id")));
+				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"), rsProduct.getInt("empresa_id")));
 				
 			}
 

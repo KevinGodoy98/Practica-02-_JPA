@@ -50,7 +50,6 @@ public class RegistrarRequerimientoControlador extends HttpServlet {
 		
 		url = "/startbootstrap-sb-admin-gh-pages/dist/private/register_req.jsp";
 		
-		
 		if(request.getParameter("id").isEmpty()) {
 			request.setAttribute("mensaje", "(!) Llene todos los campos");
 			flag = true;

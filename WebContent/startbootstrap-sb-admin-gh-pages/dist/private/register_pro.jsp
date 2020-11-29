@@ -15,6 +15,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
+    	<c:set var="l" scope="session" value="${catg}" />
+    	<c:set var="m" scope="request" value="${mensaje}" />
+    
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -24,31 +27,55 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Registrar Producto</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="/Practica_laboratorio_1/RegistrarProductoControlador" method="post">
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                 <div class="form-group">
                                                         <label class="small mb-1" for="inputid">id</label>
-                                                        <input class="form-control py-4" id="inputid" type="text" placeholder="Ingrese el id" />
+                                                        <input class="form-control py-4" name="id" id="inputid" type="number" placeholder="Ingrese el id" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputName">Nombre</label>
-                                                        <input class="form-control py-4" id="inputName" type="text" placeholder="Ingrese el nombre" />
+                                                        <input class="form-control py-4" name="nombre" id="inputName" type="text" placeholder="Ingrese el nombre" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPrecio">Precio</label>
-                                                        <input class="form-control py-4" id=inputPrecio type="text" placeholder="Ingrese el precio" />
+                                                        <input class="form-control py-4" name="precio" id=inputPrecio type="number" placeholder="Ingrese el precio" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputdescripcion">Descripcion</label>
-                                                        <input class="form-control py-4" id="inputdescripcion" type="text" placeholder="Ingrese la descripcion" />
+                                                        <input class="form-control py-4" name="descrip" id="inputdescripcion" type="text" placeholder="Ingrese la descripcion" />                                                     
+                                                                                                                
                                                     </div>
+                                                    
+                                                    <div class="form-group">
+                                                    
+                                                    	
+                                                    
+                                                        <label class="small mb-1" for="inputdescripcion">Categoria</label>
+                                                        <select id="cars" name="categ" class="custom-select">
+														  <c:forEach items="${catg}" var="category">
+													        <option value="${category.getId()}">${category.getNombre()}</option>
+													    </c:forEach>
+														</select>                                                        
+                                                                                                                
                                                     </div>
+                                                    
+                                                    </div>
+                                                    
+                                                    
                                             
-                                           
-                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" href="login.html">Crear producto</a></div>
+                                           	
+                                            <div class="form-group mt-4 mb-0">
+                                            	<input class="btn btn-primary btn-block" type="submit" value="Crear Producto"/>            
+                                            </div>
+                                            
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                           		<p>${m}</p>
+                                           </div>
+                                            
                                         </form>
                                     </div>
                                     <!-- <div class="card-footer text-center">
@@ -77,6 +104,6 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/js/scripts.js"></script>
     </body>
 </html>

@@ -15,7 +15,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
-    	<c:set var="n" scope="request" value="${nombre}" />
+    	<c:set var="m" scope="request" value="${mensaje}" />
     
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -33,9 +33,9 @@
                                             	<div class="col-md-6">
                                                 <div class="form-group">
                                                         <label class="small mb-1" for="inputid">id_producto</label><br>
-                                                        <input class="form-control py-4" id="inputid" name="id" type="text" placeholder="Ingrese el id del producto" />
+                                                        <input class="form-control py-4" id="inputid" name="id" type="number" placeholder="Ingrese el id del producto" />
                                                    		<label class="small mb-1" for="inputcantidad">Cantidad</label><br>
-                                                        <input class="form-control py-4" id="inputid" name="cant" type="text" placeholder="Ingrese la cantidad a solicitar" />
+                                                        <input class="form-control py-4" id="inputid" name="cant" type="number" placeholder="Ingrese la cantidad a solicitar" />
                                                    
                                                     </div>
                                                            <div class="form-group mt-4 mb-0">
@@ -521,12 +521,12 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/js/scripts.js"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/chart-area-demo.js"></script>
+        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
+        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/datatables-demo.js"></script>
     </body>
 </html>
