@@ -68,14 +68,17 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 
 	@Override
 	public void update(Usuario user) {
-
+		conexionUno.update("UPDATE Usuario SET cedula = " + user.getCedula() + "nombre = '" + user.getNombre() +
+				" apellido = " + user.getApellido()  + "rol = '"+ user.getRol()+"correo = " + user.getCorreo() +
+				"contrasena =  "+ user.getContrasena() + "empresa = '"+ user.getEmpresa_id()+
+				"' WHERE id =  " + user.getId());
 		
 
 	}
 
 	@Override
 	public void delete(Usuario user) {
-
+		conexionUno.update("DELETE FROM Usuario WHERE id = " + user.getId());
 		
 
 	}
@@ -84,6 +87,18 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	public List<Usuario> find() {
 		List<Usuario> list = new ArrayList<Usuario>();
 		
+		ResultSet rsUsuario = conexionUno.query("SELECT * FROM Usuario");
+		try {
+			while (rsUsuario.next()) {
+				list.add(new Usuario(rsUsuario.getInt("id"), rsUsuario.getInt("empresa_id"), rsUsuario.getString("cedula"), rsUsuario.getString("nombre"),
+						rsUsuario.getString("apellido"), rsUsuario.getString("rol"), rsUsuario.getString("correo"), rsUsuario.getString("contrasena")));
+				System.out.println("se leyo Usuario");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCUsuarioDAO:find): " + e.getMessage());
+		}
+	
 		return list;
 	}
 
