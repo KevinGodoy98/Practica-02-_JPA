@@ -7,19 +7,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.dao.UsuarioDAO;
+import ups.edu.ec.modelo.Producto;
+
 /**
  * Servlet implementation class RequerimientosCompraControlador
  */
 @WebServlet("/RequerimientosCompraControlador")
 public class RegistrarProductoControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UsuarioDAO usuarioDAO;
+	private Producto producto;
+	private String result;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public RegistrarProductoControlador() {
-        super();
-        // TODO Auto-generated constructor stub
+    	usuarioDAO = DAOFactory.getFactory().getUsuarioDAO();
+    	result = "";
     }
 
 	/**
@@ -34,8 +41,18 @@ public class RegistrarProductoControlador extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String url = null;
+		try {
+			int id = Integer.valueOf(request.getParameter("id"));
+			
+			//persona = personaDao.read(id);
+			//request.setAttribute("persona", persona);
+			url = "/JSPs/buscar_persona.jsp";
+		} catch (Exception e) {
+			url = "/JSPs/error.jsp";
+		}
+		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
 }

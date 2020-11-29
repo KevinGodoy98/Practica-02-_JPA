@@ -11,6 +11,14 @@ public class RequerimientosCompra implements Serializable {
 	private int producto_id;
 	private int cantidad;
 	
+	public RequerimientosCompra (int usuario_id,int empresa_id,String estado,int producto_id, int cantidad) {
+		this.usuario_id=usuario_id;
+		this.empresa_id=empresa_id;
+		this.estado=estado;
+		this.producto_id=producto_id;
+		this.cantidad=cantidad;
+	}
+	
 	public RequerimientosCompra (int id ,int usuario_id,int empresa_id,String estado,int producto_id, int cantidad) {
 		this.id=id;
 		this.usuario_id=usuario_id;
@@ -19,6 +27,7 @@ public class RequerimientosCompra implements Serializable {
 		this.producto_id=producto_id;
 		this.cantidad=cantidad;
 	}
+
 
 	public int getId() {
 		return id;

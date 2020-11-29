@@ -41,13 +41,6 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	@Override
 	public void create(Usuario user) {
 
-		/*conexionUno.update("INSERT User VALUES (" + user.getId() + ", " + user.getLevel() + ", '" + user.getName()
-				+ "', '" + user.getPassword() + "')");
-		UserDetail userDetail = user.getDetail();
-		if (userDetail != null) {
-			DAOFactory.getFactory().getUserDetailDAO().create(userDetail);
-		}*/
-
 	}
 
 	@Override
@@ -81,19 +74,19 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	}
 	
 	@Override
-	public String login(String mail, String pass) {
+	public Usuario login(String mail, String pass) {
 		
 		Usuario us = null;
 		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE correo='"+ mail+"' AND contrasena='"+pass+"'");
 		try {
 			if (rs != null && rs.next()) {
-				return rs.getString("rol");
+				us = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("rol"), rs.getString("correo"), rs.getString("contrasena"));
 			} 
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
 		}
 		
-		return "N";
+		return us;
 	}
 
 	@Override

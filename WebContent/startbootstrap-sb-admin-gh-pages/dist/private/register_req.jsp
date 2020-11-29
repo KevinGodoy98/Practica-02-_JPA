@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,10 +11,12 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Requerimientos de Compra Registro</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
+    	<c:set var="n" scope="request" value="${nombre}" />
+    
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
             
@@ -35,15 +41,13 @@
                                                            <div class="form-group mt-4 mb-0">
                                                            <input class="btn btn-primary btn-block" type="submit" value="Solicitar Requerimiento"/>
                                                            </div>
+                                                           
+                                                           <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                           		<p>${m}</p>
+                                                           </div>
+                                                           
                                                 </div>
-                                            </div>
-                                                
-                                              
-                                             
-                                           
-                                           
-                                           
-                                           
+                                            </div>       
                                         </form>
                                     </div>
                                     <!-- <div class="card-footer text-center">

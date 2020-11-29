@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,11 +11,13 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Requerimientos de compra</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+    	<c:set var="n" scope="request" value="${nombre}" />
+    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">Requerimientos</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
@@ -31,7 +37,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                       
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/login.jsp">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -42,17 +48,22 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Admin</div>
-                            <a class="nav-link" href="register_req.jsp">
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/register_req.jsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Registrar Requerimiento
+                            </a>
+                            
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/register_pro.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Registrar Producto
                             </a>
                   
-                            <a class="nav-link" href="tablaAdmin.html">
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaAdmin.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Productos
                             </a>
                             
-                             <a class="nav-link" href="tablaUsuarioAdmin.html">
+                             <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuarioAdmin.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Requerimientos
                             </a>
@@ -60,7 +71,8 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logeado como:</div>
-                        Admin
+                        <p>${n}</p>
+                        <p>Admin</p>p>
                     </div>
                 </nav>
             </div>
