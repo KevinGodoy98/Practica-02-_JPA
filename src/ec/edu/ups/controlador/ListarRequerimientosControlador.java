@@ -62,6 +62,9 @@ public class ListarRequerimientosControlador extends HttpServlet {
 		List<RequerimientosCompra> rq = new ArrayList<RequerimientosCompra>();
 		List<Producto> pro = new ArrayList<Producto>();
 		List<Empresa> em = new ArrayList<Empresa>();
+		List<Usuario> us = new ArrayList<Usuario>();
+
+		
 		HttpSession sesion = request.getSession(true);
 		sesion.setAttribute("accesos", sesion.getId());
 		System.out.println("Id usuario: " + String.valueOf(sesion.getId()));
@@ -71,14 +74,18 @@ public class ListarRequerimientosControlador extends HttpServlet {
 				rq = usuarioDao.listarRequerimientosCompra();
 				pro = usuarioDao.listarProductosNum2();
 				em = usuarioDao.listarEmpresa();
+				us = usuarioDao.listarUsuario();
 
 				request.setAttribute("requerimientos", rq);
 				request.setAttribute("productos", pro);
 				request.setAttribute("empresa", em);
+				request.setAttribute("usuario", us);
 
-				url="JSPs/ListarReq.jsp";
+				
+
+				url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
 			} catch (Exception e) {
-				url="JSPs/ListarReq.jsp";
+				url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
 				System.out.println("Error en el login: " + e.getMessage());
 			}
 			request.getRequestDispatcher(url).forward(request, response);

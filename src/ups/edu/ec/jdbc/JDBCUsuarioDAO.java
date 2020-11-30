@@ -105,6 +105,8 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCUsuarioDAO:read): " + e.getMessage());
 		}
+		
+		return empresaObject;
 	}
 
 	
@@ -128,6 +130,29 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 			return list;
 		}
 		
+		public List<Usuario> listarUsuario(){
+			List<Usuario> list = new ArrayList<Usuario>();
+
+			 ResultSet rsUsuario = conexionUno.query("SELECT * FROM Producto p, "
+			    		+ "RequerimientosCompra rc, Usuario u, Empresa e "
+			    		+ "WHERE  p.RequerimeintosCompra_ID = rc.ID "
+			    		+ "AND rc.Usuario_ID = u.ID "
+			    		+ "AND u.Empresa_ID = e.ID "
+			    		+ "AND e.ID =" + idLP);
+			    try {
+					while (rsUsuario.next()) {
+						System.out.println("Entro en el while");
+						Usuario usuario = new Usuario (rsUsuario.getInt("id"), rsUsuario.getInt("empresa_id"), rsUsuario.getString("cedula"), rsUsuario.getString("nombre"),
+								rsUsuario.getString("apellido"), rsUsuario.getString("rol"), rsUsuario.getString("correo"), rsUsuario.getString("contrasena"));
+						System.out.println("IDs DE PRODUCTO:" + rsUsuario.getInt("id") + ", NOMBRE DE PRODUCTO: " + rsUsuario.getString("cedula"));
+						list.add(usuario);
+					}
+				} catch (SQLException e) {
+					System.out.println(">>>WARNING (JDBCUsuarioDAO:read): " + e.getMessage());
+				}
+				return list;
+			
+		}
 		
 		public List<Producto> listarProductos() {
 			// TODO Auto-generated method stub

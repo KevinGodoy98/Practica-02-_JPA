@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +16,9 @@
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    
     <body class="sb-nav-fixed">
-    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index1.html">Requerimientos</a>
+            <a class="navbar-brand" href="index.html">Requerimientos</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -47,13 +46,18 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Usuario</div>
-                            <a class="nav-link" href="register1.html">
+                            <div class="sb-sidenav-menu-heading">Admin</div>
+                            <a class="nav-link" href="register_pro.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Registrar Requerimiento
+                                Registrar Producto
                             </a>
                   
-                             <a class="nav-link" href="tablaUsuario.html">
+                            <a class="nav-link" href="tablaAdmin.jsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Listar Productos
+                            </a>
+                            
+                             <a class="nav-link" href="tablaUsuarioAdmin.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Requerimientos
                             </a>
@@ -62,86 +66,76 @@
                     
                     <div class="sb-sidenav-footer">
                         <div class="small">Logeado como:</div>
-                        Usuario
+                        Admin
                     </div>
                 </nav>
                 
             </div>
+            
           <div id="layoutSidenav_content">
                 <main>
+                <c:set var="pro" value="${requestScope['lstProductos']} " />
                     <div class="container-fluid">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Listado</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index1.html">Inicio</a></li>
-                            <li class="breadcrumb-item active">Listado de Requerimientos</li>
+                            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                            <li class="breadcrumb-item active">Tables</li>
                         </ol>
-                        <form id="form_cabecera" action="/Practica_laboratorio1/ListarRequerimientosControlador" method='post'>
                         <div class="card mb-4">
                             <div class="card-body">
-                               <input type="button" value="Modificar"/>
+                            <form id="form_cabecera" action="/Practica_laboratorio_1/ProductoControlador" method="post">
+                            <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                              <input type="button" value="Modificar"/>
                               <input type="button" value="Eliminar"/>
-                              <input type="button" value="Buscar"/>
-                              <button class="input-group-text" name="mostrarPrincipalLista" value="visualizar" type="submit">Listar Requisitos</button>
-                              
-                              
-                        
+                              <button class="input-group-text" name="btn" value="bscCedula" type="submit">Listar Producto</button>
+                              </div>
+                              </div>
+                              </form>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
                                 DataTable Example
-                                
+                            </div>
                             <div class="card-body">
-                            	
                                 <div class="table-responsive">
-                                
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Usuario</th>
-                                                <th>Empresa(id))</th>
-                                                <th>Estado</th>
-                                                <th>Producto(id)</th>
-                                                <th>Cantidad(id)</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Descripcion</th>
+                                                <th>Categoria_id</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Usuario</th>
-                                                <th>Empresa(id))</th>
-                                                <th>Estado</th>
-                                                <th>Producto(id)</th>
-                                                <th>Cantidad(id)</th>
+                                               <th>Id</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Descripcion</th>
+                                                <th>Categoria_id</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <c:forEach var="rq" items="${requerimientos}">
-                                            <c:forEach var="pro" items="${productos}">
-                                            <c:forEach var="em" items="${empresa}">         
-                                            <c:forEach var="us" items="${usuario}">
-                                            
+                                        <c:forEach var="row" items="${lstProductos}">
    											 <tr>
-       											<td><c:out value="${rq.id}"/></td>
-       											<td><c:out value="${us.id}"/></td>
-        										<td><c:out value="${em.empresa_id}"/></td>
-        										<td><c:out value="${rq.estado}"/></td>  
-          										<td><c:out value="${pro.id}"/></td>  
-          										<td><c:out value="${rq.cantidad}"/></td>
+       											<td><c:out value="${row.id}"/></td>
+        										<td><c:out value="${row.nombre}"/></td>
+        										<td><c:out value="${row.precio}"/></td>
+       											<td><c:out value="${row.descripcion}"/></td>
+         										<td><c:out value="${row.categoria_id}"/></td>
    											 </tr>
  
 										</c:forEach>
-										</c:forEach>
-										</c:forEach>	
-										</c:forEach>								
-																	
+                                            
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </main>
@@ -168,5 +162,14 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/datatables-demo.js"></script>
+        
+        
+<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/jquery-3.3.1.min.js"></script>
+<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/jquery-ui.js"></script>
+<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/bootstrap.min.js"></script>
+<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/aos.js"></script>
+
+
+<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/main.js"></script>
     </body>
 </html>

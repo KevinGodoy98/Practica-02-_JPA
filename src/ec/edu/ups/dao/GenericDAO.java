@@ -5,6 +5,7 @@ import java.util.List;
 import ups.edu.ec.modelo.Empresa;
 import ups.edu.ec.modelo.Producto;
 import ups.edu.ec.modelo.RequerimientosCompra;
+import ups.edu.ec.modelo.Usuario;
 
 /**
  * Interface GenericDAO.
@@ -43,5 +44,6 @@ public interface GenericDAO<T, ID> {
 	List<Producto> listarProductosNum2();
 	List<Empresa> listarEmpresa();
 	List<RequerimientosCompra> listarRequerimientosCompra();
+	List<Usuario> listarUsuario();
 
 }
