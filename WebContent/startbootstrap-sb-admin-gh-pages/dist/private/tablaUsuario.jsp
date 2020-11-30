@@ -16,8 +16,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+    <c:set var="m" scope="request" value="${mensaje}" />
+    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index1.html">Requerimientos</a>
+            <a class="navbar-brand" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp">Requerimientos</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -46,12 +48,12 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Usuario</div>
-                            <a class="nav-link" href="register1.html">
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/register_req.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Registrar Requerimiento
                             </a>
                   
-                             <a class="nav-link" href="tablaUsuario.html">
+                             <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Requerimientos
                             </a>
@@ -75,11 +77,25 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                               <input type="button" value="Modificar"/>
-                              <input type="button" value="Eliminar"/>
-                              <input type="button" value="Buscar"/>
+                            <form action="/Practica_laboratorio_1/ModificarRequerimientoControlador" method="post">	
+                            	<div class="col-md-6">                     
                               
-                        
+                           		<div class="form-group">
+                                     <label class="small mb-1" for="inputid">ID del Requerimiento</label>
+                                     <input class="form-control py-4" name="id" id="inputid" type="number" placeholder="Ingrese el id" />
+                                        
+                                 </div>
+                                 
+                                 <input class="btn btn-primary btn-block" name="mod" type="submit" value="Modificar"/>
+                              	<input class="btn btn-primary btn-block" name="eli" type="submit" value="Eliminar"/>
+                                 
+                              </div>
+                              
+                              <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                              		<p>${m}</p>
+                              </div>
+                              
+                        </form>
                             </div>
                         </div>
                         <div class="card mb-4">
@@ -98,7 +114,7 @@
                                                 <th>Estado</th>
                                                 <th>Producto_id</th>
                                                 <th>Cantidad</th>
-                                                <
+                                                
                                             </tr>
                                         </thead>
                                         <tfoot>

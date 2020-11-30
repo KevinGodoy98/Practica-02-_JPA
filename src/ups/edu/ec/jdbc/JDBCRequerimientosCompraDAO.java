@@ -58,7 +58,7 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 		ResultSet rs = conexionUno.query("SELECT * FROM RequerimientosCompra WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
-				requerimientosCompra = new RequerimientosCompra( rs.getInt("usuario_id"), rs.getInt("empresa_id"),
+				requerimientosCompra = new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"),
 						rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad"));
 			}
 		} catch (SQLException e) {
@@ -80,8 +80,12 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 
 	@Override
 	public void delete(RequerimientosCompra requerimientosCompra) {
+		try {
+			conexionUno.update("DELETE FROM requerimientoscompra WHERE id = " + requerimientosCompra.getId());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
-
 	}
 
 	@Override
