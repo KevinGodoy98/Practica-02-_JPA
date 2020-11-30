@@ -56,12 +56,23 @@ public class ModificarRequerimientoControlador extends HttpServlet {
 		
 		if (request.getParameter("mod") != null && flag==false) {
 			
-			if(session.getAttribute("rol").toString().equals("U")) {
-				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp";
-				httpResponse.sendRedirect(url);
-			} else {
-				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_admin.jsp";
-				httpResponse.sendRedirect(url);
+			try {
+				
+				id = Integer.valueOf(request.getParameter("id"));
+				requerimiento = requerimientoDAO.read(id);
+				
+				if(requerimiento.getUsuario_id()==Integer.valueOf(session.getAttribute("id").toString())) {
+					url = "/Practica_laboratorio_1/LlenarRequerimientoControlador";
+					httpResponse.sendRedirect(url+"?id="+id+"&mensaje=+");
+				} else {
+					request.setAttribute("mensaje", "(!) Ocurrio un ERROR");
+					url = "/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
+					getServletContext().getRequestDispatcher(url).forward(request, response);
+				}
+					
+				
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 
 	    } else if (request.getParameter("eli") != null && flag==false) {

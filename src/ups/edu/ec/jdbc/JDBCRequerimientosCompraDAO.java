@@ -74,7 +74,14 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 	@Override
 	public void update(RequerimientosCompra requerimientosCompra) {
 		conexionDos.update(
-				"UPDATE empresa SET estado = '" + requerimientosCompra.getEstado());
+				"UPDATE requerimientoscompra SET Cantidad = " + requerimientosCompra.getCantidad()+", Producto_id = "+requerimientosCompra.getProducto_id()+" WHERE id = " + requerimientosCompra.getId());
+
+	}
+	
+	@Override
+	public void update_estado(RequerimientosCompra requerimientosCompra) {
+		conexionDos.update(
+				"UPDATE requerimientoscompra SET estado = '" + requerimientosCompra.getEstado()+"' WHERE id = " + requerimientosCompra.getId());
 
 	}
 

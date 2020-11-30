@@ -20,13 +20,11 @@ public class RegistrarRequerimientoControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private RequerimientosCompraDAO requerimientosDAO;	
     private RequerimientosCompra requerimiento;
-    private String res;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public RegistrarRequerimientoControlador() {
     	requerimientosDAO = DAOFactory.getFactory().getRequerimientosCompraDAO();
-    	res="";
     }
 
 	/**

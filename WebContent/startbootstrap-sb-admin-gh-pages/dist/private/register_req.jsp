@@ -40,6 +40,9 @@
                                                     </div>
                                                            <div class="form-group mt-4 mb-0">
                                                            <input class="btn btn-primary btn-block" type="submit" value="Solicitar Requerimiento"/>
+                                                           <a class="btn btn-primary btn-block" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp">				
+								                                Cancelar
+								                            </a>
                                                            </div>
                                                            
                                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

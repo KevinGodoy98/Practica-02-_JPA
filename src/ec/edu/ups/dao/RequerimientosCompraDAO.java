@@ -26,4 +26,6 @@ import ups.edu.ec.modelo.RequerimientosCompra;
  */
 public interface RequerimientosCompraDAO extends GenericDAO<RequerimientosCompra, Integer>{
 
+	void update_estado(RequerimientosCompra requerimientosCompra);
+
 }
