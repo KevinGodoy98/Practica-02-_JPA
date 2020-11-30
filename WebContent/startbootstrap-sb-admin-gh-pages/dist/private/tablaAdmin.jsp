@@ -169,6 +169,6 @@
 <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/aos.js"></script>
 
 
-<script src="/startbootstrap-sb-admin-gh-pages/dist/private/js/main.js"></script>
+<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/main.js"></script>
     </body>
 </html>
