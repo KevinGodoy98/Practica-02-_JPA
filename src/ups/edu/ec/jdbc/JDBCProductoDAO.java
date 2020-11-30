@@ -39,13 +39,10 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void create(Producto producto) {
 
-<<<<<<< HEAD
 		conexionUno.update("INSERT Producto VALUES (" + producto.getId() + ", " + producto.getNombre() + ", '"
 				+ producto.getPrecio() + "', " + producto.getDescripcion() +     "', " + producto.getCategoria_id() +         " )");
-=======
 		conexionUno.update("INSERT producto VALUES (" + producto.getId() + ", '" + producto.getNombre() + "', '"
 				+ producto.getPrecio() + "', '" + producto.getDescripcion() +     "', " + producto.getCategoria_id() +   ", "+   + producto.getEmpresa_id()   +" )");
->>>>>>> main
 
 	}
 

@@ -34,7 +34,7 @@
 				<td>${req.estado}</td>
 				<td>
 				<form action="ListarRequerimientosControlador" method="POST">
-					<button class="btn waves-effect waves-light green" type="submit" name="mostrarPrincipalListaReq" value="mostrar">Mostar info</button>
+					<button class="btn waves-effect waves-light green" type="submit" name="mostrarPrincipalListaReq" value="mostrar">Mostrar info</button>
 				</form>
 			</tr>
 	</tbody>

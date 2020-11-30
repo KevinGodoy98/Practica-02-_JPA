@@ -1,110 +1,5 @@
 package ups.edu.ec.jdbc;
-<<<<<<< HEAD
 	
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.util.ArrayList;
-	import java.util.List;
-	
-	import ec.edu.ups.dao.DAOFactory;
-	
-	import ec.edu.ups.dao.UsuarioDAO;
-	import ups.edu.ec.modelo.Empresa;
-	import ups.edu.ec.modelo.Producto;
-	import ups.edu.ec.modelo.RequerimientosCompra;
-	import ups.edu.ec.modelo.Usuario;
-	
-	/**
-	 * Clase JDBCUserDAO.
-	 * 
-	 * La clase JDBCUserDAO hereda los métodos y atributos de la clase abstracta
-	 * padre JDBCGenericDAO, así como también, implementa los métodos de la
-	 * interface UserDAO.
-	 * 
-	 * Teniendo de esta manera una clase específica que gestionara la persistencia a
-	 * la base de datos del modelo User
-	 * 
-	 * @author Gabriel A. León Paredes 
-	 * Doctor en Tecnologías de Información
-	 * https://www.linkedin.com/in/gabrielleonp
-	 *
-	 * @see JDBCUsuarioDAO
-	 * @see UserDAO
-	 * @see User
-	 * 
-	 * @version 1.0
-	 */
-	public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements UsuarioDAO {
-		private static String idB;
-		private static String idLP;
-	
-		@Override
-		public void createTable() {
-			
-		}
-	
-		@Override
-		public void create(Usuario user) {
-	
-			/*conexionUno.update("INSERT User VALUES (" + user.getId() + ", " + user.getLevel() + ", '" + user.getName()
-					+ "', '" + user.getPassword() + "')");
-			UserDetail userDetail = user.getDetail();
-			if (userDetail != null) {
-				DAOFactory.getFactory().getUserDetailDAO().create(userDetail);
-			}*/
-	
-		}
-	
-		@Override
-		public Usuario read(Integer id) {
-	
-			Usuario user = null;
-			ResultSet rs = conexionUno.query("SELECT * FROM User WHERE id=" + id);
-			try {
-				if (rs != null && rs.next()) {
-					user = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), rs.getString("contrasena"), rs.getString("rol"));
-				}
-			} catch (SQLException e) {
-				System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
-			}
-			
-			return user;
-		}
-	
-		@Override
-		public void update(Usuario user) {
-			conexionUno.update("UPDATE Usuario SET cedula = " + user.getCedula() + "nombre = '" + user.getNombre() +
-					" apellido = " + user.getApellido()  + "rol = '"+ user.getRol()+"correo = " + user.getCorreo() +
-					"contrasena =  "+ user.getContrasena() + "empresa = '"+ user.getEmpresa_id()+
-					"' WHERE id =  " + user.getId());
-			
-	
-		}
-	
-		@Override
-		public void delete(Usuario user) {
-			conexionUno.update("DELETE FROM Usuario WHERE id = " + user.getId());
-			
-	
-		}
-		
-		@Override
-	
-		public Empresa buscarEmpresa() {
-			// TODO Auto-generated method stub
-			Empresa empresaObject = null;
-			ResultSet rs = conexionUno.query("Select e.ID from empresa e, usuario u "
-					+ "where e.ID = u.Empresa_ID "
-					+ "AND u.ID = " + idB);
-			try {
-				if (rs != null && rs.next()) {
-					idB = rs.getString("id");
-					empresaObject = new Empresa(rs.getInt("id"), rs.getString("nombre"), rs.getString("ruc"));
-				}	
-			} catch (SQLException e) {
-				System.out.println(">>>WARNING (JDBCUsuarioDAO:read): " + e.getMessage());
-=======
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -114,6 +9,9 @@ import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.UsuarioDAO;
 
 import ec.edu.ups.dao.UsuarioDAO;
+import ups.edu.ec.modelo.Empresa;
+import ups.edu.ec.modelo.Producto;
+import ups.edu.ec.modelo.RequerimientosCompra;
 import ups.edu.ec.modelo.Usuario;
 
 /**
@@ -137,6 +35,9 @@ import ups.edu.ec.modelo.Usuario;
  * @version 1.0
  */
 public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements UsuarioDAO {
+	
+	private static String idB;
+	private static String idLP;
 
 	@Override
 	public void createTable() {
@@ -146,20 +47,67 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	@Override
 	public void create(Usuario user) {
 
+		/*conexionUno.update("INSERT User VALUES (" + user.getId() + ", " + user.getLevel() + ", '" + user.getName()
+				+ "', '" + user.getPassword() + "')");
+		UserDetail userDetail = user.getDetail();
+		if (userDetail != null) {
+			DAOFactory.getFactory().getUserDetailDAO().create(userDetail);
+		}*/
+
 	}
 
 	@Override
 	public Usuario read(Integer id) {
 
 		Usuario user = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE id=" + id);
+		ResultSet rs = conexionUno.query("SELECT * FROM User WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
 				user = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), rs.getString("contrasena"), rs.getString("rol"));
->>>>>>> main
 			}
-			return empresaObject;
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
 		}
+		
+		return user;
+	}
+
+	@Override
+	public void update(Usuario user) {
+		conexionUno.update("UPDATE Usuario SET cedula = " + user.getCedula() + "nombre = '" + user.getNombre() +
+				" apellido = " + user.getApellido()  + "rol = '"+ user.getRol()+"correo = " + user.getCorreo() +
+				"contrasena =  "+ user.getContrasena() + "empresa = '"+ user.getEmpresa_id()+
+				"' WHERE id =  " + user.getId());
+		
+
+	}
+
+	@Override
+	public void delete(Usuario user) {
+		conexionUno.update("DELETE FROM Usuario WHERE id = " + user.getId());
+		
+
+	}
+	
+	@Override
+
+	public Empresa buscarEmpresa() {
+		// TODO Auto-generated method stub
+		Empresa empresaObject = null;
+		ResultSet rs = conexionUno.query("Select e.ID from empresa e, usuario u "
+				+ "where e.ID = u.Empresa_ID "
+				+ "AND u.ID = " + idB);
+		try {
+			if (rs != null && rs.next()) {
+				idB = rs.getString("id");
+				empresaObject = new Empresa(rs.getInt("id"), rs.getString("nombre"), rs.getString("ruc"));
+			}	
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCUsuarioDAO:read): " + e.getMessage());
+		}
+	}
+
+	
 	
 		@Override
 		public List<Usuario> find() {
@@ -179,6 +127,8 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 		
 			return list;
 		}
+		
+		
 		public List<Producto> listarProductos() {
 			// TODO Auto-generated method stub
 			List<Producto> list = new ArrayList<Producto>();
@@ -192,7 +142,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 				while (rs.next()) {
 					System.out.println("Entro en el while");
 					Producto producto = new Producto(rs.getInt("id"), rs.getString("nombre"), rs.getString("precio"),
-							rs.getString("descripcion"), rs.getInt("categoria_id"));
+							rs.getString("descripcion"), rs.getInt("categoria_id"), rs.getInt("empresa_id"));
 					System.out.println("IDs DE PRODUCTO:" + rs.getInt("id") + ", NOMBRE DE PRODUCTO: " + rs.getString("nombre"));
 					list.add(producto);
 				}
@@ -201,6 +151,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 			}
 			return list;
 		}
+
 		
 		public List<Producto> listarProductosNum2() {
 			// TODO Auto-generated method stub
@@ -215,7 +166,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 				while (rs.next()) {
 					System.out.println("Entro en el while");
 					Producto producto = new Producto(rs.getInt("id"), rs.getString("nombre"), rs.getString("precio"),
-							rs.getString("descripcion"), rs.getInt("categoria_id"));
+							rs.getString("descripcion"), rs.getInt("categoria_id"), rs.getInt("empresa_id"));
 					System.out.println("IDs DE PRODUCTO:" + rs.getInt("id") + ", NOMBRE DE PRODUCTO: " + rs.getString("nombre"));
 					list.add(producto);
 				}
@@ -225,7 +176,6 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 			return list;
 		}
 		
-<<<<<<< HEAD
 		public List<RequerimientosCompra>listarRequerimientosCompra() {
 			// TODO Auto-generated method stub
 			List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
@@ -248,9 +198,8 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 			}
 			return list;
 		}
-=======
 
-	}
+	
 	
 	@Override
 	public Usuario login(String mail, String pass) {
@@ -268,11 +217,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 		return us;
 	}
 
-	@Override
-	public List<Usuario> find() {
-		List<Usuario> list = new ArrayList<Usuario>();
->>>>>>> main
-		
+
 		public List<Empresa> listarEmpresa(){
 			List<Empresa> list = new ArrayList<Empresa>();
 			
@@ -295,9 +240,4 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 		}
 	
 	}
-<<<<<<< HEAD
 	
-=======
-
-}
->>>>>>> main

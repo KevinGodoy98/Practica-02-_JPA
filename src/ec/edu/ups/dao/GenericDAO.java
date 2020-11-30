@@ -2,13 +2,9 @@ package ec.edu.ups.dao;
 
 import java.util.List;
 
-<<<<<<< HEAD
 import ups.edu.ec.modelo.Empresa;
 import ups.edu.ec.modelo.Producto;
 import ups.edu.ec.modelo.RequerimientosCompra;
-=======
-import ups.edu.ec.modelo.Usuario;
->>>>>>> main
 
 /**
  * Interface GenericDAO.
