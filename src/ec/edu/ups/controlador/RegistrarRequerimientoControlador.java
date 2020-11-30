@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ec.edu.ups.dao.RequerimientosCompraDAO;
+
 /**
  * Servlet implementation class RegistrarRequerimientoControlador
  */

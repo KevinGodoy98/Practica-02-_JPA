@@ -2,6 +2,10 @@ package ec.edu.ups.dao;
 
 import java.util.List;
 
+import ups.edu.ec.modelo.Empresa;
+import ups.edu.ec.modelo.Producto;
+import ups.edu.ec.modelo.RequerimientosCompra;
+
 /**
  * Interface GenericDAO.
  * 
@@ -33,5 +37,11 @@ public interface GenericDAO<T, ID> {
 	public void delete(T entity);
 
 	public List<T> find();
+	
+	Empresa buscarEmpresa();
+	List<Producto> listarProductos();
+	List<Producto> listarProductosNum2();
+	List<Empresa> listarEmpresa();
+	List<RequerimientosCompra> listarRequerimientosCompra();
 
 }
