@@ -81,7 +81,7 @@ public class ListarProductoControlador extends HttpServlet {
 			;
 	}
 	private void despacharPeticiones() throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/JSPs/ListarProducto.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/tablaAdmin.jsp").forward(request, response);
 	}
 
 }
