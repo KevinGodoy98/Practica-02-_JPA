@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,10 +11,12 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Requerimientos de Compra Login</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
+    	<c:set var="m" scope="request" value="${mensaje}" />
+    	
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -26,17 +32,19 @@
                                                 <input class="form-control py-4" name="mail" id="inputEmailAddress" type="email" placeholder="Ingrese su correo..." />
                                             </div>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputPassword">ContraseÃ±a</label>
-                                                <input class="form-control py-4" name="pass" id="inputPassword" type="password" placeholder="Ingrese su contraseÃ±a..." />
+                                                <label class="small mb-1" for="inputPassword">Contraseña</label>
+                                                <input class="form-control py-4" name="pass" id="inputPassword" type="password" placeholder="Ingrese su contraseña..." />
                                             </div>
+                                            
+                                            
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Recordar contraseÃ±a</label>
+                                                    <label class="custom-control-label" for="rememberPasswordCheck">Recordar contraseña</label>
                                                 </div>
                                             </div>
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Olvido su contraseÃ±a?</a>
+                                                <a class="small" href="password.html">Olvido su contraseña?</a>
                                                 <input class="btn btn-primary" type="submit" value="Login"/>
                                             </div>
                                         </form>
@@ -67,6 +75,6 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/js/scripts.js"></script>
     </body>
 </html>

@@ -47,9 +47,9 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 
 	@Override
 	public void create(RequerimientosCompra requerimientosCompra) {
-		conexionDos.update("Insert RequerimientosCompra VALUES ("
-		+ requerimientosCompra.getId() + ", '" + requerimientosCompra.getUsuario_id() + ", " + requerimientosCompra.getEmpresa_id() + ", "
-		+ requerimientosCompra.getEstado() + ", " + requerimientosCompra.getProducto_id() + "', " + requerimientosCompra.getCantidad() +")");
+		conexionDos.update("Insert RequerimientosCompra (`Usuario_id`, `Empresa_id`, `estado`, `Producto_id`, `Cantidad`) VALUES ("
+		+ requerimientosCompra.getUsuario_id() + ", " + requerimientosCompra.getEmpresa_id() + ", '"
+		+ requerimientosCompra.getEstado() + "', " + requerimientosCompra.getProducto_id() + ", " + requerimientosCompra.getCantidad() +")");
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 		ResultSet rs = conexionUno.query("SELECT * FROM RequerimientosCompra WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
-				requerimientosCompra = new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"),
+				requerimientosCompra = new RequerimientosCompra( rs.getInt("usuario_id"), rs.getInt("empresa_id"),
 						rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad"));
 			}
 		} catch (SQLException e) {

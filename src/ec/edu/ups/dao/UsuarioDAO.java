@@ -26,7 +26,7 @@ import ups.edu.ec.modelo.Usuario;
  */
 public interface UsuarioDAO extends GenericDAO<Usuario, Integer> {
 	
-	
+	Usuario login(String mail, String pass);
 	
 	
 }

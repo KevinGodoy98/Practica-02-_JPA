@@ -3,9 +3,6 @@ package ups.edu.ec.jdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,8 +39,13 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void create(Producto producto) {
 
+<<<<<<< HEAD
 		conexionUno.update("INSERT Producto VALUES (" + producto.getId() + ", " + producto.getNombre() + ", '"
 				+ producto.getPrecio() + "', " + producto.getDescripcion() +     "', " + producto.getCategoria_id() +         " )");
+=======
+		conexionUno.update("INSERT producto VALUES (" + producto.getId() + ", '" + producto.getNombre() + "', '"
+				+ producto.getPrecio() + "', '" + producto.getDescripcion() +     "', " + producto.getCategoria_id() +   ", "+   + producto.getEmpresa_id()   +" )");
+>>>>>>> main
 
 	}
 
@@ -51,10 +53,10 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	public Producto read(Integer id) {
 
 		Producto producto = null;
-		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto WHERE id=" + id);
+		ResultSet rsProduct = conexionUno.query("SELECT * FROM producto WHERE id=" + id);
 		try {
 			if (rsProduct != null && rsProduct.next()) {
-				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"));
+				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"));
 				/*ResultSet rsShoppingBasket = conexionDos
 						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
 
@@ -78,7 +80,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void update(Producto producto) {
 
-		conexionUno.update("UPDATE Producto SET nombre = " + producto.getNombre() + "nombre = '" + producto.getPrecio() + " description = "
+		conexionUno.update("UPDATE producto SET nombre = " + producto.getNombre() + "nombre = '" + producto.getPrecio() + " description = "
 				+ producto.getDescripcion()  + "categoria_id = '"+ producto.getCategoria_id()+"' WHERE id = " + producto.getId());
 
 	}
@@ -86,7 +88,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void delete(Producto producto) {
 
-		conexionUno.update("DELETE FROM Product WHERE id = " + producto.getId());
+		conexionUno.update("DELETE FROM producto WHERE id = " + producto.getId());
 
 	}
 
@@ -96,7 +98,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto");
 		try {
 			while (rsProduct.next()) {
-				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id")));
+				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"), rsProduct.getInt("empresa_id")));
 				
 			}
 
@@ -105,6 +107,12 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		}
 
 		return list;
+	}
+
+	@Override
+	public Set<Producto> listarProducto(int id_producto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

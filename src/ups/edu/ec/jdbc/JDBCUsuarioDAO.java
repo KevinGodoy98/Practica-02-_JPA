@@ -1,4 +1,5 @@
 package ups.edu.ec.jdbc;
+<<<<<<< HEAD
 	
 	import java.sql.ResultSet;
 	import java.sql.SQLException;
@@ -102,6 +103,60 @@ package ups.edu.ec.jdbc;
 				}	
 			} catch (SQLException e) {
 				System.out.println(">>>WARNING (JDBCUsuarioDAO:read): " + e.getMessage());
+=======
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.dao.UsuarioDAO;
+
+import ec.edu.ups.dao.UsuarioDAO;
+import ups.edu.ec.modelo.Usuario;
+
+/**
+ * Clase JDBCUserDAO.
+ * 
+ * La clase JDBCUserDAO hereda los métodos y atributos de la clase abstracta
+ * padre JDBCGenericDAO, así como también, implementa los métodos de la
+ * interface UserDAO.
+ * 
+ * Teniendo de esta manera una clase específica que gestionara la persistencia a
+ * la base de datos del modelo User
+ * 
+ * @author Gabriel A. León Paredes 
+ * Doctor en Tecnologías de Información
+ * https://www.linkedin.com/in/gabrielleonp
+ *
+ * @see JDBCUsuarioDAO
+ * @see UserDAO
+ * @see User
+ * 
+ * @version 1.0
+ */
+public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements UsuarioDAO {
+
+	@Override
+	public void createTable() {
+		
+	}
+
+	@Override
+	public void create(Usuario user) {
+
+	}
+
+	@Override
+	public Usuario read(Integer id) {
+
+		Usuario user = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE id=" + id);
+		try {
+			if (rs != null && rs.next()) {
+				user = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), rs.getString("contrasena"), rs.getString("rol"));
+>>>>>>> main
 			}
 			return empresaObject;
 		}
@@ -170,6 +225,7 @@ package ups.edu.ec.jdbc;
 			return list;
 		}
 		
+<<<<<<< HEAD
 		public List<RequerimientosCompra>listarRequerimientosCompra() {
 			// TODO Auto-generated method stub
 			List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
@@ -192,6 +248,30 @@ package ups.edu.ec.jdbc;
 			}
 			return list;
 		}
+=======
+
+	}
+	
+	@Override
+	public Usuario login(String mail, String pass) {
+		
+		Usuario us = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE correo='"+ mail+"' AND contrasena='"+pass+"'");
+		try {
+			if (rs != null && rs.next()) {
+				us = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("rol"), rs.getString("correo"), rs.getString("contrasena"));
+			} 
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
+		}
+		
+		return us;
+	}
+
+	@Override
+	public List<Usuario> find() {
+		List<Usuario> list = new ArrayList<Usuario>();
+>>>>>>> main
 		
 		public List<Empresa> listarEmpresa(){
 			List<Empresa> list = new ArrayList<Empresa>();
@@ -215,4 +295,9 @@ package ups.edu.ec.jdbc;
 		}
 	
 	}
+<<<<<<< HEAD
 	
+=======
+
+}
+>>>>>>> main
