@@ -88,7 +88,7 @@
                             <div class="input-group-prepend">
                               <input type="button" value="Modificar"/>
                               <input type="button" value="Eliminar"/>
-                              <button class="input-group-text" name="btn" value="bscCedula" type="submit">Listar Productos</button>
+                              <button class="input-group-text" name="btn" value="bscCedula" type="submit">Listar Producto</button>
                               </div>
                               </div>
                               </form>
