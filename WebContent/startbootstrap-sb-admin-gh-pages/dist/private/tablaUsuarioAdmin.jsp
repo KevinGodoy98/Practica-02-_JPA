@@ -74,12 +74,12 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                          <form id="form_cabecera" action="/Practica_laboratorio_1/RequerimientosControlador" method="post">
+                          <form id="form_cabecera1" action="/Practica_laboratorio_1/RequerimientosControlador" method="post">
                             <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                               <input type="button" value="Modificar"/>
                               <input type="button" value="Eliminar"/>
-                              <button class="input-group-text" name="btn" value="bscCedula" type="submit">Listar Requerimiento</button>
+                              <button class="input-group-text" name="btn1" value="bscCedula1" type="submit">Listar Requerimiento</button>
                               </div>
                               </div>
                            </form>
