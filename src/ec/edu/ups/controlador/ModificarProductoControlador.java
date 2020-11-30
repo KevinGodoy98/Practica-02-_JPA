@@ -37,5 +37,9 @@ public class ModificarProductoControlador extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
+	public void modificarProducto() {
+		
+	}
 
 }
