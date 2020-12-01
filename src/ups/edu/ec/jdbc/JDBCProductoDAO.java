@@ -22,9 +22,6 @@ import ups.edu.ec.modelo.Producto;
  * Teniendo de esta manera una clase específica que gestionara la persistencia a
  * la base de datos del modelo Product
  * 
- * @author Gabriel A. León Paredes 
- * Doctor en Tecnologías de Información
- * https://www.linkedin.com/in/gabrielleonp
  *
  * @see JDBCGenericDAO
  * @see ProductDAO
@@ -78,18 +75,19 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void update(Producto producto) {
 
-		conexionUno.update("UPDATE Producto SET nombre = " + producto.getNombre() + "nombre = '" + producto.getPrecio() + " description = "
-				+ producto.getDescripcion()  + "categoria_id = '"+ producto.getCategoria_id()+"' WHERE id = " + producto.getId());
+		conexionUno.update("UPDATE Producto SET nombre = '" + producto.getNombre() + "', precio = '"
+				+ producto.getPrecio() + "', descripcion = ' "
+						+ producto.getDescripcion()+ " ', categoria_id = "
+								+ producto.getCategoria_id()+ " WHERE id = " + producto.getId());
 
 	}
 
 	@Override
 	public void delete(Producto producto) {
-
-		conexionUno.update("DELETE FROM Product WHERE id = " + producto.getId());
-
+		conexionUno.update("DELETE FROM Producto WHERE id = " + producto.getId());
 	}
-
+	
+	
 	@Override
 	public List<Producto> find() {
 		List<Producto> list = new ArrayList<Producto>();
@@ -105,6 +103,12 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		}
 
 		return list;
+	}
+
+	@Override
+	public Set<Producto> listarProducto(int id_producto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

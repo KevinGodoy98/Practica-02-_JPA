@@ -49,8 +49,8 @@ public class JDBCEmpresaDAO extends JDBCGenericDAO<Empresa, Integer> implements 
 	}
 
 	@Override
-	public void delete(Empresa empresa) {
-
+	public boolean delete(Empresa empresa) {
+         return empresa;
 	}
 
 	@Override

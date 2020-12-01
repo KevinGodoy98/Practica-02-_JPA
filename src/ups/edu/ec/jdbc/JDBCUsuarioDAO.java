@@ -73,12 +73,6 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 
 	}
 
-	@Override
-	public void delete(Usuario user) {
-
-		
-
-	}
 
 	@Override
 	public List<Usuario> find() {

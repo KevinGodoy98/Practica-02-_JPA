@@ -45,7 +45,7 @@
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="register_pro.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -88,11 +88,10 @@
                             <form id="form_cabecera" action="/Practica_laboratorio_1/ProductoControlador" method="post">
                             <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
-                              <a class="nav-link" href="ModificarProducto.jsp">Modificar</a>
                               
                               <button class="input-group-text" name="btn" value="bscCedula" type="submit">Listar Producto</button>
-                              <input type="text" class="form-control" id="eliminar" name="eliminarP" style="width:220px" placeholder="ingrese el id del producto">
-                              <input type="submit" value="Eliminar" />
+                 
+                              
                               </div>
                               </div>
                               </form>
@@ -106,7 +105,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <form  id="form_tabla" action="/Practica_laboratorio_1/ProductoControlador" method="post">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="2">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
@@ -114,15 +113,19 @@
                                                 <th>Precio</th>
                                                 <th>Descripcion</th>
                                                 <th>Categoria_id</th>
+                                                <th>Modificar</th>
+                                                <th>Eliminar</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                               <th>Id</th>
+                                               	<th>Id</th>
                                                 <th>Nombre</th>
                                                 <th>Precio</th>
                                                 <th>Descripcion</th>
                                                 <th>Categoria_id</th>
+                                                 <th>Modificar</th>
+                                                  <th>Eliminar</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -133,7 +136,8 @@
         										<td><c:out value="${row.precio}"/></td>
        											<td><c:out value="${row.descripcion}"/></td>
          										<td><c:out value="${row.categoria_id}"/></td>
-         										<td><input type="submit" name="modificar_${ row.id }">Modificar</input></td>
+         										<td><input type="submit" name="modificar_${ row.id }" value="Modificar"></input></td>
+   												<td><input type= "submit" name="eliminar_${ row.id }" value="Eliminar"></input></td>
    											 </tr>
  
 										</c:forEach>
@@ -169,8 +173,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/datatables-demo.js"></script>
-        
-        
+ 
 <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/jquery-3.3.1.min.js"></script>
 <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/jquery-ui.js"></script>
 <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/bootstrap.min.js"></script>

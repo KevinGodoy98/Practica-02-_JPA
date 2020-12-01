@@ -31,7 +31,8 @@ public class ModificarProductoControlador extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public ModificarProductoControlador() {
-        super();
+    	productoDAO = DAOFactory.getFactory().getProductoDAO();
+    	result = "";
         // TODO Auto-generated constructor stub
     }
 
@@ -48,7 +49,8 @@ public class ModificarProductoControlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-System.out.println(request.getParameter("categ"));
+		
+		System.out.println(request.getParameter("categ"));
 		
 		String url, descripcion, nombre, precio;
 		int id, empresa, catg;
@@ -96,7 +98,7 @@ System.out.println(request.getParameter("categ"));
 			try {
 				
 				producto = new Producto(id, nombre, precio, descripcion, catg);
-				productoDAO.create(producto);
+				productoDAO.update(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");
 				

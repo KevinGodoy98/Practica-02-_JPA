@@ -49,14 +49,20 @@ public class ListarProductoControlador extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Optional<String> s = request.getParameterMap().keySet().stream().filter(e->e.contains("modificar_")).findFirst();
+		Optional<String> s1 = request.getParameterMap().keySet().stream().filter(e->e.contains("eliminar_")).findFirst();
 		if(s.isPresent()) {
 			redirigirAModificar(Integer.parseInt(s.get().split("_")[1]));
 			return;
 		}else {
+			if(s1.isPresent()) {
+			redirigirAEliminar(Integer.parseInt(s1.get().split("_")[1]));
+			return;
+			}else{
 			this.request = request;
 			this.response = response;
 			ListarProducto();
 		}
+	}
 	}
 	
 	private void redirigirAModificar(int productoID) throws ServletException, IOException {
@@ -80,6 +86,27 @@ public class ListarProductoControlador extends HttpServlet {
 	private void despacharModificar() throws ServletException, IOException {
 		System.out.println("TESTING--->");
 		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/ModificarProducto.jsp").forward(request, response);
+	}
+	
+	
+	private void redirigirAEliminar(int productoID) throws ServletException, IOException {
+		ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
+		List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
+		List<Categoria> lstCategorias = DAOFactory.getFactory().getCategoriaDAO().find();
+		Optional<Producto> producto = lstProductos.stream().filter(e->e.getId()==productoID).findFirst();
+		
+		if(producto.isPresent()){
+			System.out.println("SE DEBE REDIRiGIR eliminar");
+			request.setAttribute("producto_eliminar", producto.get());
+			request.setAttribute("id", lstCategorias);
+			despacharEliminar();
+
+		}
+			
+	}
+	private void despacharEliminar() throws ServletException, IOException {
+		System.out.println("TESTING--->");
+		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/EliminarProducto.jsp").forward(request, response);
 	}
 	
 	private void ListarProducto() {
@@ -112,8 +139,6 @@ public class ListarProductoControlador extends HttpServlet {
 	private void despacharPeticiones() throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/tablaAdmin.jsp").forward(request, response);
 	}
-	public void Eliminar(int id) {
-			
-	}
+	
 	
 }
