@@ -75,7 +75,7 @@
                             <li class="breadcrumb-item"><a href="index1.html">Inicio</a></li>
                             <li class="breadcrumb-item active">Listado de Requerimientos</li>
                         </ol>
-                        <form id="form_cabecera" action="/Practica_laboratorio1/ListarRequerimientosControlador" method='post'>
+                        <form id="form_cabecera" action="/Practica_laboratorio_1/ListarRequerimientosControlador" method='post'>
                         <div class="card mb-4">
                             <div class="card-body">
                                <input type="button" value="Modificar"/>
