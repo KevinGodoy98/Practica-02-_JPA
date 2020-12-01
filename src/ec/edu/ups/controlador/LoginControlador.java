@@ -82,7 +82,7 @@ public class LoginControlador extends HttpServlet {
 			
 		} catch (Exception e) {
 			request.setAttribute("mensaje", "(!) Usuario no registrado");
-			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/login.html";
+			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.html";
 			httpResponse.sendRedirect(url);
 			System.out.println("INTERNAL ERROR");
 			System.out.println(e.getMessage());
