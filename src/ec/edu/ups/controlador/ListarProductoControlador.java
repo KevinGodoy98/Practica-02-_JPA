@@ -3,6 +3,7 @@ package ec.edu.ups.controlador;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.ProductoDAO;
-
-
-
+import ups.edu.ec.modelo.Categoria;
 import ups.edu.ec.modelo.Producto;
 
 
@@ -46,17 +45,46 @@ public class ListarProductoControlador extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	private boolean flag;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	     
-		this.request = request;
-		this.response = response;
-		ListarProducto();
+		Optional<String> s = request.getParameterMap().keySet().stream().filter(e->e.contains("modificar_")).findFirst();
+		if(s.isPresent()) {
+			redirigirAModificar(Integer.parseInt(s.get().split("_")[1]));
+			return;
+		}else {
+			this.request = request;
+			this.response = response;
+			ListarProducto();
+		}
+	}
+	
+	private void redirigirAModificar(int productoID) throws ServletException, IOException {
+		ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
+		List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
+		List<Categoria> lstCategorias = DAOFactory.getFactory().getCategoriaDAO().find();
+		Optional<Producto> producto = lstProductos.stream().filter(e->e.getId()==productoID).findFirst();
+		
+		if(producto.isPresent()){
+			System.out.println("SE DEBE REDIRiGIR");
+			request.setAttribute("producto_modificar", producto.get());
+			request.setAttribute("catg", lstCategorias);
+			despacharModificar();
+
+		}
+			
+	}
+	
+	
+	
+	private void despacharModificar() throws ServletException, IOException {
+		System.out.println("TESTING--->");
+		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/ModificarProducto.jsp").forward(request, response);
 	}
 	
 	private void ListarProducto() {
 		
-		 System.out.println("llamado");
+		 System.out.println("llaaaaaamado");
 	     
 	      Object[] objs = new Object[2];
 		  objs[0] = false;
@@ -80,8 +108,12 @@ public class ListarProductoControlador extends HttpServlet {
 			}
 			;
 	}
+	
 	private void despacharPeticiones() throws ServletException, IOException {
 		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/tablaAdmin.jsp").forward(request, response);
 	}
-
+	public void Eliminar(int id) {
+			
+	}
+	
 }

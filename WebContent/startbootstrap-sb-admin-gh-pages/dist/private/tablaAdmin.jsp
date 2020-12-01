@@ -61,6 +61,8 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Requerimientos
                             </a>
+                            
+                           
                         </div>
                     </div>
                     
@@ -86,9 +88,11 @@
                             <form id="form_cabecera" action="/Practica_laboratorio_1/ProductoControlador" method="post">
                             <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
-                              <input type="button" value="Modificar"/>
-                              <input type="button" value="Eliminar"/>
+                              <a class="nav-link" href="ModificarProducto.jsp">Modificar</a>
+                              
                               <button class="input-group-text" name="btn" value="bscCedula" type="submit">Listar Producto</button>
+                              <input type="text" class="form-control" id="eliminar" name="eliminarP" style="width:220px" placeholder="ingrese el id del producto">
+                              <input type="submit" value="Eliminar" />
                               </div>
                               </div>
                               </form>
@@ -101,6 +105,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    <form  id="form_tabla" action="/Practica_laboratorio_1/ProductoControlador" method="post">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -128,12 +133,14 @@
         										<td><c:out value="${row.precio}"/></td>
        											<td><c:out value="${row.descripcion}"/></td>
          										<td><c:out value="${row.categoria_id}"/></td>
+         										<td><input type="submit" name="modificar_${ row.id }">Modificar</input></td>
    											 </tr>
  
 										</c:forEach>
                                             
                                         </tbody>
                                     </table>
+                                    </form>
                                 </div>
                             </div>
                         </div>
