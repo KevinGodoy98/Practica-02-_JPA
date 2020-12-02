@@ -39,8 +39,8 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 	@Override
 	public void create(Producto producto) {
 
-		conexionUno.update("INSERT Product VALUES (" + producto.getId() + ", " + producto.getNombre() + ", '"
-				+ producto.getPrecio() + "', " + producto.getDescripcion() +     "', " + producto.getCategoria_id() +         " )");
+		conexionUno.update("INSERT Producto VALUES (" + producto.getId() + ", '" + producto.getNombre() + "', '"
+				+ producto.getPrecio() + "', '" + producto.getDescripcion() +     "', " + producto.getCategoria_id() +", "+ producto.getEmpresa_id()+", '"+   producto.getEstado()   +  "' )");
 
 	}
 
@@ -87,6 +87,22 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		conexionUno.update("UPDATE Producto SET estado ='E' WHERE id = " + producto.getId());
 	}
 	
+	@Override
+	public List<Producto> find_emp(int emp) {
+		List<Producto> list = new ArrayList<Producto>();
+		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto WHERE Empresa_id="+emp);
+		try {
+			while (rsProduct.next()) {
+				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"),rsProduct.getString("estado")));
+				//System.out.println("se leyo ");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+		}
+
+		return list;
+	}
 	
 	@Override
 	public List<Producto> find() {
@@ -95,7 +111,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		try {
 			while (rsProduct.next()) {
 				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"),rsProduct.getString("estado")));
-				System.out.println("se leyo ");
+				//System.out.println("se leyo ");
 			}
 
 		} catch (SQLException e) {

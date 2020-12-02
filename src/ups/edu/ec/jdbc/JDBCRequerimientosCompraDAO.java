@@ -135,7 +135,7 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 	public List<RequerimientosCompra> find() {
 		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
 		
-		ResultSet rs = conexionUno.query("SELECT * FROM requerimientoscompra WHERE ");
+		ResultSet rs = conexionUno.query("SELECT * FROM requerimientoscompra ");
 		try {
 			while (rs.next()) {
 				list.add(new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"), rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad")));

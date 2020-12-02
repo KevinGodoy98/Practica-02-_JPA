@@ -76,13 +76,13 @@ public class LoginControlador extends HttpServlet {
 			} else {
 				
 				request.setAttribute("mensaje", "(!) Usuario no registrado");
-				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/login.jsp";
+				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
 				httpResponse.sendRedirect(url);
 			}
 			
 		} catch (Exception e) {
 			request.setAttribute("mensaje", "(!) Usuario no registrado");
-			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.html";
+			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
 			httpResponse.sendRedirect(url);
 			System.out.println("INTERNAL ERROR");
 			System.out.println(e.getMessage());

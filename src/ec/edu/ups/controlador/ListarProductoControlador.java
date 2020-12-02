@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.ProductoDAO;
@@ -50,13 +51,17 @@ public class ListarProductoControlador extends HttpServlet {
 		// TODO Auto-generated method stub
 		Optional<String> s = request.getParameterMap().keySet().stream().filter(e->e.contains("modificar_")).findFirst();
 		Optional<String> s1 = request.getParameterMap().keySet().stream().filter(e->e.contains("eliminar_")).findFirst();
+		
+		HttpSession session = request.getSession(true);
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		
 		if(s.isPresent()) {
 			redirigirAModificar(Integer.parseInt(s.get().split("_")[1]));
-			return;
+			//return;
 		}else {
 			if(s1.isPresent()) {
 			redirigirAEliminar(Integer.parseInt(s1.get().split("_")[1]));
-			return;
+			//return;
 			}else{
 			this.request = request;
 			this.response = response;
@@ -111,7 +116,7 @@ public class ListarProductoControlador extends HttpServlet {
 	
 	private void ListarProducto() {
 		
-		 System.out.println("llaaaaaamado");
+		 //System.out.println("llaaaaaamado");
 	     
 	      Object[] objs = new Object[2];
 		  objs[0] = false;
@@ -121,8 +126,8 @@ public class ListarProductoControlador extends HttpServlet {
 			objs[1] = lstProductos;
 			try {
 				if(lstProductos.size()==0) {
-					//System.out.println("llega");
-					request.setAttribute("error", new ups.edu.ec.modelo.Error("Error al obtener la lista de Productos."));
+					
+					//request.setAttribute("error", new ups.edu.ec.modelo.Error("Error al obtener la lista de Productos."));
 					despacharPeticiones();
 				}else {
 				    request.setAttribute("error", null);
