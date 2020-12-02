@@ -1,6 +1,9 @@
 package ups.edu.ec.jdbc;
 
+import java.util.List;
+
 import ec.edu.ups.dao.GenericDAO;
+import ups.edu.ec.modelo.RequerimientosCompra;
 
 /**
  * Clase JDBCGenericDAO.
@@ -27,4 +30,5 @@ import ec.edu.ups.dao.GenericDAO;
 public abstract class JDBCGenericDAO<T, ID> implements GenericDAO<T, ID> {
 	protected ContextJDBC conexionUno = ContextJDBC.getJDBC1();
 	protected ContextJDBC conexionDos = ContextJDBC.getJDBC2();
+	
 }

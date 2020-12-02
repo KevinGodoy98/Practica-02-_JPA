@@ -72,6 +72,10 @@
                                             	<input class="btn btn-primary btn-block" type="submit" value="Crear Producto"/>            
                                             </div>
                                             
+                                            <a class="btn btn-primary btn-block" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_admin.jsp">				
+				                                Cancelar
+				                            </a>
+                                            
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                            		<p>${m}</p>
                                            </div>

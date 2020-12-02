@@ -2,6 +2,8 @@ package ec.edu.ups.dao;
 
 import java.util.List;
 
+import ups.edu.ec.modelo.Usuario;
+
 /**
  * Interface GenericDAO.
  * 

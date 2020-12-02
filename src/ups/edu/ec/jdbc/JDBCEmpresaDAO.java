@@ -4,9 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import ec.edu.ups.dao.EmpresaDAO;
 import ups.edu.ec.modelo.Empresa;
+import ec.edu.ups.dao.EmpresaDAO;
 
 
 public class JDBCEmpresaDAO extends JDBCGenericDAO<Empresa, Integer> implements EmpresaDAO {

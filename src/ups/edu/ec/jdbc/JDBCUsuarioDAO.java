@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.ups.dao.DAOFactory;
-
 import ec.edu.ups.dao.UsuarioDAO;
 
+import ec.edu.ups.dao.UsuarioDAO;
 import ups.edu.ec.modelo.Usuario;
 
 /**
@@ -41,20 +41,13 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	@Override
 	public void create(Usuario user) {
 
-		/*conexionUno.update("INSERT User VALUES (" + user.getId() + ", " + user.getLevel() + ", '" + user.getName()
-				+ "', '" + user.getPassword() + "')");
-		UserDetail userDetail = user.getDetail();
-		if (userDetail != null) {
-			DAOFactory.getFactory().getUserDetailDAO().create(userDetail);
-		}*/
-
 	}
 
 	@Override
 	public Usuario read(Integer id) {
 
 		Usuario user = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM User WHERE id=" + id);
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
 				user = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), rs.getString("contrasena"), rs.getString("rol"));
@@ -73,13 +66,35 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 
 	}
 
+	@Override
+	public void delete(Usuario user) {
+
+		
+
+	}
+	
+	@Override
+	public Usuario login(String mail, String pass) {
+		
+		Usuario us = null;
+		ResultSet rs = conexionUno.query("SELECT * FROM usuario WHERE correo='"+ mail+"' AND contrasena='"+pass+"'");
+		try {
+			if (rs != null && rs.next()) {
+				us = new Usuario(rs.getInt("id"), rs.getInt("Empresa_id"), rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("rol"), rs.getString("correo"), rs.getString("contrasena"));
+			} 
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
+		}
+		
+		return us;
+	}
 
 	@Override
 	public List<Usuario> find() {
 		List<Usuario> list = new ArrayList<Usuario>();
+
 		
-		return list;
+			return list;
 	}
 
 }
-

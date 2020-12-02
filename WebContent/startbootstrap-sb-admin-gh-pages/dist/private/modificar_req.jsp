@@ -10,12 +10,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+<<<<<<< HEAD:WebContent/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp
+        <title>Requerimientos de compra</title>
+        <link href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+=======
         <title>Requerimientos de Compra Registro</title>
         <link href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/css/styles.css" rel="stylesheet" />
+>>>>>>> main:WebContent/startbootstrap-sb-admin-gh-pages/dist/private/modificar_req.jsp
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
+    	<c:set var="p" scope="request" value="${producto}" />
+    	<c:set var="c" scope="request" value="${cantidad}" />
     	<c:set var="m" scope="request" value="${mensaje}" />
+    	<c:set var="i" scope="request" value="${id}" />
     
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -28,21 +37,25 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Registrar Requerimiento de Compra</h3></div>
                                     <div class="card-body">
-                                        <form action="/Practica_laboratorio_1/RegistrarRequerimientoControlador" method="post">
+                                        <form action="/Practica_laboratorio_1/ActualizarRequerimientoControlador" method="post">
                                             <div class="form-row">
                                             	<div class="col-md-6">
                                                 <div class="form-group">
                                                         <label class="small mb-1" for="inputid">id_producto</label><br>
-                                                        <input class="form-control py-4" id="inputid" name="id" type="number" placeholder="Ingrese el id del producto" />
+                                                        <input class="form-control py-4" id="inputid" name="id" type="number" value="${p}" placeholder="Ingrese el id del producto" />
                                                    		<label class="small mb-1" for="inputcantidad">Cantidad</label><br>
-                                                        <input class="form-control py-4" id="inputid" name="cant" type="number" placeholder="Ingrese la cantidad a solicitar" />
+                                                        <input class="form-control py-4" id="inputid" name="cant" type="number" value="${c}" placeholder="Ingrese la cantidad a solicitar" />
+                                                   
+                                                   		<input  id="id_req" name="id_req" type="hidden" value="${i}"  />
                                                    
                                                     </div>
                                                            <div class="form-group mt-4 mb-0">
-                                                           <input class="btn btn-primary btn-block" type="submit" value="Solicitar Requerimiento"/>
+                                                           <input class="btn btn-primary btn-block" type="submit" value="Actualizar Requerimiento"/>
+                                                           
                                                            <a class="btn btn-primary btn-block" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp">				
 								                                Cancelar
 								                            </a>
+                                                           
                                                            </div>
                                                            
                                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
@@ -67,13 +80,7 @@
                             <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
                             <li class="breadcrumb-item active">Tables</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                              <input type="button" value="Modificar"/>
-                              <input type="button" value="Eliminar"/>
-                              <input type="button" value="Buscar"/>
-                            </div>
-                        </div>
+                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -90,7 +97,7 @@
                                                 <th>Descripcion</th>
                                             </tr>
                                         </thead>
-                                       
+                                        
                                         <tbody>
                                             <tr>
                                                 <td>Tiger Nixon</td>
@@ -518,7 +525,11 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/js/scripts.js"></script>
+<<<<<<< HEAD:WebContent/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+=======
          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+>>>>>>> main:WebContent/startbootstrap-sb-admin-gh-pages/dist/private/modificar_req.jsp
         <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/chart-area-demo.js"></script>
         <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>

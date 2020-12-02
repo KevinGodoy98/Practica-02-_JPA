@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.List"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,10 +48,21 @@
                             <div class="sb-sidenav-menu-heading">Usuario</div>
                            
                   
-                             <a class="nav-link" href="tablaUsuarioAdmin.jsp">
+                             <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/register_pro.jsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Registrar Producto
+                            </a>
+                  
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaAdmin.jsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Listar Productos
+                            </a>
+                            
+                             <a class="nav-link" href="/Practica_laboratorio_1/ListarRequerimientosControlador?dir=c">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Requerimientos
                             </a>
+                            
                         </div>
                     </div>
                     
@@ -65,7 +75,6 @@
             </div>
           <div id="layoutSidenav_content">
                 <main>
-                 <c:set var="req" value="${requestScope['lstRequerimientos']} " />
                     <div class="container-fluid">
                         <h1 class="mt-4">Tables</h1>
                         <ol class="breadcrumb mb-4">
@@ -74,15 +83,22 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                          <form id="form_cabecera1" action="/Practica_laboratorio_1/RequerimientosControlador" method="post">
-                            <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                              <input type="button" value="Modificar"/>
-                              <input type="button" value="Eliminar"/>
-                              <button class="input-group-text" name="btn1" value="bscCedula1" type="submit">Listar Requerimiento</button>
-                              </div>
-                              </div>
-                           </form>
+                              
+                              <form action="/Practica_laboratorio_1/AceptarRequerimientoControlador" method="post">
+                              	
+                              	<div class="form-group">
+                                     <label class="small mb-1" for="inputid">ID del Requerimiento</label>
+                                     <input class="form-control py-4" name="id" id="inputid" type="number" placeholder="Ingrese el id" />
+                                        
+                                </div>
+                                
+                                <input class="btn btn-primary btn-block" name="apr" type="submit" value="Aprobar"/>
+                              	<input class="btn btn-primary btn-block" name="rec" type="submit" value="Rechazar"/>
+                                
+                              
+                              </form>
+                              
+                               
                             </div>
                         </div>
                         <div class="card mb-4">
@@ -96,39 +112,28 @@
                                          <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Usuario_id</th>
-                                                <th>Empresa_id</th>
-                                                <th>Estado</th>
-                                                <th>Producto_id</th>
+                                                <th>Producto</th>
                                                 <th>Cantidad</th>
+                                                <th>Estado</th>
                                                 
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Usuario_id</th>
-                                                <th>Empresa_id</th>
-                                                <th>Estado</th>
-                                                <th>Producto_id</th>
-                                                <th>Cantidad</th>
-                                            </tr>
-                                        </tfoot>
+                                        
                                         <tbody>
-                                         
-                                     <c:forEach var="row" items="${lstRequerimientos}">
-   											 <tr>
-       											<td><c:out value="${row.id}"/></td>
-        										<td><c:out value="${row.usuario_id}"/></td>
-        										<td><c:out value="${row.empresa_id}"/></td>
-       											<td><c:out value="${row.estado}"/></td>
-         										<td><c:out value="${row.producto_id}"/></td>
-         										<td><c:out value="${row.cantidad}"/></td>
-   											 </tr>
- 
-										</c:forEach>
-                                              
-                                           
+                                            <c:set var="pr" scope="request" value="${productos}" />
+                                            <c:forEach var="rq" items="${requerimientos}" varStatus="loop">
+                                            
+                                            	
+                                            	<tr>
+                                            		<td><c:out value="${rq.getId()}"/></td>
+                                            		<td><c:out value="${pr[loop.index]}"/></td> 
+                                            		<td><c:out value="${rq.getCantidad()}"/></td>
+                                            		<td><c:out value="${rq.getEstado()}"/></td>  
+                                            	</tr>
+                                            	
+                                            
+                                            </c:forEach>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -159,13 +164,5 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/assets/demo/datatables-demo.js"></script>
-        
-        <script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/jquery-3.3.1.min.js"></script>
-<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/jquery-ui.js"></script>
-<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/bootstrap.min.js"></script>
-<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/aos.js"></script>
-
-
-<script src="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/js/main.js"></script>
     </body>
 </html>
