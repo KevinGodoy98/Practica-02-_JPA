@@ -90,14 +90,7 @@
                                                 <th>Descripcion</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                               <th>Id</th>
-                                                <th>Nombre</th>
-                                                <th>Precio</th>
-                                                <th>Descripcion</th>
-                                            </tr>
-                                        </tfoot>
+                                       
                                         <tbody>
                                             <tr>
                                                 <td>Tiger Nixon</td>

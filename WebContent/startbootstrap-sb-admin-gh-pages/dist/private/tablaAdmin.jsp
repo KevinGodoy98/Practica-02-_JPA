@@ -46,17 +46,17 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Admin</div>
-                            <a class="nav-link" href="register.html">
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/register_pro.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Registrar Producto
                             </a>
                   
-                            <a class="nav-link" href="tablaAdmin.html">
+                            <a class="nav-link" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaAdmin.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Productos
                             </a>
                             
-                             <a class="nav-link" href="tablaUsuarioAdmin.html">
+                             <a class="nav-link" href="/Practica_laboratorio_1/ListarRequerimientosControlador?dir=c">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Listar Requerimientos
                             </a>

@@ -92,8 +92,9 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, Integer> implements 
 	@Override
 	public List<Usuario> find() {
 		List<Usuario> list = new ArrayList<Usuario>();
+
 		
-		return list;
+			return list;
 	}
 
 }

@@ -110,7 +110,12 @@ public class ModificarRequerimientoControlador extends HttpServlet {
 			
 			}
 	    	
-	    } else {
+	    } else if (request.getParameter("list") != null) {
+	    	
+	    	url = "/Practica_laboratorio_1/ListarRequerimientosControlador";
+			httpResponse.sendRedirect(url+"?dir=a");
+	    	
+	    } else{
 	    	url = "/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
 			getServletContext().getRequestDispatcher(url).forward(request, response);
 	    }
