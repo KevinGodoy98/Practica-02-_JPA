@@ -80,8 +80,6 @@ public class ListarRequerimientosControlador extends HttpServlet {
 				request.setAttribute("empresa", em);
 				request.setAttribute("usuario", us);
 
-				
-
 				url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
 			} catch (Exception e) {
 				url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";

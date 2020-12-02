@@ -100,7 +100,7 @@ System.out.println(request.getParameter("emp"));
 			flag = true;
 		}
 		
-		if(request.getParameter("nombre").isEmpty()) {
+		if(request.getParameter("nombres").isEmpty()) {
 			request.setAttribute("mensaje", "(!) Llene todos los campos");
 			flag = true;
 		}
@@ -110,41 +110,48 @@ System.out.println(request.getParameter("emp"));
 			flag = true;
 		}
 		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html:charset=UTF-8");
+		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
 		
+		Object mostrar = request.getParameter("mostrarPrincipalListaEm");
+		List<Producto> pro = new ArrayList<Producto>();
+		List<Empresa> em = new ArrayList<Empresa>();
+		List<Usuario> us = new ArrayList<Usuario>();
+
 		
 		if(flag==false) {
 			
 			id = Integer.valueOf(request.getParameter("id"));
-			nombre = request.getParameter("nombre");
+			nombre = request.getParameter("nombres");
 			ruc = request.getParameter("ruc");
 			//empresa = Integer.valueOf(session.getAttribute("empresa_id").toString());
-			emp = (request.getParameter("categ"));
-			descripcion = request.getParameter("descrip");
-		
 			
-			try {
+			
+			if (mostrar.equals("visualizar")) {
+				try {
+					
+					empresa = new Empresa(id, nombre, ruc);
+					empresaDAO.create(empresa);
 				
-				empresa = new Empresa(id, nombre, ruc);
-				empresaDAO.create(empresa);
-				//requerimientosDAO.create(requerimiento);
-				//request.setAttribute("Mensaje", "Requerimiento agragado");
-				
-				if(session.getAttribute("rol").toString().equals("U")) {
-					url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/home.jsp";
-					httpResponse.sendRedirect(url);
-				} else {
-					url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/home.jsp";
-					httpResponse.sendRedirect(url);
+					em = usuarioDao.listarEmpresa();
+					us = usuarioDao.listarUsuario();
+					pro = usuarioDao.listarProductosNum2();
+
+					request.setAttribute("empresa", em);
+					request.setAttribute("usuario", us);
+					request.setAttribute("productos", pro);
+
+
+					url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/home.jsp";
+				} catch (Exception e) {
+					url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/home.jsp";
+					System.out.println("Error en el login: " + e.getMessage());
 				}
-				response.getWriter().append("Served at: ").append(request.getContextPath());
+				request.getRequestDispatcher(url).forward(request, response);
 				
-			} catch (Exception e) {
-				request.setAttribute("mensaje", "(!) Ocurrio un ERROR");
 			}
-		} else {
-			getServletContext().getRequestDispatcher(url).forward(request, response);
-		}
 		
-	
+		}
 	}
 }

@@ -123,8 +123,8 @@
                                     	
                                     	
 										    <label class="small mb-1" for="inputdescripcion">Empresa</label>
-                                                        <select id="cars" name="emp" class="custom-select">
-														  <c:forEach items="${empre}" var="empresa">
+                                                        <select id="cars" name="nombres" class="custom-select">
+														  <c:forEach items="${nombre}" var="empresa">
 													        <option value="${empresa.getNombre()}">${empresa.getNombre()}</option>
 													    </c:forEach>
 														</select>  
@@ -132,7 +132,8 @@
 														 
                                     </div>
                                     
-                                    <div><button type="button" class="card-header">¡Buscar!</button></div>
+                                   <button class="input-group-text" name="mostrarPrincipalListaEm" value="visualizar" type="submit">Buscar</button>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -147,6 +148,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
+                                                <th>Nombre</th>
                                                 <th>Descripcion</th>
                                                 <th>Usuario_id</th>
                                                 <th>Empresa_id</th>
@@ -155,20 +157,26 @@
                                         <tfoot>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Descripcion</th>
+                                                <th>Nombre</th>
                                                 <th>Usuario_id</th>
                                                 <th>Empresa_id</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            <c:forEach var="em" items="${empresa}">         
+                                            <c:forEach var="us" items="${usuario}">
+                                            <c:forEach var="pro" items="${productos}">
                                             <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                
+                                                <td><c:out value="${rq.id}"/></td>
+       											<td><c:out value="${pro.nombre}"/></td>
+        										<td><c:out value="${us.id}"/></td>  
+          										<td><c:out value="${em.id}"/></td>  
                                             </tr>
-                                          
+                                            
+                                            	</c:forEach>
+												</c:forEach>   
+											    </c:forEach>                                          
+												                                       
                                         </tbody>
                                     </table>
                                 </div>
