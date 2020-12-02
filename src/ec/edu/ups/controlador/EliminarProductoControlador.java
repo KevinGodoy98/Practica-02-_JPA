@@ -51,7 +51,7 @@ public class EliminarProductoControlador extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	String url, descripcion, nombre, precio;
+	String url, descripcion, nombre, precio,estado;
 	int id, empresa, catg;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -80,7 +80,7 @@ public class EliminarProductoControlador extends HttpServlet {
 			
 			try {
 				
-				producto = new Producto(id, nombre, precio, descripcion, catg);
+				producto = new Producto(id, nombre, precio, descripcion, catg,empresa,estado);
 				productoDAO.delete(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");

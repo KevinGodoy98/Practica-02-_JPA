@@ -47,13 +47,14 @@ public class ModificarProductoControlador extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	int emp;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 		System.out.println(request.getParameter("categ"));
 		
-		String url, descripcion, nombre, precio;
-		int id, empresa, catg;
+		String url, descripcion, nombre, precio,estado;
+		int id, catg;
 		boolean flag = false;
 		
 		HttpSession session = request.getSession(true);
@@ -86,6 +87,8 @@ public class ModificarProductoControlador extends HttpServlet {
 			flag = true;
 		}
 		
+		
+		
 		if(flag==false) {
 			
 			id = Integer.valueOf(request.getParameter("id"));
@@ -94,10 +97,10 @@ public class ModificarProductoControlador extends HttpServlet {
 			//empresa = Integer.valueOf(session.getAttribute("empresa_id").toString());
 			catg = Integer.valueOf(request.getParameter("categ"));
 			descripcion = request.getParameter("descrip");
-			
+			estado = request.getParameter("estado");
 			try {
 				
-				producto = new Producto(id, nombre, precio, descripcion, catg);
+				producto = new Producto(id, nombre, precio, descripcion, catg, emp,estado);
 				productoDAO.update(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");

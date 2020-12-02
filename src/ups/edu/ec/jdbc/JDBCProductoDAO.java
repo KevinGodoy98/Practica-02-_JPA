@@ -51,7 +51,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto WHERE id=" + id);
 		try {
 			if (rsProduct != null && rsProduct.next()) {
-				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"));
+				producto = new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"),rsProduct.getString("estado"));
 				/*ResultSet rsShoppingBasket = conexionDos
 						.query("SELECT * FROM Shopping_Basket WHERE id=" + rsProduct.getInt("shopping_basket_id"));
 
@@ -84,7 +84,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 
 	@Override
 	public void delete(Producto producto) {
-		conexionUno.update("DELETE FROM Producto WHERE id = " + producto.getId());
+		conexionUno.update("UPDATE Producto SET estado ='E' WHERE id = " + producto.getId());
 	}
 	
 	
@@ -94,7 +94,7 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto");
 		try {
 			while (rsProduct.next()) {
-				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id")));
+				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"),rsProduct.getString("estado")));
 				System.out.println("se leyo ");
 			}
 
