@@ -64,7 +64,7 @@ public class LoginControlador extends HttpServlet {
 			session.setAttribute("empresa_id", usuario.getEmpresa_id());
 			session.setAttribute("nombre", usuario.getNombre()+" "+usuario.getApellido());
 			
-			
+			System.out.println(session.getAttribute("rol"));
 			if (usuario.getRol().equals("U")) {
 				//request.setAttribute("usuario", usuario);
 				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp";

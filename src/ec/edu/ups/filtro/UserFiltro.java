@@ -45,10 +45,11 @@ public class UserFiltro implements Filter {
 		try {
 			if (session.getAttribute("rol").equals("U")) {
 				
-				//System.out.println("ACCESS " + session.getAttribute("rol"));
+				System.out.println("ACCESS " + session.getAttribute("rol"));
 				chain.doFilter(request, response);
 				
 			} else if (session.getAttribute("rol").equals("A")){
+				System.out.println(session.getAttribute("rol"));
 				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_admin.jsp";
 				httpResponse.sendRedirect(url);
 				System.out.println("2");
@@ -56,6 +57,7 @@ public class UserFiltro implements Filter {
 			}
 		} catch (Exception e) {
 			// System.out.println("1");
+			System.out.println(e.getMessage());
 			session.invalidate();
 			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
 			httpResponse.sendRedirect(url);
