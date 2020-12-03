@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,11 +53,11 @@ public class ListarProductoControlador extends HttpServlet {
 		Optional<String> s1 = request.getParameterMap().keySet().stream().filter(e->e.contains("eliminar_")).findFirst();
 		if(s.isPresent()) {
 			redirigirAModificar(Integer.parseInt(s.get().split("_")[1]));
-			return;
+		
 		}else {
 			if(s1.isPresent()) {
 			redirigirAEliminar(Integer.parseInt(s1.get().split("_")[1]));
-			return;
+		
 			}else{
 			this.request = request;
 			this.response = response;
@@ -86,6 +87,7 @@ public class ListarProductoControlador extends HttpServlet {
 	private void despacharModificar() throws ServletException, IOException {
 		System.out.println("TESTING--->");
 		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/ModificarProducto.jsp").forward(request, response);
+		//response.sendRedirect(request.getContextPath() + "/startbootstrap-sb-admin-gh-pages/dist/private/ModificarProducto.jsp".foe);
 	}
 	
 	
@@ -106,10 +108,13 @@ public class ListarProductoControlador extends HttpServlet {
 	}
 	private void despacharEliminar() throws ServletException, IOException {
 		System.out.println("TESTING--->");
-		getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/EliminarProducto.jsp").forward(request, response);
+		//response.sendRedirect(request.getContextPath() + "/startbootstrap-sb-admin-gh-pages/dist/private/EliminarProducto.jsp");
+	    getServletContext().getRequestDispatcher("/startbootstrap-sb-admin-gh-pages/dist/private/EliminarProducto.jsp").forward(request, response);
 	}
 	
 	private void ListarProducto() {
+		Object requestDelOtroLado = request.getSession(true).getAttribute("empresa_id");
+		System.out.println(requestDelOtroLado);
 		
 		 System.out.println("llaaaaaamado");
 	     
@@ -117,16 +122,18 @@ public class ListarProductoControlador extends HttpServlet {
 		  objs[0] = false;
 			ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
 			List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
+			// CAMBIAR EL ID  DE LA EMPRESA
+			List<Producto> lstProductosFiltrados = lstProductos != null ? lstProductos.stream().filter(e->e.getEmpresa_id()==Integer.parseInt(String.valueOf(requestDelOtroLado))).collect(Collectors.toList()): new ArrayList<Producto>();
 			System.out.println("TESTING -->"+lstProductos);
-			objs[1] = lstProductos;
+			objs[1] = lstProductosFiltrados;
 			try {
-				if(lstProductos.size()==0) {
+				if(lstProductosFiltrados.size()==0) {
 					//System.out.println("llega");
 					request.setAttribute("error", new ups.edu.ec.modelo.Error("Error al obtener la lista de Productos."));
 					despacharPeticiones();
 				}else {
 				    request.setAttribute("error", null);
-					request.setAttribute("lstProductos", lstProductos);//Dame 1 min le reviso xq se manda un string o
+					request.setAttribute("lstProductos", lstProductosFiltrados);
 				
 					despacharPeticiones();
 				}

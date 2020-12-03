@@ -8,9 +8,12 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import ec.edu.ups.dao.ProductoDAO;
+import ups.edu.ec.modelo.Empresa;
 import ups.edu.ec.modelo.Producto;
+import ups.edu.ec.modelo.Usuario;
 
 /**
  * Clase JDBCProductDAO.
@@ -87,20 +90,27 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		conexionUno.update("UPDATE Producto SET estado ='E' WHERE id = " + producto.getId());
 	}
 	
-	
+
 	@Override
 	public List<Producto> find() {
+		
 		List<Producto> list = new ArrayList<Producto>();
+		//Producto producto = (Producto) list ;
+		
+	   //list.add(new Empresa(rs.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"),rsProduct.getString("estado")));
 		ResultSet rsProduct = conexionUno.query("SELECT * FROM Producto");
+		
 		try {
 			while (rsProduct.next()) {
 				list.add(new Producto(rsProduct.getInt("id"), rsProduct.getString("nombre"), rsProduct.getString("precio"), rsProduct.getString("descripcion"),rsProduct.getInt("categoria_id"),rsProduct.getInt("empresa_id"),rsProduct.getString("estado")));
 				System.out.println("se leyo ");
 			}
+			
 
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
 		}
+		
 
 		return list;
 	}
