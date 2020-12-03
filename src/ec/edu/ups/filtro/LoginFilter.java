@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class UserFiltro
+ * Servlet Filter implementation class LoginFilter
  */
-@WebFilter({"/UserFiltro", "/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp", "/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp", "/startbootstrap-sb-admin-gh-pages/dist/private/register_req.jsp", "/startbootstrap-sb-admin-gh-pages/dist/private/modificar_req.jsp", "/ActualizarRequerimientoControlador", "/LlenarRequerimientoControlador", "/ModificarRequerimientoControlador", "/RegistrarRequerimientoControlador"})
-public class UserFiltro implements Filter {
+@WebFilter({"/LoginFilter", "/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp"})
+public class LoginFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public UserFiltro() {
+    public LoginFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -36,17 +36,18 @@ public class UserFiltro implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
 		
 		String url;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = ((HttpServletRequest) request).getSession(true);
-		//System.out.println("!!!!");
 		
 		try {
 			if (session.getAttribute("rol").equals("U")) {
+				System.out.println("1");				
+				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp";
+				httpResponse.sendRedirect(url);
 				
-				//System.out.println("ACCESS " + session.getAttribute("rol"));
-				chain.doFilter(request, response);
 				
 			} else if (session.getAttribute("rol").equals("A")){
 				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_admin.jsp";
@@ -57,12 +58,11 @@ public class UserFiltro implements Filter {
 		} catch (Exception e) {
 			// System.out.println("1");
 			session.invalidate();
-			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
-			httpResponse.sendRedirect(url);
+			chain.doFilter(request, response);
 			//chain.doFilter(request, response);
 		}
-		
-		
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
 	/**
