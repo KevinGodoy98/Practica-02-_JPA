@@ -58,7 +58,7 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 		ResultSet rs = conexionUno.query("SELECT * FROM RequerimientosCompra WHERE id=" + id);
 		try {
 			if (rs != null && rs.next()) {
-				requerimientosCompra = new RequerimientosCompra( rs.getInt("usuario_id"), rs.getInt("empresa_id"),
+				requerimientosCompra = new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"),
 						rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad"));
 			}
 		} catch (SQLException e) {
@@ -74,19 +74,77 @@ public class JDBCRequerimientosCompraDAO extends JDBCGenericDAO<RequerimientosCo
 	@Override
 	public void update(RequerimientosCompra requerimientosCompra) {
 		conexionDos.update(
-				"UPDATE empresa SET estado = '" + requerimientosCompra.getEstado());
+				"UPDATE requerimientoscompra SET Cantidad = " + requerimientosCompra.getCantidad()+", Producto_id = "+requerimientosCompra.getProducto_id()+" WHERE id = " + requerimientosCompra.getId());
+
+	}
+	
+	@Override
+	public void update_estado(RequerimientosCompra requerimientosCompra) {
+		conexionDos.update(
+				"UPDATE requerimientoscompra SET estado = '" + requerimientosCompra.getEstado()+"' WHERE id = " + requerimientosCompra.getId());
 
 	}
 
 	@Override
 	public void delete(RequerimientosCompra requerimientosCompra) {
+		try {
+			conexionUno.update("DELETE FROM requerimientoscompra WHERE id = " + requerimientosCompra.getId());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
+	}
+	
+	@Override
+	public List<RequerimientosCompra> find_usuario(int id) {
+		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
+		
+		ResultSet rs = conexionUno.query("SELECT * FROM requerimientoscompra WHERE usuario_id = "+id);
+		try {
+			while (rs.next()) {
+				list.add(new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"), rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad")));
+				
+			}
 
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public List<RequerimientosCompra> find_empresa(int id) {
+		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
+		
+		ResultSet rs = conexionUno.query("SELECT * FROM requerimientoscompra WHERE empresa_id = "+id);
+		try {
+			while (rs.next()) {
+				list.add(new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"), rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad")));
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+		}
+		
+		return list;
 	}
 
 	@Override
 	public List<RequerimientosCompra> find() {
 		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
+		
+		ResultSet rs = conexionUno.query("SELECT * FROM requerimientoscompra WHERE ");
+		try {
+			while (rs.next()) {
+				list.add(new RequerimientosCompra(rs.getInt("id"), rs.getInt("usuario_id"), rs.getInt("empresa_id"), rs.getString("estado"), rs.getInt("producto_id"), rs.getInt("cantidad")));
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+		}
 		
 		return list;
 	}

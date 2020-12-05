@@ -1,5 +1,7 @@
 package ec.edu.ups.dao;
 
+import java.util.List;
+
 import ups.edu.ec.modelo.RequerimientosCompra;
 
 /**
@@ -25,5 +27,11 @@ import ups.edu.ec.modelo.RequerimientosCompra;
  * @version 1.0
  */
 public interface RequerimientosCompraDAO extends GenericDAO<RequerimientosCompra, Integer>{
+
+	void update_estado(RequerimientosCompra requerimientosCompra);
+
+	List<RequerimientosCompra> find_empresa(int id);
+
+	List<RequerimientosCompra> find_usuario(int id);
 
 }

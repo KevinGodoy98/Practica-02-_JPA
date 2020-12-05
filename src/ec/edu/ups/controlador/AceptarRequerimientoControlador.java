@@ -12,21 +12,21 @@ import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.RequerimientosCompraDAO;
 import ups.edu.ec.modelo.RequerimientosCompra;
 
-import ec.edu.ups.dao.RequerimientosCompraDAO;
-
 /**
- * Servlet implementation class RegistrarRequerimientoControlador
+ * Servlet implementation class AceptarRequerimientoControlador
  */
-@WebServlet("/RegistrarRequerimientoControlador")
-public class RegistrarRequerimientoControlador extends HttpServlet {
+@WebServlet("/AceptarRequerimientoControlador")
+public class AceptarRequerimientoControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private RequerimientosCompraDAO requerimientosDAO;	
-    private RequerimientosCompra requerimiento;
+	private RequerimientosCompraDAO requerimientosDAO;
+	private RequerimientosCompra requerimiento;
+	private RequerimientosCompraDAO requerimientoDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegistrarRequerimientoControlador() {
-    	requerimientosDAO = DAOFactory.getFactory().getRequerimientosCompraDAO();
+    public AceptarRequerimientoControlador() {
+    	requerimientoDAO = DAOFactory.getFactory().getRequerimientosCompraDAO();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -41,51 +41,55 @@ public class RegistrarRequerimientoControlador extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url=null;
-		int id, cant;
-		boolean flag = false;
 		
-		HttpSession session = request.getSession(true);
+		String url, mensaje;
+		boolean flag=false;
+		int id;
+		
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		
-		url = "/startbootstrap-sb-admin-gh-pages/dist/private/register_req.jsp";
+		HttpSession session = request.getSession(true);
 		
 		if(request.getParameter("id").isEmpty()) {
-			request.setAttribute("mensaje", "(!) Llene todos los campos");
+			request.setAttribute("mensaje", "(!) Ingrese un ID");
 			flag = true;
 		}
 		
-		if(request.getParameter("cant").isEmpty()) {
-			request.setAttribute("mensaje", "(!) Llene todos los campos");
-			flag = true;
-		}
-		
-		if(flag==false) {
-			
-			id = Integer.valueOf(request.getParameter("id"));
-			cant = Integer.valueOf(request.getParameter("cant"));
+		if (flag==false) {
 			
 			try {
+				id = Integer.valueOf(request.getParameter("id"));
+				requerimiento = requerimientoDAO.read(id);
 				
-				requerimiento = new RequerimientosCompra(Integer.valueOf(session.getAttribute("id").toString()), Integer.valueOf(session.getAttribute("empresa_id").toString()), "N", id, cant);
-				requerimientosDAO.create(requerimiento);
-				//request.setAttribute("Mensaje", "Requerimiento agragado");
+				if (request.getParameter("apr") != null) {
+					requerimiento.setEstado("A");
+				} else if (request.getParameter("rec") != null) {
+					requerimiento.setEstado("R");
+				}
+				
+				System.out.println(requerimiento.getEstado());
+				requerimientoDAO.update_estado(requerimiento);
 				
 				if(session.getAttribute("rol").toString().equals("U")) {
+					
 					url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp";
 					httpResponse.sendRedirect(url);
 				} else {
 					url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_admin.jsp";
 					httpResponse.sendRedirect(url);
 				}
-				response.getWriter().append("Served at: ").append(request.getContextPath());
 				
 			} catch (Exception e) {
-				request.setAttribute("mensaje", "(!) Ocurrio un ERROR");
+				request.setAttribute("mensaje", "(!) Hubo un Error");
+				url = "/Practica_laboratorio_1/ListarRequerimientosControlador?dir=c";
+				httpResponse.sendRedirect(url);
 			}
+			
 		} else {
-			getServletContext().getRequestDispatcher(url).forward(request, response);
+			url = "/Practica_laboratorio_1/ListarRequerimientosControlador?dir=c";
+			httpResponse.sendRedirect(url);
 		}
+		
+		
 		
 	}
 
