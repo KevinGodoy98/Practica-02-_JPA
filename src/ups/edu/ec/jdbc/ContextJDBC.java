@@ -22,7 +22,7 @@ import java.sql.Statement;
  */
 public class ContextJDBC {
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3307/mydb1";
+	private static final String URL = "jdbc:mysql://localhost:3307/mydb1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static final String USER = "root";
 	private static final String PASS = "Patito.123";
 
