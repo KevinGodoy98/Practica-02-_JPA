@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-	<persistence-unit name="Practica-02-_JPA">
+<persistence version="2.2" 
+xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="jpa" transaction-type="RESOURCE_LOCAL">
+	
+		<properties>
+			<property name="eclipselink.oddl-generation" value="drop-and-create-tables"/>
+			<property name="eclipelink.jdbc.url" value="jdbc:mysql://localhost:3306/mydb"/>
+			<property name="eclipelink.jdbc.user" value="root"/>
+			<property name="eclipelink.jdbc.password" value=""/>
+			<property name="eclipelink.jdbc.dirver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="eclipselink.jdbc.read-connections.min" value="1"/>
+	        <property name="eclipselink.jdbc.write-connections.min" value="1"/>
+	        <property name="eclipselink.target-database" value="MySQL"/>
+		</properties>
+	
 	</persistence-unit>
 </persistence>
