@@ -32,20 +32,20 @@ public class JPARequerimientosCompraDAO extends JPAGenericDAO<RequerimientosComp
 	public List<RequerimientosCompra> find_empresa(int id) {
 		
 		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
-		String jpql = "SELECT r FROM requerimientoscompra r WHERE r.empresa.id = "+id;
+		String jpql = "SELECT r FROM RequerimientosCompra r JOIN r.empresa e WHERE e.id = "+id;
 		list = (List<RequerimientosCompra>) em.createQuery(jpql, RequerimientosCompra.class).getResultList();
 		
-		return null;
+		return list;
 	}
 
 	@Override
 	public List<RequerimientosCompra> find_usuario(int id) {
 		
 		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
-		String jpql = "SELECT r FROM requerimientoscompra r WHERE p.usuario.id = "+id;
+		String jpql = "SELECT r FROM RequerimientosCompra r JOIN r.usuario u WHERE u.id = "+id;
 		list = (List<RequerimientosCompra>) em.createQuery(jpql, RequerimientosCompra.class).getResultList();
 		
-		return null;
+		return list;
 	}
 	
 }
