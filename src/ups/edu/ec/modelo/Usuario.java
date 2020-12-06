@@ -31,9 +31,9 @@ public class Usuario implements Serializable{
 	public Usuario() {
 		
 	}
-	public Usuario(int id,int empresa_id,String cedula,String nombre , String apellido ,String rol,String correo,String contrasena) {
+	public Usuario(int id,Empresa empresa,String cedula,String nombre , String apellido ,String rol,String correo,String contrasena) {
 	    this.id=id;
-	    this.empresa_id=empresa_id;
+	    this.empresa=empresa;
 		this.cedula=cedula;
 		this.nombre=nombre;
 		this.apellido = apellido;
@@ -43,69 +43,30 @@ public class Usuario implements Serializable{
 	}
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((apellido == null) ? 0 : apellido.hashCode());
-		result = prime * result + ((cedula == null) ? 0 : cedula.hashCode());
-		result = prime * result + ((contrasena == null) ? 0 : contrasena.hashCode());
-		result = prime * result + ((correo == null) ? 0 : correo.hashCode());
-		result = prime * result + empresa_id;
-		result = prime * result + id;
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((rol == null) ? 0 : rol.hashCode());
-		return result;
+	public Set<RequerimientosCompra> getRequerimientos() {
+		return requerimientos;
 	}
+	
+	public void addRequerimientos(RequerimientosCompra requerimiento) {
+		this.requerimientos.add(requerimiento);
+    }
 
+    public void removeRequerimientos(RequerimientosCompra requerimiento) {
+    	this.requerimientos.remove(requerimiento);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (apellido == null) {
-			if (other.apellido != null)
-				return false;
-		} else if (!apellido.equals(other.apellido))
-			return false;
-		if (cedula == null) {
-			if (other.cedula != null)
-				return false;
-		} else if (!cedula.equals(other.cedula))
-			return false;
-		if (contrasena == null) {
-			if (other.contrasena != null)
-				return false;
-		} else if (!contrasena.equals(other.contrasena))
-			return false;
-		if (correo == null) {
-			if (other.correo != null)
-				return false;
-		} else if (!correo.equals(other.correo))
-			return false;
-		if (empresa_id != other.empresa_id)
-			return false;
-		if (id != other.id)
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (rol == null) {
-			if (other.rol != null)
-				return false;
-		} else if (!rol.equals(other.rol))
-			return false;
-		return true;
+	public Empresa getEmpresa() {
+		return empresa;
 	}
-
-
+	
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+	
+	public void setRequerimientos(Set<RequerimientosCompra> requerimientos) {
+		this.requerimientos = requerimientos;
+	}
+	
 	public String getCedula() {
 		return cedula;
 	}
@@ -174,32 +135,5 @@ public class Usuario implements Serializable{
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-
-
-	public int getEmpresa_id() {
-		return empresa_id;
-	}
-
-
-	public void setEmpresa_id(int empresa_id) {
-		this.empresa_id = empresa_id;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", rol="
-				+ rol + ", correo=" + correo + ", contrasena=" + contrasena + ", empresa_id=" + empresa_id + "]";
-	}
-
-
-
-
-	
-
-
-	
-	
-	
 	
 }
