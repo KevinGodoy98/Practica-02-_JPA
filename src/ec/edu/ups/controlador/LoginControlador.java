@@ -60,8 +60,11 @@ public class LoginControlador extends HttpServlet {
 			session = request.getSession(true);
 			session.setAttribute("rol", usuario.getRol());
 			session.setAttribute("id", usuario.getId());
+			session.setAttribute("usuario", usuario);
+			session.setAttribute("usuario_id", usuario.getId());
 			session.setAttribute("catg", categoriaDAO.find());
-			session.setAttribute("empresa_id", usuario.getEmpresa_id());
+			session.setAttribute("empresa", usuario.getEmpresa());
+			session.setAttribute("empresa_id", usuario.getEmpresa().getId());
 			session.setAttribute("nombre", usuario.getNombre()+" "+usuario.getApellido());
 			
 			System.out.println(session.getAttribute("rol"));

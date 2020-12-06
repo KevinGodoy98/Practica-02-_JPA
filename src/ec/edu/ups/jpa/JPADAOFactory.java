@@ -6,11 +6,6 @@ import ec.edu.ups.dao.EmpresaDAO;
 import ec.edu.ups.dao.ProductoDAO;
 import ec.edu.ups.dao.RequerimientosCompraDAO;
 import ec.edu.ups.dao.UsuarioDAO;
-import ups.edu.ec.jdbc.JDBCCategoriaDAO;
-import ups.edu.ec.jdbc.JDBCEmpresaDAO;
-import ups.edu.ec.jdbc.JDBCProductoDAO;
-import ups.edu.ec.jdbc.JDBCRequerimientosCompraDAO;
-import ups.edu.ec.jdbc.JDBCUsuarioDAO;
 
 public class JPADAOFactory extends DAOFactory {
 

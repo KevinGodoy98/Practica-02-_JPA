@@ -9,8 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.dao.EmpresaDAO;
+import ec.edu.ups.dao.ProductoDAO;
 import ec.edu.ups.dao.RequerimientosCompraDAO;
+import ec.edu.ups.dao.UsuarioDAO;
+import ups.edu.ec.modelo.Empresa;
+import ups.edu.ec.modelo.Producto;
 import ups.edu.ec.modelo.RequerimientosCompra;
+import ups.edu.ec.modelo.Usuario;
 
 /**
  * Servlet implementation class RegistrarRequerimientoControlador
@@ -19,12 +25,18 @@ import ups.edu.ec.modelo.RequerimientosCompra;
 public class RegistrarRequerimientoControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private RequerimientosCompraDAO requerimientosDAO;	
+    private ProductoDAO proDAO;
+    private UsuarioDAO usuDAO;
+    private EmpresaDAO empDAO;
     private RequerimientosCompra requerimiento;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public RegistrarRequerimientoControlador() {
     	requerimientosDAO = DAOFactory.getFactory().getRequerimientosCompraDAO();
+    	proDAO = DAOFactory.getFactory().getProductoDAO();
+    	usuDAO = DAOFactory.getFactory().getUsuarioDAO();
+    	empDAO = DAOFactory.getFactory().getEmpresaDAO();
     }
 
 	/**
@@ -40,7 +52,10 @@ public class RegistrarRequerimientoControlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url=null;
-		int id, cant;
+		int cant;
+		Producto pro;
+		Usuario usu;
+		Empresa emp;
 		boolean flag = false;
 		
 		HttpSession session = request.getSession(true);
@@ -60,12 +75,14 @@ public class RegistrarRequerimientoControlador extends HttpServlet {
 		
 		if(flag==false) {
 			
-			id = Integer.valueOf(request.getParameter("id"));
+			pro = proDAO.read(Integer.valueOf(request.getParameter("id")));
+			usu = usuDAO.read(Integer.valueOf(request.getParameter("usuario_id")));
+			emp = empDAO.read(Integer.valueOf(request.getParameter("empresa_id")));
 			cant = Integer.valueOf(request.getParameter("cant"));
 			
 			try {
 				
-				requerimiento = new RequerimientosCompra(Integer.valueOf(session.getAttribute("id").toString()), Integer.valueOf(session.getAttribute("empresa_id").toString()), "N", id, cant);
+				requerimiento = new RequerimientosCompra(usu, emp, "N", pro, cant);
 				
 				
 				requerimientosDAO.create(requerimiento);
