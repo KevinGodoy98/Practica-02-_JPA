@@ -1,31 +1,50 @@
 package ec.edu.ups.jpa;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
 import ec.edu.ups.dao.RequerimientosCompraDAO;
+import ups.edu.ec.modelo.Producto;
 import ups.edu.ec.modelo.RequerimientosCompra;
 
 public class JPARequerimientosCompraDAO extends JPAGenericDAO<RequerimientosCompra, Integer> implements RequerimientosCompraDAO {
 
+	private EntityManager em = Persistence.createEntityManagerFactory("jpa").createEntityManager();
+	
 	public JPARequerimientosCompraDAO() {
 		super(RequerimientosCompra.class);
 	}
 
 	@Override
 	public void update_estado(RequerimientosCompra requerimientosCompra) {
-		// TODO Auto-generated method stub
+		
+		em.getTransaction().begin();
+		em.merge(requerimientosCompra);
+		em.getTransaction().commit();
 		
 	}
 
 	@Override
 	public List<RequerimientosCompra> find_empresa(int id) {
-		// TODO Auto-generated method stub
+		
+		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
+		String jpql = "SELECT r FROM requerimientoscompra r WHERE r.empresa.id = "+id;
+		list = (List<RequerimientosCompra>) em.createQuery(jpql, RequerimientosCompra.class).getResultList();
+		
 		return null;
 	}
 
 	@Override
 	public List<RequerimientosCompra> find_usuario(int id) {
-		// TODO Auto-generated method stub
+		
+		List<RequerimientosCompra> list = new ArrayList<RequerimientosCompra>();
+		String jpql = "SELECT r FROM requerimientoscompra r WHERE p.usuario.id = "+id;
+		list = (List<RequerimientosCompra>) em.createQuery(jpql, RequerimientosCompra.class).getResultList();
+		
 		return null;
 	}
 	

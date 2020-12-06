@@ -121,12 +121,6 @@ public class JDBCProductoDAO extends JDBCGenericDAO<Producto, Integer> implement
 		return list;
 	}
 
-	@Override
-	public Set<Producto> listarProducto(int id_producto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 
 }

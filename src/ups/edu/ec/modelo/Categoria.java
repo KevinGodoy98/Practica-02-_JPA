@@ -7,14 +7,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 @Entity
 public class Categoria implements Serializable {
-	 @Id
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
 	private int id;
 	private String nombre;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Categoria")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
 	private Set<Producto> productos = new java.util.HashSet<Producto>();
 	
 	public Categoria() {
@@ -26,6 +28,18 @@ public class Categoria implements Serializable {
 		this.nombre=nombre;
 		
 	}
+	
+	public Set<Producto> getProductos() {
+		return productos;
+	}
+	
+	public void addProductos(Producto producto) {
+		this.productos.add(producto);
+    }
+
+    public void removeProducto(Producto producto) {
+    	this.productos.remove(producto);
+    }
 
 	public int getId() {
 		return id;
@@ -46,34 +60,6 @@ public class Categoria implements Serializable {
 	@Override
 	public String toString() {
 		return "Categoria [id=" + id + ", nombre=" + nombre + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Categoria other = (Categoria) obj;
-		if (id != other.id)
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		return true;
 	}
 	
 	

@@ -9,9 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
 @Entity
 public class Producto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
 	private int id;
@@ -19,86 +23,59 @@ public class Producto implements Serializable {
 	private String precio;
 	private String descripcion;
 	private String estado;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Producto")
-	private Set<RequerimientosCompra> requerimientos = new java.util.HashSet<RequerimientosCompra>();
-	@OneToMany
+	
+	@ManyToOne
 	@JoinColumn
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JoinColumn
 	private Empresa empresa;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+	private Set<RequerimientosCompra> requerimientos = new java.util.HashSet<RequerimientosCompra>();
 	
 	public Producto() {
 		
 	}
-	public Producto(int id , String nombre, String precio, String descripcion,int categoria_id, int empresa_id, String estado) {
+	public Producto(int id , String nombre, String precio, String descripcion,Categoria categoria, Empresa empresa, String estado) {
 		this.id=id;
 		this.nombre=nombre;
 		this.precio=precio;
 		this.descripcion=descripcion;
-		this.categoria=categoria_id;
-		this.empresa = empresa_id;
+		this.categoria = categoria;
+		this.empresa = empresa;
 		this.estado=estado;
 	}
 
-	public int getEmpresa_id() {
-		return empresa_id;
+	public Set<RequerimientosCompra> getRequerimientos() {
+		return requerimientos;
 	}
+	
+	public void addRequerimientos(RequerimientosCompra requerimiento) {
+		this.requerimientos.add(requerimiento);
+    }
 
-	public void setEmpresa_id(int empresa_id) {
-		this.empresa_id = empresa_id;
+    public void removeRequerimientos(RequerimientosCompra requerimiento) {
+    	this.requerimientos.remove(requerimiento);
+    }
+	
+	public Categoria getCategoria() {
+		return categoria;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + categoria_id;
-		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
-		result = prime * result + empresa_id;
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((precio == null) ? 0 : precio.hashCode());
-		return result;
+	
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Producto other = (Producto) obj;
-		if (categoria_id != other.categoria_id)
-			return false;
-		if (descripcion == null) {
-			if (other.descripcion != null)
-				return false;
-		} else if (!descripcion.equals(other.descripcion))
-			return false;
-		if (empresa_id != other.empresa_id)
-			return false;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
-			return false;
-		if (id != other.id)
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (precio == null) {
-			if (other.precio != null)
-				return false;
-		} else if (!precio.equals(other.precio))
-			return false;
-		return true;
+	
+	public Empresa getEmpresa() {
+		return empresa;
 	}
-
+	
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -131,26 +108,12 @@ public class Producto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public int getCategoria_id() {
-		return categoria_id;
-	}
-
-	public void setCategoria_id(int categoria_id) {
-		this.categoria_id = categoria_id;
-	}
-
 	public String getEstado() {
 		return estado;
 	}
 
 	public void setEstado(String estado) {
 		this.estado = estado;
-	}
-
-	@Override
-	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", descripcion=" + descripcion
-				+ ", categoria_id=" + categoria_id + ", empresa_id=" + empresa_id + ", estado=" + estado + "]";
 	}
 
 	

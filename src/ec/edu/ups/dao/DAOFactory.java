@@ -1,5 +1,6 @@
 package ec.edu.ups.dao;
 
+import ec.edu.ups.jpa.JPADAOFactory;
 
 /**
  * Clase DAOFactory.
@@ -19,7 +20,7 @@ package ec.edu.ups.dao;
  * @version 1.0
  */
 public abstract class DAOFactory {
-	protected static DAOFactory factory = new JDBCDAOFactory();
+	protected static DAOFactory factory = new JPADAOFactory();
 
 	public static DAOFactory getFactory() {
 		return factory;
