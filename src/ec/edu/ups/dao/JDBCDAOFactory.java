@@ -1,10 +1,10 @@
 package ec.edu.ups.dao;
 
-import ups.edu.ec.jdbc.JDBCCategoriaDAO;
-import ups.edu.ec.jdbc.JDBCEmpresaDAO;
-import ups.edu.ec.jdbc.JDBCProductoDAO;
-import ups.edu.ec.jdbc.JDBCRequerimientosCompraDAO;
-import ups.edu.ec.jdbc.JDBCUsuarioDAO;
+import ec.edu.ups.jpa.JPACategoriaDAO;
+import ec.edu.ups.jpa.JPAEmpresaDAO;
+import ec.edu.ups.jpa.JPAProductoDAO;
+import ec.edu.ups.jpa.JPARequerimientosCompraDAO;
+import ec.edu.ups.jpa.JPAUsuarioDAO;
 
 /**
  * Clase JDBCGenericDAO.
@@ -36,27 +36,27 @@ public class JDBCDAOFactory extends DAOFactory {
 
 	@Override
 	public CategoriaDAO getCategoriaDAO() {
-		return new JDBCCategoriaDAO();
+		return new JPACategoriaDAO();
 	}
 
 	@Override
 	public UsuarioDAO getUsuarioDAO() {
-		return new JDBCUsuarioDAO();
+		return new JPAUsuarioDAO();
 	}
 
 	@Override
 	public EmpresaDAO getEmpresaDAO() {
-		return new JDBCEmpresaDAO();
+		return new JPAEmpresaDAO();
 	}
 
 	@Override
 	public ProductoDAO getProductoDAO() {
-		return new JDBCProductoDAO();
+		return new JPAProductoDAO();
 	}
 
 	@Override
 	public RequerimientosCompraDAO getRequerimientosCompraDAO() {
-		return new JDBCRequerimientosCompraDAO();
+		return new JPARequerimientosCompraDAO();
 	}
 
 

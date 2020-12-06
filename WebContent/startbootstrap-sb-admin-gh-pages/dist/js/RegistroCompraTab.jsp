@@ -1,5 +1,4 @@
 <%@page import="ec.edu.ups.dao.RequerimientosCompraDAO" %>
-<%@page import="ups.edu.ec.jdbc.JDBCRequerimientosCompraDAO" %>
 <%@page import="ups.edu.ec.modelo.Empresa" %>
 <%@page import="java.util.ArrayList" %>
 
