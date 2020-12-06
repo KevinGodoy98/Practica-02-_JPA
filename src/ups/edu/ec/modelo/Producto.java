@@ -9,10 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Producto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
 	private int id;
@@ -20,12 +23,17 @@ public class Producto implements Serializable {
 	private String precio;
 	private String descripcion;
 	private String estado;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Producto")
-	private Set<RequerimientosCompra> requerimientos = new java.util.HashSet<RequerimientosCompra>();
-	@OneToMany
+	
+	@ManyToOne
 	@JoinColumn
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JoinColumn
 	private Empresa empresa;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+	private Set<RequerimientosCompra> requerimientos = new java.util.HashSet<RequerimientosCompra>();
 	
 	public Producto() {
 		

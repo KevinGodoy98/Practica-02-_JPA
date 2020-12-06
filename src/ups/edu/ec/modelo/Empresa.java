@@ -8,17 +8,23 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 @Entity
 public class Empresa implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	private int id;
 	private String nombre;
 	private String ruc;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Empresa")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
 	private Set<Producto> productos = new java.util.HashSet<Producto>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
 	private Set<Usuario> usuarios = new java.util.HashSet<Usuario>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
 	private Set<RequerimientosCompra> requerimientos = new java.util.HashSet<RequerimientosCompra>();
 	
 	public Empresa() {

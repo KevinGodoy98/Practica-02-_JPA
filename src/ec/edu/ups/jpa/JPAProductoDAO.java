@@ -2,6 +2,7 @@ package ec.edu.ups.jpa;
 
 import ups.edu.ec.modelo.Producto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,15 +15,13 @@ public class JPAProductoDAO extends JPAGenericDAO<Producto, Integer> implements 
 	}
 
 	@Override
-	public Set<Producto> listarProducto(int id_producto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Producto> find_emp(int emp) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "SELECT p FROM Producto p WHERE p.empresa.id = "+emp;
+		List<Producto> list = new ArrayList<Producto>();
+		
+		list = (List<Producto>) em.createQuery(jpql, Producto.class).getResultList();
+		
+		return list;
 	}
 
 }

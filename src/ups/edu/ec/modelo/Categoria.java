@@ -7,14 +7,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 @Entity
 public class Categoria implements Serializable {
-	 @Id
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
 	private int id;
 	private String nombre;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "Categoria")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
 	private Set<Producto> productos = new java.util.HashSet<Producto>();
 	
 	public Categoria() {

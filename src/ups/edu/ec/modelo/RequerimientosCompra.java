@@ -2,24 +2,31 @@ package ups.edu.ec.modelo;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 @Entity
 public class RequerimientosCompra implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	private int id;
 	private String estado;
 	private int cantidad;
 	
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn
 	private Producto producto;
+	
+	@ManyToOne
+	@JoinColumn
 	private Empresa empresa;
+	
+	@ManyToOne
+	@JoinColumn
 	private Usuario usuario;
 	
 	public RequerimientosCompra() {
