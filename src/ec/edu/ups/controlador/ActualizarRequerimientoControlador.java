@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.RequerimientosCompraDAO;
 import ups.edu.ec.modelo.RequerimientosCompra;
-
+import ups.edu.ec.modelo.*;
 /**
  * Servlet implementation class ActualizarRequerimientoControlador
  */
