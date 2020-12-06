@@ -123,7 +123,7 @@ public class ListarProductoControlador extends HttpServlet {
 			ProductoDAO productoDAO = DAOFactory.getFactory().getProductoDAO();
 			List<Producto> lstProductos = new ArrayList<>(productoDAO.find());
 			// CAMBIAR EL ID  DE LA EMPRESA
-			List<Producto> lstProductosFiltrados = lstProductos != null ? lstProductos.stream().filter(e->e.getEmpresa_id()==Integer.parseInt(String.valueOf(requestDelOtroLado))).collect(Collectors.toList()): new ArrayList<Producto>();
+			List<Producto> lstProductosFiltrados = lstProductos != null ? lstProductos.stream().filter(e->e.getEmpresa().getId()==Integer.parseInt(String.valueOf(requestDelOtroLado))).collect(Collectors.toList()): new ArrayList<Producto>();
 			System.out.println("TESTING -->"+lstProductos);
 			objs[1] = lstProductosFiltrados;
 			try {

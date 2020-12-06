@@ -26,7 +26,7 @@ public class Main {
 	   //System.out.println(us1.toString());
 		//us= RequerimientosCompraDao.find_empresa(1);
 		us= RequerimientosCompraDao.read(1);
-		us.setEstado("R");
+		us.setEstado("A");
 		RequerimientosCompraDao.update_estado(us);
 		
 		//us =RequerimientosCompraDao.find_usuario(1);
