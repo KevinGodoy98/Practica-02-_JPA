@@ -64,7 +64,7 @@ public class LoginControlador extends HttpServlet {
 			session.setAttribute("empresa_id", usuario.getEmpresa_id());
 			session.setAttribute("nombre", usuario.getNombre()+" "+usuario.getApellido());
 			
-			
+			System.out.println(session.getAttribute("rol"));
 			if (usuario.getRol().equals("U")) {
 				//request.setAttribute("usuario", usuario);
 				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_user.jsp";
@@ -76,13 +76,13 @@ public class LoginControlador extends HttpServlet {
 			} else {
 				
 				request.setAttribute("mensaje", "(!) Usuario no registrado");
-				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/login.jsp";
+				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
 				httpResponse.sendRedirect(url);
 			}
 			
 		} catch (Exception e) {
 			request.setAttribute("mensaje", "(!) Usuario no registrado");
-			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.html";
+			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
 			httpResponse.sendRedirect(url);
 			System.out.println("INTERNAL ERROR");
 			System.out.println(e.getMessage());

@@ -68,6 +68,8 @@ public class RegistrarRequerimientoControlador extends HttpServlet {
 			try {
 				
 				requerimiento = new RequerimientosCompra(Integer.valueOf(session.getAttribute("id").toString()), Integer.valueOf(session.getAttribute("empresa_id").toString()), "N", id, cant);
+				
+				
 				requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");
 				

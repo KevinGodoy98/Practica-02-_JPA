@@ -1,6 +1,9 @@
 package ec.edu.ups.controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ec.edu.ups.dao.CategoriaDAO;
+import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.ProductoDAO;
+import ups.edu.ec.modelo.Categoria;
 import ups.edu.ec.modelo.Producto;
 
 /**
@@ -22,12 +27,12 @@ public class ModificarProductoControlador extends HttpServlet {
 	private CategoriaDAO categoriaDAO;
 	private Producto producto;
 	private String result;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ModificarProductoControlador() {
-        super();
+    	productoDAO = DAOFactory.getFactory().getProductoDAO();
+    	result = "";
         // TODO Auto-generated constructor stub
     }
 
@@ -42,12 +47,14 @@ public class ModificarProductoControlador extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	int emp;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-System.out.println(request.getParameter("categ"));
 		
-		String url, descripcion, nombre, precio;
-		int id, empresa, catg;
+		System.out.println(request.getParameter("categ"));
+		
+		String url, descripcion, nombre, precio,estado;
+		int id, catg;
 		boolean flag = false;
 		
 		HttpSession session = request.getSession(true);
@@ -80,6 +87,8 @@ System.out.println(request.getParameter("categ"));
 			flag = true;
 		}
 		
+		
+		
 		if(flag==false) {
 			
 			id = Integer.valueOf(request.getParameter("id"));
@@ -88,11 +97,11 @@ System.out.println(request.getParameter("categ"));
 			//empresa = Integer.valueOf(session.getAttribute("empresa_id").toString());
 			catg = Integer.valueOf(request.getParameter("categ"));
 			descripcion = request.getParameter("descrip");
-			
+			estado = request.getParameter("estado");
 			try {
 				
-				producto = new Producto(id, nombre, precio, descripcion, catg);
-				productoDAO.create(producto);
+				producto = new Producto(id, nombre, precio, descripcion, catg, emp,estado);
+				productoDAO.update(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");
 				
@@ -112,9 +121,8 @@ System.out.println(request.getParameter("categ"));
 			getServletContext().getRequestDispatcher(url).forward(request, response);
 		}
 		
-	
+	}
 	
 
-	}
 
 }

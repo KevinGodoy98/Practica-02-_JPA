@@ -87,7 +87,7 @@ public class RegistrarProductoControlador extends HttpServlet {
 			
 			try {
 				
-				producto = new Producto(id, nombre, precio, descripcion, catg, empresa);
+				producto = new Producto(id, nombre, precio, descripcion, catg, empresa, "V");
 				productoDAO.create(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");

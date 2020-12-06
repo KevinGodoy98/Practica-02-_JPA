@@ -37,7 +37,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                       
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="/Practica_laboratorio_1/LogOutControlador">Logout</a>
                     </div>
                 </li>
             </ul>

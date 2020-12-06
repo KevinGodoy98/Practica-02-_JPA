@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ec.edu.ups.dao.EmpresaDAO;
 import ups.edu.ec.modelo.Empresa;
+import ups.edu.ec.modelo.RequerimientosCompra;
 import ec.edu.ups.dao.EmpresaDAO;
 
 
@@ -50,13 +51,23 @@ public class JDBCEmpresaDAO extends JDBCGenericDAO<Empresa, Integer> implements 
 
 	@Override
 	public void delete(Empresa empresa) {
-
+         
 	}
 
 	@Override
 	public List<Empresa> find() {
 		List<Empresa> list = new ArrayList<Empresa>();
 		
+		ResultSet rs = conexionUno.query("SELECT * FROM empresa");
+		try {
+			while (rs.next()) {
+				list.add(new Empresa(rs.getInt("id"), rs.getString("nombre"), rs.getString("ruc")));
+				
+			}
+
+		} catch (SQLException e) {
+			System.out.println(">>>WARNING (JDBCProductoDAO:find): " + e.getMessage());
+		}
 
 		return list;
 	}

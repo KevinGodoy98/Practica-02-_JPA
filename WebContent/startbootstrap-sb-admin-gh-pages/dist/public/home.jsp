@@ -16,6 +16,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+    
+    <%@page import="java.util.ArrayList"%>	
+    <%@page import="java.util.List"%>
+    <%@page import="ups.edu.ec.modelo.Empresa"%>
+    <%@page import="ec.edu.ups.dao.DAOFactory"%>
+    <%@page import="ec.edu.ups.dao.EmpresaDAO"%>	
+    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">Requerimientos</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
@@ -65,8 +72,6 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                <form action="/Practica_laboratorio_1/ListarEmpresaControlador" method="post">
-                
                     <div class="container-fluid">
                         <h1 class="mt-4">Sistema de Requerimientos de Compra</h1>
                         <ol class="breadcrumb mb-4">
@@ -75,7 +80,7 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-body">Descubre</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -84,7 +89,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-body">Recomienda</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -93,7 +98,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
+                                    <div class="card-body">Experimenta</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -102,7 +107,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-body">Compara</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -111,6 +116,10 @@
                             </div>
                         </div>
                         
+                        <% EmpresaDAO empresaDAO = DAOFactory.getFactory().getEmpresaDAO(); %>
+                        <% List<Empresa> empresas = empresaDAO.find(); %>
+                        
+                        
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
@@ -118,72 +127,80 @@
                                         <i class="fas fa-chart-area mr-1"></i>
                                         Area Chart Example
                                     </div>
+                                    
+                                    
                                     <div class="select-body">
-                                    	<label for="cars" class="card-header">Seleccione una empresa:</label>
-                                    	
-                                    	
-										    <label class="small mb-1" for="inputdescripcion">Empresa</label>
-                                                        <select id="cars" name="nombres" class="custom-select">
-														  <c:forEach items="${nombre}" var="empresa">
-													        <option value="${empresa.getNombre()}">${empresa.getNombre()}</option>
-													    </c:forEach>
-														</select>  
-														
-														 
-                                    </div>
                                     
-                                   <button class="input-group-text" name="mostrarPrincipalListaEm" value="visualizar" type="submit">Buscar</button>
+                                    	<form action="/Practica_laboratorio_1/ListarProductoEmpresaControlador" method="post">
+                                    		<div class="col-md-6">
+                                    			<div class="form-group">
+                                    		
+                                    				<label for="cars" class="card-header">Seleccione una empresa:</label>
+
+													<select name="id" id="cars" class="custom-select">
+													
+													<%
+													
+														for (Empresa emp : empresas) {
+															out.println("<option value=\""+emp.getId()+"\">"+emp.getNombre()+"</option>");
+														}
+													
+													%>
+													
+													</select>
+                                    			
+	                                    		</div>
+	                                    		<div class="form-group mt-4 mb-0">
+	                                            	<input class="btn btn-primary btn-block" type="submit" value="¡Buscar!"/>            
+	                                            </div>
+	                                    		
+	                                    	</div>
+	                                    	
+	                                    	
+	                                    	
+	                                    </form>
                                     
-                                </div>
+                                    	
+                                    
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Productos Requeridos
+                                Productos Ofrecidos
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Nombre</th>
+                                            	<th>Nombre</th>
+                                                <th>Precio</th>
                                                 <th>Descripcion</th>
-                                                <th>Usuario_id</th>
-                                                <th>Empresa_id</th>
+                                                <th>Categoria</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Nombre</th>
-                                                <th>Usuario_id</th>
-                                                <th>Empresa_id</th>
-                                            </tr>
-                                        </tfoot>
+                                        
                                         <tbody>
-                                            <c:forEach var="em" items="${empresa}">         
-                                            <c:forEach var="us" items="${usuario}">
-                                            <c:forEach var="pro" items="${productos}">
-                                            <tr>
-                                                <td><c:out value="${rq.id}"/></td>
-       											<td><c:out value="${pro.nombre}"/></td>
-        										<td><c:out value="${us.id}"/></td>  
-          										<td><c:out value="${em.id}"/></td>  
-                                            </tr>
                                             
-                                            	</c:forEach>
-												</c:forEach>   
-											    </c:forEach>                                          
-												                                       
+                                            <c:set var="ct" scope="request" value="${categorias}" />
+                                            <c:forEach var="pr" items="${productos}" varStatus="loop">
+                                                                                        	
+                                            	<tr>
+                                            		<td><c:out value="${pr.getNombre()}"/></td>                                            		  
+                                            		<td><c:out value="${pr.getPrecio()}"/></td>
+                                            		<td><c:out value="${pr.getDescripcion()}"/></td>  
+                                            		<td><c:out value="${ct[loop.index]}"/></td>
+                                            	</tr>                                            
+                                            
+                                            </c:forEach>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </form>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">

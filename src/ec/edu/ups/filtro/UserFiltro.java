@@ -40,7 +40,7 @@ public class UserFiltro implements Filter {
 		String url;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = ((HttpServletRequest) request).getSession(true);
-		System.out.println("!!!!");
+		//System.out.println("!!!!");
 		
 		try {
 			if (session.getAttribute("rol").equals("U")) {
@@ -49,13 +49,15 @@ public class UserFiltro implements Filter {
 				chain.doFilter(request, response);
 				
 			} else if (session.getAttribute("rol").equals("A")){
+				System.out.println(session.getAttribute("rol"));
 				url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/home_admin.jsp";
 				httpResponse.sendRedirect(url);
 				System.out.println("2");
 				//chain.doFilter(request, response);
 			}
 		} catch (Exception e) {
-			System.out.println("1");
+			// System.out.println("1");
+			System.out.println(e.getMessage());
 			session.invalidate();
 			url = "/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp";
 			httpResponse.sendRedirect(url);
