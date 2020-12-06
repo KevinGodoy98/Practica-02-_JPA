@@ -22,6 +22,18 @@
     <%@page import="ups.edu.ec.modelo.Empresa"%>
     <%@page import="ec.edu.ups.dao.DAOFactory"%>
     <%@page import="ec.edu.ups.dao.EmpresaDAO"%>	
+    <%@page import="java.sql.Connection"%>
+    <%@page import="java.sql.DriverManager"%>
+    <%@page import="java.sql.SQLException"%>
+    
+    <%
+	    try {	
+	        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+	    } catch (Exception ex) {
+	        // handle the error
+	    }
+    
+    %>
     
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="index.html">Requerimientos</a>
@@ -42,7 +54,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                       
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.jsp">Log in</a>
+                        <a class="dropdown-item" href="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/public/login.jsp">Log in</a>
                     </div>
                 </li>
             </ul>

@@ -82,7 +82,7 @@ public class ModificarRequerimientoControlador extends HttpServlet {
 				
 				requerimiento = requerimientoDAO.read(id);
 				
-				if(requerimiento.getUsuario_id()==Integer.valueOf(session.getAttribute("id").toString())) {
+				if(requerimiento.getUsuario().getId()==Integer.valueOf(session.getAttribute("id").toString())) {
 					requerimientoDAO.delete(requerimiento);
 					
 					if(session.getAttribute("rol").toString().equals("U")) {

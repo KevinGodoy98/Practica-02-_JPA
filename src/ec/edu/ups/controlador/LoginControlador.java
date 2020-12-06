@@ -61,7 +61,6 @@ public class LoginControlador extends HttpServlet {
 			session.setAttribute("rol", usuario.getRol());
 			session.setAttribute("id", usuario.getId());
 			session.setAttribute("usuario", usuario);
-			session.setAttribute("usuario_id", usuario.getId());
 			session.setAttribute("catg", categoriaDAO.find());
 			session.setAttribute("empresa", usuario.getEmpresa());
 			session.setAttribute("empresa_id", usuario.getEmpresa().getId());
