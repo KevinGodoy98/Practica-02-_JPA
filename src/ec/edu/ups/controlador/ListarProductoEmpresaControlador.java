@@ -62,7 +62,7 @@ public class ListarProductoEmpresaControlador extends HttpServlet {
 			url = "/startbootstrap-sb-admin-gh-pages/dist/public/home.jsp";
 			
 			for (Producto p : pr) {
-				cat = categoriaDAO.read(p.getCategoria_id());
+				cat = categoriaDAO.read(p.getCategoria().getId());
 				ct.add(cat.getNombre());	
 			}
 			

@@ -24,8 +24,20 @@
 	    <%@page import="ups.edu.ec.modelo.Producto"%>
 	    <%@page import="ec.edu.ups.dao.DAOFactory"%>
 	    <%@page import="ec.edu.ups.dao.ProductoDAO"%>
+	    <%@page import="java.sql.Connection"%>
+	    <%@page import="java.sql.DriverManager"%>
+	    <%@page import="java.sql.SQLException"%>
+	    
+	    <%
+		    try {	
+		        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+		    } catch (Exception ex) {
+		        // handle the error
+		    }
+	    
+	    %>
     
-    	<c:set var="p" scope="request" value="${producto}" />
+    	<c:set var="p" scope="request" value="${producto.id}" />
     	<c:set var="c" scope="request" value="${cantidad}" />
     	<c:set var="m" scope="request" value="${mensaje}" />
     	<c:set var="i" scope="request" value="${id}" />

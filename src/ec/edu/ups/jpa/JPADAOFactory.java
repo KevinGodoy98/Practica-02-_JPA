@@ -7,7 +7,6 @@ import ec.edu.ups.dao.ProductoDAO;
 import ec.edu.ups.dao.RequerimientosCompraDAO;
 import ec.edu.ups.dao.UsuarioDAO;
 
-
 public class JPADAOFactory extends DAOFactory {
 
 	@Override

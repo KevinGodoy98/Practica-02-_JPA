@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.dao.ProductoDAO;
 import ec.edu.ups.dao.RequerimientosCompraDAO;
+import ups.edu.ec.modelo.Producto;
 import ups.edu.ec.modelo.RequerimientosCompra;
 
 /**
@@ -18,7 +20,8 @@ import ups.edu.ec.modelo.RequerimientosCompra;
 @WebServlet("/ActualizarRequerimientoControlador")
 public class ActualizarRequerimientoControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private RequerimientosCompraDAO requerimientoDAO;	
+	private RequerimientosCompraDAO requerimientoDAO;
+	private ProductoDAO productoDAO;
     private RequerimientosCompra requerimiento, aux;
        
     /**
@@ -26,6 +29,7 @@ public class ActualizarRequerimientoControlador extends HttpServlet {
      */
     public ActualizarRequerimientoControlador() {
     	requerimientoDAO = DAOFactory.getFactory().getRequerimientosCompraDAO();
+    	productoDAO = DAOFactory.getFactory().getProductoDAO();
         // TODO Auto-generated constructor stub
     }
 
@@ -43,7 +47,8 @@ public class ActualizarRequerimientoControlador extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url;
-		int id, id_pro, cant;
+		int id, cant;
+		Producto pro;
 		boolean flag = false;
 		
 		HttpSession session = request.getSession(true);
@@ -67,7 +72,7 @@ public class ActualizarRequerimientoControlador extends HttpServlet {
 			
 			try {			
 				
-				id_pro = Integer.valueOf(request.getParameter("id"));
+				pro = productoDAO.read(Integer.valueOf(request.getParameter("id")));
 				cant = Integer.valueOf(request.getParameter("cant"));				
 				
 				aux = requerimientoDAO.read(id);
@@ -75,7 +80,7 @@ public class ActualizarRequerimientoControlador extends HttpServlet {
 				
 				if (aux.getEstado().equals("N") || aux.getEstado().equals("R")) {
 					
-					requerimiento = new RequerimientosCompra(aux.getId(),aux.getUsuario_id(), aux.getEmpresa_id(), aux.getEstado(), id_pro, cant);
+					requerimiento = new RequerimientosCompra(aux.getId(),aux.getUsuario(), aux.getEmpresa(), aux.getEstado(), pro, cant);
 					System.out.println(requerimiento);
 					requerimientoDAO.update(requerimiento);
 					

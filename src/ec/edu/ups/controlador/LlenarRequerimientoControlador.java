@@ -42,7 +42,7 @@ public class LlenarRequerimientoControlador extends HttpServlet {
 		try {
 			requerimiento = requerimientoDAO.read(id);
 			
-			request.setAttribute("producto", requerimiento.getProducto_id());
+			request.setAttribute("producto", requerimiento.getProducto());
 			request.setAttribute("cantidad", requerimiento.getCantidad());
 			request.setAttribute("id", requerimiento.getId());
 			request.setAttribute("mensaje", mensaje);

@@ -64,7 +64,7 @@ public class ListarRequerimientosControlador extends HttpServlet {
 		try {
 				
 			for (RequerimientosCompra req : rq) {
-				pro = proDAO.read(req.getProducto_id());
+				pro = proDAO.read(req.getProducto().getId());
 				productos.add(pro.getNombre());	
 			}
 			
