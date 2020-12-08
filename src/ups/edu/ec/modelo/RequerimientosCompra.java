@@ -41,6 +41,14 @@ public class RequerimientosCompra implements Serializable {
 		this.producto=producto;
 		this.cantidad=cantidad;
 	}
+	
+	public RequerimientosCompra (Usuario usuario,Empresa empresa,String estado,Producto producto, int cantidad) {
+		this.usuario=usuario;
+		this.empresa=empresa;
+		this.estado=estado;
+		this.producto=producto;
+		this.cantidad=cantidad;
+	}
 
 	public int getId() {
 		return id;

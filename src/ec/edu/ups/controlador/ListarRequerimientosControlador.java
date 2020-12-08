@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,85 +12,80 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ec.edu.ups.dao.DAOFactory;
-import ec.edu.ups.dao.UsuarioDAO;
-import ups.edu.ec.modelo.*;
-
-
+import ec.edu.ups.dao.ProductoDAO;
+import ec.edu.ups.dao.RequerimientosCompraDAO;
+import ups.edu.ec.modelo.Producto;
+import ups.edu.ec.modelo.RequerimientosCompra;
 /**
  * Servlet implementation class ListarRequerimientosControlador
  */
 @WebServlet("/ListarRequerimientosControlador")
 public class ListarRequerimientosControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private RequerimientosCompraDAO requerimientosDAO;
+	private ProductoDAO proDAO;
+	private Producto pro; 
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ListarRequerimientosControlador() {
-        super();
-        // TODO Auto-generated constructor stub
+    	requerimientosDAO = DAOFactory.getFactory().getRequerimientosCompraDAO();
+    	proDAO = DAOFactory.getFactory().getProductoDAO();
+        
     }
-    
-    public void init (ServletConfig conf) throws ServletException {
-    	
-    }
-    
-    public void detroy() {
-    	
-    }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String dir;
+		String url=null;
+		HttpSession session = request.getSession(true);
+		
+		List<RequerimientosCompra> rq = new ArrayList<RequerimientosCompra>();
+		List<String> productos = new ArrayList<>();
+		
+		dir = request.getParameter("dir").toString();
+		
+		if (dir.equals("a")) {
+			url = "/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
+			rq = requerimientosDAO.find_usuario(Integer.valueOf(session.getAttribute("id").toString()));
+		} else if (dir.equals("b")) {
+			url = "/startbootstrap-sb-admin-gh-pages/dist/private/modificar_req.jsp";
+			rq = requerimientosDAO.find_usuario(Integer.valueOf(session.getAttribute("id").toString()));
+		} else if (dir.equals("c")) {
+			url = "/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuarioAdmin.jsp";
+			rq = requerimientosDAO.find_empresa(Integer.valueOf(session.getAttribute("empresa_id").toString()));
+			
+		}
+		
+		try {
+				
+			for (RequerimientosCompra req : rq) {
+				pro = proDAO.read(req.getProducto().getId());
+				productos.add(pro.getNombre());	
+			}
+			
+			request.setAttribute("requerimientos", rq);
+			request.setAttribute("productos", productos);
+			
+			getServletContext().getRequestDispatcher(url).forward(request, response);
+			
+			
+		} catch (Exception e) {
+			System.out.println("ERROR "+e.getMessage());
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html:charset=UTF-8");
-		String url = null;
-		UsuarioDAO usuarioDao = DAOFactory.getFactory().getUsuarioDAO();
 		
-		Object mostrar = request.getParameter("mostrarPrincipalListaReq");
-		List<RequerimientosCompra> rq = new ArrayList<RequerimientosCompra>();
-		List<Producto> pro = new ArrayList<Producto>();
-		List<Empresa> em = new ArrayList<Empresa>();
-		List<Usuario> us = new ArrayList<Usuario>();
-
-		
-		HttpSession sesion = request.getSession(true);
-		sesion.setAttribute("accesos", sesion.getId());
-		System.out.println("Id usuario: " + String.valueOf(sesion.getId()));
-
-		if (mostrar.equals("visualizar")) {
-			try {
-				rq = usuarioDao.listarRequerimientosCompra();
-				pro = usuarioDao.listarProductosNum2();
-				em = usuarioDao.listarEmpresa();
-				us = usuarioDao.listarUsuario();
-
-				request.setAttribute("requerimientos", rq);
-				request.setAttribute("productos", pro);
-				request.setAttribute("empresa", em);
-				request.setAttribute("usuario", us);
-
-				url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
-			} catch (Exception e) {
-				url="/Practica_laboratorio_1/startbootstrap-sb-admin-gh-pages/dist/private/tablaUsuario.jsp";
-				System.out.println("Error en el login: " + e.getMessage());
-			}
-			request.getRequestDispatcher(url).forward(request, response);
-			
-		}
-
-
-		doGet(request, response);
+				
 	}
 
 }

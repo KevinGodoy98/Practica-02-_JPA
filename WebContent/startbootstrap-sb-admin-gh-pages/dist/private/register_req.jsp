@@ -21,6 +21,20 @@
 	    <%@page import="ups.edu.ec.modelo.Producto"%>
 	    <%@page import="ec.edu.ups.dao.DAOFactory"%>
 	    <%@page import="ec.edu.ups.dao.ProductoDAO"%>
+	    <%@page import="java.sql.Connection"%>
+	    <%@page import="java.sql.DriverManager"%>
+	    <%@page import="java.sql.SQLException"%>
+	    
+	    <%
+		    try {	
+		        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+		    } catch (Exception ex) {
+		        // handle the error
+		    }
+	    
+	    %>
+	    
+	    
     
     	<c:set var="m" scope="request" value="${mensaje}" />
     	<c:set var="emp" scope="session" value="${empresa_id}" />
@@ -87,7 +101,7 @@
                                 <i class="fas fa-table mr-1"></i>
                                 DataTable Example
                             </div>
-                            <p><% out.println((String) pageContext.getAttribute("emp")); %></p>
+                            
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

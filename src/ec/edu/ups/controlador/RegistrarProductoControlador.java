@@ -8,9 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ec.edu.ups.dao.CategoriaDAO;
 import ec.edu.ups.dao.DAOFactory;
+import ec.edu.ups.dao.EmpresaDAO;
 import ec.edu.ups.dao.ProductoDAO;
 import ec.edu.ups.dao.UsuarioDAO;
+import ups.edu.ec.modelo.Categoria;
+import ups.edu.ec.modelo.Empresa;
 import ups.edu.ec.modelo.Producto;
 import ups.edu.ec.modelo.RequerimientosCompra;
 
@@ -21,6 +25,8 @@ import ups.edu.ec.modelo.RequerimientosCompra;
 public class RegistrarProductoControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductoDAO productoDAO;
+	private EmpresaDAO empDAO;
+	private CategoriaDAO catDAO;
 	private Producto producto;
 	private String result;
        
@@ -29,6 +35,8 @@ public class RegistrarProductoControlador extends HttpServlet {
      */
     public RegistrarProductoControlador() {
     	productoDAO = DAOFactory.getFactory().getProductoDAO();
+    	catDAO = DAOFactory.getFactory().getCategoriaDAO();
+    	empDAO = DAOFactory.getFactory().getEmpresaDAO();
     	result = "";
     }
 
@@ -48,8 +56,11 @@ public class RegistrarProductoControlador extends HttpServlet {
 		System.out.println(request.getParameter("categ"));
 		
 		String url, descripcion, nombre, precio;
-		int id, empresa, catg;
+		int id;
 		boolean flag = false;
+		
+		Empresa emp;
+		Categoria catg;
 		
 		HttpSession session = request.getSession(true);
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -81,13 +92,13 @@ public class RegistrarProductoControlador extends HttpServlet {
 			id = Integer.valueOf(request.getParameter("id"));
 			nombre = request.getParameter("nombre");
 			precio = request.getParameter("precio").toString();
-			empresa = Integer.valueOf(session.getAttribute("empresa_id").toString());
-			catg = Integer.valueOf(request.getParameter("categ"));
+			emp = empDAO.read(Integer.valueOf(session.getAttribute("empresa_id").toString()));
+			catg = catDAO.read(Integer.valueOf(request.getParameter("categ")));
 			descripcion = request.getParameter("descrip");
 			
 			try {
 				
-				producto = new Producto(id, nombre, precio, descripcion, catg, empresa, "V");
+				producto = new Producto(id, nombre, precio, descripcion, catg, emp, "V");
 				productoDAO.create(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");
@@ -113,3 +124,4 @@ public class RegistrarProductoControlador extends HttpServlet {
 	}
 
 }
+

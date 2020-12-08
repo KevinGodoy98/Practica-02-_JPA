@@ -16,6 +16,8 @@ import ec.edu.ups.dao.CategoriaDAO;
 import ec.edu.ups.dao.DAOFactory;
 import ec.edu.ups.dao.ProductoDAO;
 import ups.edu.ec.modelo.Producto;
+import ups.edu.ec.modelo.Categoria;
+import ups.edu.ec.modelo.Empresa;
 import ups.edu.ec.modelo.Error;
 
 /**
@@ -52,7 +54,11 @@ public class EliminarProductoControlador extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	String url, descripcion, nombre, precio,estado;
-	int id, empresa, catg;
+	int id,empresa,cate;
+	Empresa emp;
+	Categoria catg;
+	
+	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,7 +86,7 @@ public class EliminarProductoControlador extends HttpServlet {
 			
 			try {
 				
-				producto = new Producto(id, nombre, precio, descripcion, catg,empresa,estado);
+				producto = new Producto(id, nombre, precio, descripcion, catg,emp,estado);
 				productoDAO.delete(producto);
 				//requerimientosDAO.create(requerimiento);
 				//request.setAttribute("Mensaje", "Requerimiento agragado");

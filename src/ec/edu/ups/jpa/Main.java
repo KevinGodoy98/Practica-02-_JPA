@@ -30,7 +30,7 @@ public class Main {
 		RequerimientosCompraDao.update_estado(us);
 		
 		//us =RequerimientosCompraDao.find_usuario(1);
-		System.out.println(us);
+		System.out.println(us.getProducto().getNombre());
 		
 	//	System.out.println(us.getId()+""+us.getNombre()+""+us.getPrecio()+""+us.getDescripcion()+""+us.getCategoria()+""+us.getEmpresa()+""+us.getEstado());
 		

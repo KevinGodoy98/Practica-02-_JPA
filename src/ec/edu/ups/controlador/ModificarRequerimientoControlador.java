@@ -61,7 +61,7 @@ public class ModificarRequerimientoControlador extends HttpServlet {
 				id = Integer.valueOf(request.getParameter("id"));
 				requerimiento = requerimientoDAO.read(id);
 				
-				if(requerimiento.getUsuario_id()==Integer.valueOf(session.getAttribute("id").toString())) {
+				if(requerimiento.getUsuario().getId()==Integer.valueOf(session.getAttribute("id").toString())) {
 					url = "/Practica_laboratorio_1/LlenarRequerimientoControlador";
 					httpResponse.sendRedirect(url+"?id="+id+"&mensaje=+");
 				} else {
@@ -82,7 +82,7 @@ public class ModificarRequerimientoControlador extends HttpServlet {
 				
 				requerimiento = requerimientoDAO.read(id);
 				
-				if(requerimiento.getUsuario_id()==Integer.valueOf(session.getAttribute("id").toString())) {
+				if(requerimiento.getUsuario().getId()==Integer.valueOf(session.getAttribute("id").toString())) {
 					requerimientoDAO.delete(requerimiento);
 					
 					if(session.getAttribute("rol").toString().equals("U")) {
